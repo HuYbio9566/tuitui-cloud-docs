@@ -1,2 +1,5 @@
 .DS_Store
 **/.DS_Store
+
+# nested git backup
+**/.git-embedded-backup
