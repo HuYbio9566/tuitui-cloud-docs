@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>云文档产品 · 风格试衣间</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --shell-bg: #efefec;
+      --shell-surface: #fbfbf9;
+      --shell-line: #d8d8d2;
+      --shell-ink: #1d1e20;
+      --shell-muted: #676a6f;
+      --shell-green: #166b4d;
+    }
+    html { color-scheme: light; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      overflow-x: hidden;
+      color: var(--shell-ink);
+      background: var(--shell-bg);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input { font: inherit; }
+    button { -webkit-tap-highlight-color: transparent; }
+    .preview-shell { width: min(1480px, calc(100% - 32px)); margin: 0 auto; padding: 30px 0 56px; }
+    .preview-intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: end;
+      padding: 24px 26px;
+      border: 1px solid var(--shell-line);
+      border-radius: 12px;
+      background: var(--shell-surface);
+    }
+    .eyebrow { margin: 0 0 8px; color: var(--shell-green); font-size: 12px; font-weight: 750; letter-spacing: .08em; }
+    .preview-intro h1 { margin: 0; font-size: clamp(26px, 3vw, 42px); line-height: 1.08; letter-spacing: -.04em; }
+    .preview-intro p { max-width: 720px; margin: 10px 0 0; color: var(--shell-muted); font-size: 14px; line-height: 1.65; }
+    .keyboard-note { color: var(--shell-muted); font-size: 12px; white-space: nowrap; }
+    .keyboard-note kbd { display: inline-grid; place-items: center; min-width: 24px; height: 24px; margin: 0 2px; border: 1px solid #c8c9c6; border-bottom-width: 2px; border-radius: 5px; background: #fff; color: #292b2f; font-size: 11px; }
+    .native-dials {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 12px;
+      overflow: hidden;
+      border: 1px solid var(--shell-line);
+      border-radius: 12px;
+      background: var(--shell-line);
+    }
+    .dial { display: grid; gap: 8px; padding: 14px 16px; background: var(--shell-surface); }
+    .dial-head { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; font-weight: 700; }
+    .dial-head output { color: var(--shell-green); font-variant-numeric: tabular-nums; }
+    .dial input { width: 100%; accent-color: #27282a; }
+    .directions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .direction-card {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--shell-line);
+      border-radius: 12px;
+      background: var(--shell-surface);
+    }
+    .direction-card:last-child { grid-column: 1 / -1; width: calc(50% - 8px); justify-self: center; }
+    .direction-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 60px; padding: 12px 14px; border-bottom: 1px solid var(--shell-line); }
+    .direction-title { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .letter { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid #bfc1c0; border-radius: 7px; background: #fff; font-size: 13px; font-weight: 800; }
+    .direction-head h2 { margin: 0; font-size: 16px; line-height: 1.2; }
+    .direction-head small { display: block; margin-top: 3px; color: var(--shell-muted); font-size: 11px; }
+    .recommend { flex: 0 0 auto; border-radius: 999px; background: #e7f4ed; color: #146145; padding: 5px 8px; font-size: 10px; font-weight: 800; }
+    .mock-stage { height: 348px; overflow: hidden; background: #fff; }
+    .selection-wrap { padding: 0 14px 14px; }
+
+    /* A · Carbon enterprise order */
+    .carbon-app { display: grid; grid-template-columns: 42px 126px 1fr; height: 100%; color: #161616; background: #fff; font-family: "Helvetica Neue", Arial, "PingFang SC", sans-serif; }
+    .carbon-rail { display: flex; flex-direction: column; align-items: center; gap: 4px; padding-top: 10px; background: #161616; color: #f4f4f4; }
+    .carbon-logo { display: grid; place-items: center; width: 24px; height: 24px; margin-bottom: 9px; background: #0f62fe; font-size: 11px; font-weight: 700; }
+    .carbon-rail span { display: grid; place-items: center; width: 42px; height: 31px; color: #c6c6c6; font-size: 9px; }
+    .carbon-rail .on { border-left: 3px solid #78a9ff; background: #262626; color: #fff; }
+    .carbon-nav { border-right: 1px solid #e0e0e0; background: #f4f4f4; }
+    .carbon-brand { height: 42px; padding: 13px 12px 0; font-size: 12px; font-weight: 600; }
+    .carbon-search { margin: 7px 8px 8px; padding: 8px; border-bottom: 2px solid #8d8d8d; background: #fff; color: #6f6f6f; font-size: 8px; }
+    .carbon-nav a { display: block; height: 28px; padding: 9px 10px 0; color: #393939; font-size: 9px; text-decoration: none; }
+    .carbon-nav a.on { border-left: 3px solid #0f62fe; background: #e0e0e0; color: #161616; font-weight: 600; }
+    .carbon-history { margin: 10px 10px 0; padding-top: 9px; border-top: 1px solid #c6c6c6; color: #6f6f6f; font-size: 7px; line-height: 2.4; }
+    .carbon-main { min-width: 0; display: grid; grid-template-rows: 42px 32px 1fr; }
+    .carbon-top { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e0e0e0; }
+    .carbon-top strong { align-self: stretch; display: flex; align-items: center; padding: 0 12px; border-bottom: 2px solid #0f62fe; font-size: 11px; }
+    .carbon-top button { height: 28px; margin-right: 8px; border: 0; border-radius: 0; background: #0f62fe; color: #fff; padding: 0 10px; font-size: 8px; }
+    .carbon-tabs { display: flex; align-items: end; gap: 16px; padding: 0 12px; border-bottom: 1px solid #e0e0e0; font-size: 8px; }
+    .carbon-tabs b { padding-bottom: 8px; border-bottom: 2px solid #0f62fe; }
+    .carbon-work { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr) 126px; }
+    .carbon-table { padding: 10px 0 0 12px; }
+    .carbon-table-head, .carbon-row { display: grid; grid-template-columns: 1fr 74px 54px; align-items: center; min-height: 32px; border-bottom: 1px solid #e0e0e0; font-size: 7px; }
+    .carbon-table-head { min-height: 26px; color: #525252; font-weight: 600; }
+    .carbon-row b { font-size: 8px; }
+    .carbon-status { width: max-content; padding: 3px 5px; border-radius: 999px; background: #edf5ff; color: #0f62fe; }
+    .carbon-side { border-left: 1px solid #e0e0e0; background: #f4f4f4; padding: 11px; font-size: 7px; }
+    .carbon-side h4 { margin: 0 0 10px; font-size: 9px; }
+    .carbon-side dl { margin: 0; }
+    .carbon-side dt { margin-top: 9px; color: #6f6f6f; }
+    .carbon-side dd { margin: 3px 0 0; line-height: 1.45; }
+
+    /* B · editorial knowledge desk */
+    .editorial-app { display: grid; grid-template-columns: 38px 134px 1fr; height: 100%; color: #252421; background: #fbfaf6; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; }
+    .editorial-rail { border-right: 1px solid #d9d5cc; background: #f2efe8; padding-top: 12px; text-align: center; color: #68635b; font-size: 8px; }
+    .editorial-rail b { display: block; margin-bottom: 15px; color: #1c68c9; font-size: 14px; }
+    .editorial-rail span { display: block; padding: 8px 0; }
+    .editorial-rail .on { border-left: 2px solid #1c68c9; color: #252421; font-weight: 700; }
+    .editorial-nav { padding: 13px 11px; border-right: 1px solid #d9d5cc; background: #f8f6f1; }
+    .editorial-nav h3 { margin: 0 0 12px; font-size: 12px; }
+    .editorial-nav .search { padding-bottom: 7px; border-bottom: 1px solid #9c978e; color: #7a756d; font-size: 8px; }
+    .editorial-nav ol { margin: 12px 0 0; padding: 0; list-style: none; counter-reset: nav; }
+    .editorial-nav li { display: grid; grid-template-columns: 18px 1fr; gap: 2px; align-items: center; padding: 6px 0; color: #666159; font-size: 8px; }
+    .editorial-nav li::before { counter-increment: nav; content: "0" counter(nav); color: #aaa49a; font-family: Georgia, serif; font-size: 7px; }
+    .editorial-nav li.on { color: #1f5fae; font-weight: 700; }
+    .editorial-main { min-width: 0; display: grid; grid-template-rows: 42px 1fr 54px; }
+    .editorial-top { display: flex; align-items: center; justify-content: space-between; padding: 0 14px; border-bottom: 1px solid #d9d5cc; }
+    .editorial-title-tabs { display: flex; gap: 13px; align-items: center; font-size: 10px; }
+    .editorial-title-tabs b { font-size: 12px; }
+    .editorial-top button { border: 1px solid #bdb7ad; border-radius: 4px; background: transparent; padding: 5px 8px; font-size: 8px; }
+    .editorial-paper { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr) 120px; padding: 14px 15px 6px; }
+    .editorial-copy { padding-right: 16px; }
+    .editorial-kicker { color: #1c68c9; font-family: Georgia, serif; font-size: 8px; letter-spacing: .09em; }
+    .editorial-copy h3 { margin: 5px 0 6px; font-size: 17px; letter-spacing: -.03em; }
+    .editorial-copy p { margin: 0 0 8px; color: #5d5952; font-size: 8px; line-height: 1.7; }
+    .editorial-index-row { display: grid; grid-template-columns: 25px 1fr 68px; align-items: center; min-height: 29px; border-top: 1px solid #dedad1; font-size: 8px; }
+    .editorial-index-row span:first-child { color: #a19b91; font-family: Georgia, serif; }
+    .editorial-index-row em { color: #767169; font-style: normal; text-align: right; }
+    .editorial-notes { border-left: 1px solid #d9d5cc; padding-left: 11px; font-size: 7px; }
+    .editorial-notes strong { font-size: 9px; }
+    .editorial-note { margin-top: 10px; padding-left: 8px; border-left: 2px solid #d6a642; color: #69645c; line-height: 1.55; }
+    .editorial-compose { display: flex; align-items: end; justify-content: space-between; margin: 0 14px 10px; padding: 9px 10px; border: 1px solid #cfc9bf; border-radius: 5px; background: #fff; box-shadow: 0 4px 14px rgb(74 64 50 / 6%); font-size: 8px; }
+    .editorial-tools { color: #5e5a53; word-spacing: 7px; }
+    .editorial-send { display: grid; place-items: center; width: 24px; height: 24px; border: 0; border-radius: 4px; background: #252421; color: white; }
+
+    /* C · dark command desk */
+    .command-app { display: grid; grid-template-columns: 44px 142px 1fr; height: 100%; color: #f1f3f5; background: #111315; font-family: Inter, -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; }
+    .command-rail { border-right: 1px solid #30343a; background: #171a1d; padding-top: 11px; text-align: center; font-size: 8px; }
+    .command-rail b { display: block; width: 24px; height: 24px; margin: 0 auto 13px; padding-top: 6px; border-radius: 4px; background: #4d83e6; }
+    .command-rail span { display: block; padding: 8px 0; color: #7e8792; }
+    .command-rail .on { border-left: 2px solid #4d83e6; background: #1d2024; color: #f1f3f5; }
+    .command-nav { border-right: 1px solid #30343a; background: #171a1d; }
+    .command-workspace { padding: 11px; font-size: 10px; font-weight: 700; }
+    .command-search { margin: 0 8px 9px; padding: 7px 8px; border: 1px solid #30343a; border-radius: 3px; background: #111315; color: #8e97a2; font-size: 7px; }
+    .command-nav a { display: grid; grid-template-columns: 1fr auto; align-items: center; min-height: 27px; padding: 0 10px; color: #9ba3ad; font-size: 8px; text-decoration: none; }
+    .command-nav a.on { border-left: 2px solid #4d83e6; background: #22262b; color: #fff; }
+    .command-nav kbd { border: 0; color: #69717b; background: none; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 6px; }
+    .command-main { min-width: 0; display: grid; grid-template-rows: 38px 38px 1fr 48px; }
+    .command-bar { display: flex; align-items: center; gap: 8px; padding: 0 10px; border-bottom: 1px solid #30343a; background: #171a1d; }
+    .command-input { flex: 1; padding: 7px 10px; border: 1px solid #3d4249; border-radius: 3px; background: #1d2024; color: #a7afb8; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7px; }
+    .command-bar kbd { color: #77818d; font-size: 6px; }
+    .command-modes { display: flex; align-items: end; gap: 16px; padding: 0 12px; border-bottom: 1px solid #30343a; color: #9ba3ad; font-size: 8px; }
+    .command-modes b { padding-bottom: 10px; border-bottom: 2px solid #4d83e6; color: #fff; }
+    .command-content { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr) 126px; }
+    .command-list { padding: 8px 0 0 11px; }
+    .command-row { display: grid; grid-template-columns: 18px 1fr 52px; align-items: center; min-height: 31px; border-bottom: 1px solid #292d32; font-size: 7px; }
+    .command-row .key { color: #68717c; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .command-row strong { font-size: 8px; }
+    .command-row time { color: #78818c; text-align: right; }
+    .command-context { padding: 10px; border-left: 1px solid #30343a; background: #1d2024; font-size: 7px; }
+    .command-context h4 { margin: 0 0 9px; font-size: 9px; }
+    .command-context div { margin: 7px 0; padding: 6px; border: 1px solid #30343a; border-radius: 3px; color: #aab1ba; }
+    .command-compose { display: flex; align-items: end; gap: 8px; margin: 6px 10px 8px; padding: 8px 9px; border: 1px solid #3b4149; border-radius: 4px; background: #1d2024; color: #9ba3ad; font-size: 7px; }
+    .command-compose span { flex: 1; }
+    .command-compose button { width: 24px; height: 24px; border: 0; border-radius: 3px; background: #4d83e6; color: #fff; }
+
+    /* D · collaborative modular workbench */
+    .builder-app { display: grid; grid-template-columns: 48px 128px 1fr; height: 100%; color: #172033; background: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; }
+    .builder-rail { position: relative; border-right: 1px solid #dfe4ea; background: #fff; padding-top: 10px; text-align: center; }
+    .builder-rail::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: #2161c2; }
+    .builder-rail b { display: grid; place-items: center; width: 27px; height: 27px; margin: 0 auto 12px; border-radius: 7px; background: #172033; color: #fff; font-size: 10px; }
+    .builder-rail span { display: block; padding: 8px 0; color: #768196; font-size: 8px; }
+    .builder-rail .on { color: #2161c2; font-weight: 700; }
+    .builder-nav { padding: 11px 9px; border-right: 1px solid #dfe4ea; background: #fff; }
+    .builder-nav h3 { margin: 0 0 10px; font-size: 11px; }
+    .builder-nav .search { padding: 7px; border: 1px solid #dfe4ea; border-radius: 7px; color: #7c879a; font-size: 7px; }
+    .builder-nav a { display: flex; align-items: center; gap: 7px; min-height: 29px; margin-top: 3px; padding: 0 7px; border-radius: 6px; color: #4d5b70; font-size: 8px; text-decoration: none; }
+    .builder-nav a::before { content: ""; width: 7px; height: 7px; border-radius: 2px; background: var(--item, #8da2c4); }
+    .builder-nav a.on { background: #eef5ff; color: #1b61c9; font-weight: 700; }
+    .builder-main { min-width: 0; display: grid; grid-template-rows: 42px 1fr; }
+    .builder-top { display: flex; align-items: center; justify-content: space-between; padding: 0 12px; border-bottom: 1px solid #dfe4ea; background: #fff; }
+    .builder-top strong { font-size: 12px; }
+    .builder-presence { display: flex; align-items: center; gap: 4px; color: #657186; font-size: 7px; }
+    .builder-avatar { display: grid; place-items: center; width: 20px; height: 20px; margin-left: -6px; border: 2px solid #fff; border-radius: 50%; background: var(--avatar, #ffd77a); color: #172033; font-size: 6px; }
+    .builder-body { min-width: 0; padding: 12px; }
+    .builder-toolbar { display: flex; align-items: center; gap: 7px; margin-bottom: 10px; }
+    .builder-toolbar b { margin-right: auto; font-size: 11px; }
+    .builder-chip { padding: 5px 7px; border: 1px solid #dfe4ea; border-radius: 7px; background: #fff; color: #58657a; font-size: 7px; }
+    .builder-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 9px; }
+    .builder-board { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .builder-tile { min-height: 75px; padding: 10px; border: 1px solid #dfe4ea; border-radius: 9px; background: #fff; box-shadow: 0 8px 20px rgb(21 48 92 / 5%); }
+    .builder-tile i { display: block; width: 22px; height: 4px; margin-bottom: 9px; border-radius: 2px; background: var(--accent, #2161c2); font-style: normal; }
+    .builder-tile strong { display: block; font-size: 9px; }
+    .builder-tile p { margin: 5px 0 0; color: #6b7688; font-size: 7px; line-height: 1.5; }
+    .builder-activity { padding: 10px; border: 1px solid #dfe4ea; border-radius: 9px; background: #fff; }
+    .builder-activity h4 { margin: 0 0 8px; font-size: 9px; }
+    .activity-row { position: relative; padding: 0 0 10px 12px; color: #687489; font-size: 7px; line-height: 1.4; }
+    .activity-row::before { content: ""; position: absolute; left: 0; top: 2px; width: 6px; height: 6px; border-radius: 50%; background: var(--dot, #2161c2); }
+
+    /* E · spatial calm */
+    .spatial-app { position: relative; height: 100%; overflow: hidden; color: #1d1d1f; background: #f5f5f7; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", sans-serif; }
+    .spatial-top { position: absolute; inset: 10px 12px auto; z-index: 2; display: flex; align-items: center; justify-content: space-between; height: 34px; padding: 0 8px 0 12px; border: 1px solid rgb(0 0 0 / 8%); border-radius: 10px; background: rgb(255 255 255 / 82%); box-shadow: 0 10px 28px rgb(0 0 0 / 8%); backdrop-filter: saturate(150%) blur(16px); }
+    .spatial-top strong { font-size: 11px; }
+    .spatial-title-tabs { display: flex; gap: 14px; align-items: center; color: #737378; font-size: 8px; }
+    .spatial-title-tabs b { color: #1d1d1f; }
+    .spatial-top button { border: 0; border-radius: 7px; background: #0071e3; color: #fff; padding: 6px 9px; font-size: 7px; }
+    .spatial-dock { position: absolute; z-index: 3; left: 14px; top: 58px; bottom: 14px; width: 48px; display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 8px 5px; border: 1px solid rgb(0 0 0 / 8%); border-radius: 13px; background: rgb(255 255 255 / 78%); box-shadow: 0 16px 40px rgb(0 0 0 / 10%); backdrop-filter: saturate(150%) blur(18px); }
+    .spatial-dock b { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: #1d1d1f; color: #fff; font-size: 9px; }
+    .spatial-dock span { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; color: #6e6e73; font-size: 8px; }
+    .spatial-dock .on { background: #e4f0ff; color: #0071e3; }
+    .spatial-canvas { position: absolute; inset: 57px 13px 13px 74px; display: grid; grid-template-columns: minmax(0, 1fr) 150px; gap: 10px; }
+    .spatial-hero { position: relative; overflow: hidden; border-radius: 12px; background: #fff; }
+    .spatial-hero-copy { padding: 21px 22px 0; }
+    .spatial-hero-copy small { color: #6e6e73; font-size: 7px; }
+    .spatial-hero-copy h3 { max-width: 270px; margin: 5px 0 6px; font-size: 20px; line-height: 1.08; letter-spacing: -.04em; }
+    .spatial-hero-copy p { max-width: 260px; margin: 0; color: #6e6e73; font-size: 8px; line-height: 1.55; }
+    .spatial-object { position: absolute; right: 18px; top: 24px; width: 78px; height: 78px; border-radius: 24px; background: #f5f5f7; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 5%); }
+    .spatial-object::before { content: "AI"; position: absolute; inset: 18px; display: grid; place-items: center; border-radius: 12px; background: #0071e3; color: #fff; font-size: 12px; font-weight: 700; }
+    .spatial-recent { display: flex; gap: 7px; position: absolute; left: 22px; right: 16px; bottom: 68px; }
+    .spatial-recent div { flex: 1; min-width: 0; padding: 8px; border-radius: 8px; background: #f5f5f7; font-size: 7px; }
+    .spatial-recent b { display: block; margin-bottom: 3px; font-size: 8px; }
+    .spatial-compose { position: absolute; left: 20px; right: 18px; bottom: 14px; display: flex; align-items: end; gap: 8px; min-height: 43px; padding: 8px 9px; border: 1px solid rgb(0 0 0 / 8%); border-radius: 11px; background: #fff; box-shadow: 0 10px 28px rgb(0 0 0 / 10%); color: #7b7b80; font-size: 7px; }
+    .spatial-compose span { flex: 1; }
+    .spatial-compose button { display: grid; place-items: center; width: 25px; height: 25px; border: 0; border-radius: 50%; background: #0071e3; color: #fff; }
+    .spatial-panel { display: grid; align-content: start; gap: 8px; }
+    .spatial-panel section { padding: 11px; border-radius: 11px; background: #fff; }
+    .spatial-panel h4 { margin: 0 0 8px; font-size: 9px; }
+    .spatial-panel p { margin: 0; color: #6e6e73; font-size: 7px; line-height: 1.55; }
+    .spatial-file { display: flex; align-items: center; gap: 7px; padding: 7px 0; border-top: 1px solid #eeeeef; font-size: 7px; }
+    .spatial-file:first-of-type { border-top: 0; }
+    .spatial-file::before { content: ""; width: 16px; height: 18px; border: 1px solid #97bdf1; border-radius: 4px; background: #eef5ff; }
+
+    .details { margin-top: 28px; }
+    .details-header { display: flex; justify-content: space-between; gap: 16px; align-items: end; margin-bottom: 12px; }
+    .details-header h2 { margin: 0; font-size: 22px; letter-spacing: -.02em; }
+    .details-header p { margin: 0; color: var(--shell-muted); font-size: 12px; }
+    .detail-list { display: grid; gap: 8px; }
+    .detail-card { display: grid; grid-template-columns: 190px repeat(5, minmax(0, 1fr)); border: 1px solid var(--shell-line); border-radius: 10px; background: var(--shell-surface); overflow: hidden; }
+    .detail-card > div { min-width: 0; padding: 14px; border-left: 1px solid var(--shell-line); }
+    .detail-card > div:first-child { border-left: 0; }
+    .detail-name { display: flex; gap: 10px; align-items: flex-start; }
+    .detail-name b:first-child { display: grid; place-items: center; flex: 0 0 28px; width: 28px; height: 28px; border: 1px solid #bfc1c0; border-radius: 6px; background: #fff; }
+    .detail-name strong { display: block; font-size: 13px; }
+    .detail-name small { display: block; margin-top: 4px; color: var(--shell-muted); font-size: 10px; line-height: 1.45; }
+    .detail-card h3 { margin: 0 0 7px; color: #73767b; font-size: 10px; font-weight: 800; letter-spacing: .06em; }
+    .detail-card p { margin: 0; color: #383a3e; font-size: 11px; line-height: 1.55; }
+    .recommended-row { box-shadow: inset 3px 0 0 #166b4d; }
+
+    @media (max-width: 1060px) {
+      .detail-card { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .detail-card > div:nth-child(4) { border-left: 0; border-top: 1px solid var(--shell-line); }
+      .detail-card > div:nth-child(5), .detail-card > div:nth-child(6) { border-top: 1px solid var(--shell-line); }
+    }
+    @media (max-width: 820px) {
+      .preview-shell { width: min(100% - 20px, 720px); padding-top: 18px; }
+      .preview-intro { grid-template-columns: 1fr; align-items: start; padding: 20px; }
+      .directions { grid-template-columns: 1fr; }
+      .direction-card:last-child { grid-column: auto; width: 100%; }
+      .mock-stage { height: 360px; }
+      .detail-card { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .detail-card > div { border-top: 1px solid var(--shell-line); }
+      .detail-card > div:nth-child(odd) { border-left: 0; }
+      .detail-card > div:nth-child(-n+2) { border-top: 0; }
+    }
+    @media (max-width: 560px) {
+      .native-dials { grid-template-columns: 1fr; }
+      .preview-intro h1 { font-size: 28px; }
+      .keyboard-note { white-space: normal; }
+      .mock-stage { height: 410px; overflow: auto; }
+      .carbon-app, .editorial-app, .command-app, .builder-app { min-width: 610px; }
+      .spatial-app { min-width: 610px; }
+      .detail-card { grid-template-columns: 1fr; }
+      .detail-card > div { border-left: 0; border-top: 1px solid var(--shell-line); }
+      .detail-card > div:first-child { border-top: 0; }
+      .details-header { display: block; }
+      .details-header p { margin-top: 6px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="preview-shell">
+    <header class="preview-intro">
+      <div>
+        <p class="eyebrow">QIAOMU DESIGN · STYLE FITTING ROOM</p>
+        <h1>云文档产品的五种性格</h1>
+        <p>以下是同一套核心能力的五种完整界面世界。先看页面如何组织信息，再看解释；选中后才进入正式设计，不会在这一步修改现有产品文件。</p>
+      </div>
+      <div class="keyboard-note">键盘选择 <kbd>1</kbd>–<kbd>5</kbd> · 点击后可补充调整意见</div>
+    </header>
+
+    <section class="native-dials" data-qmdp-dials aria-label="设计拨盘">
+      <label class="dial">
+        <span class="dial-head"><span>视觉冒险度</span><output data-qmdp-output="variance">6</output></span>
+        <input data-qmdp-dial="variance" type="range" min="1" max="10" value="6">
+      </label>
+      <label class="dial">
+        <span class="dial-head"><span>动效强度</span><output data-qmdp-output="motion">4</output></span>
+        <input data-qmdp-dial="motion" type="range" min="1" max="10" value="4">
+      </label>
+      <label class="dial">
+        <span class="dial-head"><span>信息密度</span><output data-qmdp-output="density">7</output></span>
+        <input data-qmdp-dial="density" type="range" min="1" max="10" value="7">
+      </label>
+    </section>
+
+    <section class="directions" aria-label="五个设计方向">
+      <article class="direction-card" data-design-option="A" data-name="碳蓝企业秩序">
+        <div class="direction-head">
+          <div class="direction-title"><span class="letter">A</span><div><h2 data-direction-name>碳蓝企业秩序</h2><small>IBM Carbon × HashiCorp</small></div></div>
+          <span class="recommend">推荐</span>
+        </div>
+        <div class="mock-stage">
+          <div class="carbon-app">
+            <aside class="carbon-rail"><b class="carbon-logo">云</b><span>聊</span><span>团</span><span>问</span><span class="on">文</span></aside>
+            <aside class="carbon-nav"><div class="carbon-brand">云文档</div><div class="carbon-search">搜索文档、知识库 ⌘K</div><a href="#">＋ 新建任务</a><a href="#">知识库</a><a class="on" href="#">文档</a><a href="#">技能</a><a href="#">云盘</a><a href="#">更多</a><div class="carbon-history">历史任务<br>AI 工具订阅报销<br>项目风险复盘</div></aside>
+            <section class="carbon-main">
+              <header class="carbon-top"><strong>我的文档　云文档空间</strong><button type="button">＋ 新建文档</button></header>
+              <nav class="carbon-tabs"><b>最近打开</b><span>我创建的</span><span>与我共享</span><span>待处理</span></nav>
+              <div class="carbon-work">
+                <div class="carbon-table">
+                  <div class="carbon-table-head"><span>名称</span><span>归属</span><span>状态</span></div>
+                  <div class="carbon-row"><b>技术部周报模板</b><span>Agent Teams</span><span class="carbon-status">已关联</span></div>
+                  <div class="carbon-row"><b>AI 工具订阅报销规则</b><span>项目组</span><span class="carbon-status">保密</span></div>
+                  <div class="carbon-row"><b>字体合规使用指南</b><span>设计中心</span><span class="carbon-status">待复核</span></div>
+                  <div class="carbon-row"><b>会员知识库 FAQ</b><span>客服</span><span class="carbon-status">可问答</span></div>
+                </div>
+                <aside class="carbon-side"><h4>文档检查器</h4><dl><dt>权限</dt><dd>团队可见 · 可引用</dd><dt>知识关系</dt><dd>已关联 2 个知识库</dd><dt>最近动作</dt><dd>12 分钟前被问答引用</dd></dl></aside>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="selection-wrap"><button class="qmdp-pick-button" data-qmdp-native-handler="true" type="button">选择 A · 碳蓝企业秩序</button></div>
+      </article>
+
+      <article class="direction-card" data-design-option="B" data-name="纸面知识编辑部">
+        <div class="direction-head"><div class="direction-title"><span class="letter">B</span><div><h2 data-direction-name>纸面知识编辑部</h2><small>Notion × Sanity Studio</small></div></div></div>
+        <div class="mock-stage">
+          <div class="editorial-app">
+            <aside class="editorial-rail"><b>云</b><span>聊</span><span>团</span><span>问</span><span class="on">文</span></aside>
+            <aside class="editorial-nav"><h3>云文档</h3><div class="search">搜索资料 ⌘K</div><ol><li>新建任务</li><li>知识库</li><li class="on">我的文档</li><li>技能</li><li>云盘</li><li>更多</li></ol></aside>
+            <section class="editorial-main">
+              <header class="editorial-top"><div class="editorial-title-tabs"><b>我的文档</b><span>云文档空间</span></div><button type="button">新建文档</button></header>
+              <div class="editorial-paper">
+                <div class="editorial-copy"><span class="editorial-kicker">RECENT NOTES · 06/12</span><h3>正在工作的知识，而不是一排静止卡片</h3><p>把文档、引用、权限和任务关系放回同一条阅读路径，让专业用户一眼看见上下文。</p><div class="editorial-index-row"><span>01</span><b>AI 工具订阅报销规则</b><em>12 分钟前</em></div><div class="editorial-index-row"><span>02</span><b>项目周报与风险复盘</b><em>今天 09:42</em></div><div class="editorial-index-row"><span>03</span><b>字体合规使用指南</b><em>待审阅</em></div><div class="editorial-index-row"><span>04</span><b>会员知识库 FAQ</b><em>已引用 6 次</em></div></div>
+                <aside class="editorial-notes"><strong>编辑批注</strong><div class="editorial-note">引用范围包含“报销与采购 FAQ”。</div><div class="editorial-note">1 条无权限资料已过滤。</div><div class="editorial-note">建议沉淀到项目知识库。</div></aside>
+              </div>
+              <div class="editorial-compose"><span class="editorial-tools">＋资料　范围　权限　技能</span><button class="editorial-send" type="button">↑</button></div>
+            </section>
+          </div>
+        </div>
+        <div class="selection-wrap"><button class="qmdp-pick-button" data-qmdp-native-handler="true" type="button">选择 B · 纸面知识编辑部</button></div>
+      </article>
+
+      <article class="direction-card" data-design-option="C" data-name="夜间指挥舱">
+        <div class="direction-head"><div class="direction-title"><span class="letter">C</span><div><h2 data-direction-name>夜间指挥舱</h2><small>Superhuman × Linear</small></div></div></div>
+        <div class="mock-stage">
+          <div class="command-app">
+            <aside class="command-rail"><b>云</b><span>聊</span><span>团</span><span>问</span><span class="on">文</span></aside>
+            <aside class="command-nav"><div class="command-workspace">云文档 / 效能工程部</div><div class="command-search">搜索或运行命令　⌘K</div><a class="on" href="#">新建任务 <kbd>N</kbd></a><a href="#">知识库 <kbd>G K</kbd></a><a href="#">文档 <kbd>G D</kbd></a><a href="#">技能 <kbd>G S</kbd></a><a href="#">云盘 <kbd>G C</kbd></a><a href="#">更多 <kbd>G M</kbd></a></aside>
+            <section class="command-main">
+              <header class="command-bar"><div class="command-input">› 搜索知识、任务、文档或输入命令</div><kbd>⌘ K</kbd></header>
+              <nav class="command-modes"><b>找答案　1</b><span>办任务　2</span><span>写文档　3</span></nav>
+              <div class="command-content"><div class="command-list"><div class="command-row"><span class="key">01</span><strong>AI 工具订阅报销规则</strong><time>12m</time></div><div class="command-row"><span class="key">02</span><strong>项目进度与风险</strong><time>34m</time></div><div class="command-row"><span class="key">03</span><strong>字体合规使用指南</strong><time>1h</time></div><div class="command-row"><span class="key">04</span><strong>知识库权限范围</strong><time>2h</time></div><div class="command-row"><span class="key">05</span><strong>最近引用来源</strong><time>3h</time></div></div><aside class="command-context"><h4>当前上下文</h4><div>范围　项目知识库</div><div>权限　可解释过滤</div><div>来源　3 个可验证引用</div><div>动作　写入前确认</div></aside></div>
+              <div class="command-compose"><span>＋资料　范围　连接器　技能　　输入任务…</span><kbd>⌘ ↵</kbd><button type="button">↑</button></div>
+            </section>
+          </div>
+        </div>
+        <div class="selection-wrap"><button class="qmdp-pick-button" data-qmdp-native-handler="true" type="button">选择 C · 夜间指挥舱</button></div>
+      </article>
+
+      <article class="direction-card" data-design-option="D" data-name="协作拼装台">
+        <div class="direction-head"><div class="direction-title"><span class="letter">D</span><div><h2 data-direction-name>协作拼装台</h2><small>Airtable × Figma</small></div></div></div>
+        <div class="mock-stage">
+          <div class="builder-app">
+            <aside class="builder-rail"><b>云</b><span>聊</span><span>团</span><span>问</span><span class="on">文</span></aside>
+            <aside class="builder-nav"><h3>云文档</h3><div class="search">搜索工作区 ⌘K</div><a style="--item:#2161c2" class="on" href="#">工作台</a><a style="--item:#1c9b71" href="#">知识库</a><a style="--item:#e9a23b" href="#">文档</a><a style="--item:#d35858" href="#">技能</a><a style="--item:#7a66c7" href="#">更多</a></aside>
+            <section class="builder-main">
+              <header class="builder-top"><strong>效能工程部 · 协作工作台</strong><div class="builder-presence"><span>4 人在线</span><i class="builder-avatar" style="--avatar:#ffd77a">方</i><i class="builder-avatar" style="--avatar:#b8e2d2">吴</i><i class="builder-avatar" style="--avatar:#c9d9ff">宋</i></div></header>
+              <div class="builder-body"><div class="builder-toolbar"><b>今天需要推进什么？</b><span class="builder-chip">全部任务</span><span class="builder-chip">我的视图</span><span class="builder-chip">＋ 添加</span></div><div class="builder-grid"><div class="builder-board"><div class="builder-tile" style="--accent:#2161c2"><i></i><strong>知识问答</strong><p>带来源完成企业知识检索</p></div><div class="builder-tile" style="--accent:#1c9b71"><i></i><strong>报销规则整理</strong><p>3 人协作 · 已完成 68%</p></div><div class="builder-tile" style="--accent:#e9a23b"><i></i><strong>周报文档</strong><p>待关联项目知识库</p></div><div class="builder-tile" style="--accent:#d35858"><i></i><strong>合规审阅</strong><p>2 条权限问题待确认</p></div></div><aside class="builder-activity"><h4>协作动态</h4><div class="activity-row">方静更新了报销规则</div><div class="activity-row" style="--dot:#1c9b71">吴星星关联了知识库</div><div class="activity-row" style="--dot:#e9a23b">AI 提出 2 条澄清问题</div></aside></div></div>
+            </section>
+          </div>
+        </div>
+        <div class="selection-wrap"><button class="qmdp-pick-button" data-qmdp-native-handler="true" type="button">选择 D · 协作拼装台</button></div>
+      </article>
+
+      <article class="direction-card" data-design-option="E" data-name="空间工作台">
+        <div class="direction-head"><div class="direction-title"><span class="letter">E</span><div><h2 data-direction-name>空间工作台</h2><small>Apple × Raycast</small></div></div></div>
+        <div class="mock-stage">
+          <div class="spatial-app">
+            <header class="spatial-top"><div class="spatial-title-tabs"><strong>云文档</strong><b>新建任务</b><span>知识空间</span><span>最近文档</span></div><button type="button">创建任务</button></header>
+            <nav class="spatial-dock"><b>云</b><span>问</span><span class="on">文</span><span>知</span><span>盘</span><span>•••</span></nav>
+            <section class="spatial-canvas">
+              <div class="spatial-hero"><div class="spatial-hero-copy"><small>可信企业知识工作台</small><h3>把问题、资料与动作放在同一张工作桌上。</h3><p>先看范围与来源，再执行任务；需要的控制在手边，不需要的界面主动退后。</p></div><div class="spatial-object"></div><div class="spatial-recent"><div><b>订阅报销规则</b>3 个来源</div><div><b>项目进度复盘</b>待确认</div><div><b>合规检查</b>权限内运行</div></div><div class="spatial-compose"><span>选择资料、范围与技能，然后描述任务…</span><button type="button">↑</button></div></div>
+              <aside class="spatial-panel"><section><h4>最近使用</h4><div class="spatial-file">AI 工具订阅报销</div><div class="spatial-file">项目周报 06.09</div><div class="spatial-file">字体合规指南</div></section><section><h4>当前范围</h4><p>项目知识库<br>权限内检索<br>回答显示引用</p></section></aside>
+            </section>
+          </div>
+        </div>
+        <div class="selection-wrap"><button class="qmdp-pick-button" data-qmdp-native-handler="true" type="button">选择 E · 空间工作台</button></div>
+      </article>
+    </section>
+
+    <section class="details" aria-labelledby="details-title">
+      <div class="details-header"><h2 id="details-title">方向说明</h2><p>先比较界面，再用这些文字判断适配成本。</p></div>
+      <div class="detail-list">
+        <article class="detail-card recommended-row"><div class="detail-name"><b>A</b><div><strong>碳蓝企业秩序</strong><small>推荐：最能解决当前跨模块规则不一致的问题</small></div></div><div><h3>参考网站</h3><p>IBM Carbon、HashiCorp、ServiceNow</p></div><div><h3>视觉关键词</h3><p>白色通栏、严谨网格、单一蓝色、低圆角、1px 分隔、高密度</p></div><div><h3>适合用户</h3><p>法务、采购、财务、技术管理者与高频知识工作者</p></div><div><h3>组件气质</h3><p>表格和分组列表优先；32px 控件；文字 Tab；状态用浅色语义层</p></div><div><h3>风险</h3><p>容易像传统管理后台；需要靠任务重点、空状态与文案保留亲和力</p></div></article>
+        <article class="detail-card"><div class="detail-name"><b>B</b><div><strong>纸面知识编辑部</strong><small>让知识像正在被编辑的材料</small></div></div><div><h3>参考网站</h3><p>Notion、Sanity Studio</p></div><div><h3>视觉关键词</h3><p>暖白纸张、目录索引、编辑批注、清晰基线、低装饰</p></div><div><h3>适合用户</h3><p>研究、咨询、内容、产品和需要长时阅读对比的专业用户</p></div><div><h3>组件气质</h3><p>目录式导航；资料索引；暖灰细线；小圆角；工具与发送沉底对齐</p></div><div><h3>风险</h3><p>容易做成博客或阅读器；暖灰控制不好会显旧，目录可能拖慢快速扫描</p></div></article>
+        <article class="detail-card"><div class="detail-name"><b>C</b><div><strong>夜间指挥舱</strong><small>把搜索、命令与任务处理压进同一条效率路径</small></div></div><div><h3>参考网站</h3><p>Superhuman、Linear、Cursor</p></div><div><h3>视觉关键词</h3><p>石墨黑、命令优先、精确分栏、快捷键、状态优先、无霓虹</p></div><div><h3>适合用户</h3><p>高频检索、批量处理、审阅与任务编排的专业用户</p></div><div><h3>组件气质</h3><p>2–4px 圆角、紧凑行高、侧边选中条、唯一蓝色主动作、显式快捷键</p></div><div><h3>风险</h3><p>可能像 IDE；暗色加剧长文阅读疲劳；键盘效率不能牺牲鼠标可发现性</p></div></article>
+        <article class="detail-card"><div class="detail-name"><b>D</b><div><strong>协作拼装台</strong><small>强调多人、对象关系和可组合工作流</small></div></div><div><h3>参考网站</h3><p>Airtable、Figma、Miro</p></div><div><h3>视觉关键词</h3><p>功能色编码、模块化画板、协作者在线、对象关系、清楚边界</p></div><div><h3>适合用户</h3><p>跨团队项目组、运营、PMO 与需要多人共同沉淀资料的用户</p></div><div><h3>组件气质</h3><p>功能色条、对象卡、头像状态、活动时间线；圆角受控在 6–9px</p></div><div><h3>风险</h3><p>多色容易破坏企业克制；对象卡过多会重回通用 SaaS 模板感</p></div></article>
+        <article class="detail-card"><div class="detail-name"><b>E</b><div><strong>空间工作台</strong><small>以直接操控和空间层级压低界面噪音</small></div></div><div><h3>参考网站</h3><p>Apple、Raycast、Arc</p></div><div><h3>视觉关键词</h3><p>银白空间、浮动工具架、单一蓝色、实体面板、直接操控、大片安静区</p></div><div><h3>适合用户</h3><p>管理者、轻度知识用户和强调上手直觉、品牌质感的团队</p></div><div><h3>组件气质</h3><p>工具架与画布分层；关键输入浮于底部；少量真实悬浮；内容本身做主角</p></div><div><h3>风险</h3><p>密度最低，复杂模块可能藏得太深；玻璃使用失控会变成装饰性仿苹果</p></div></article>
+      </div>
+    </section>
+  </main>
+  <script>
+    (() => {
+      const options = Array.from(document.querySelectorAll('[data-design-option]'));
+      const select = (option, source) => {
+        if (!option || !window.qiaomuDesignSelect) return;
+        window.qiaomuDesignSelect({
+          id: option.dataset.designOption,
+          name: option.dataset.name,
+          label: option.dataset.designOption + ': ' + option.dataset.name,
+          source
+        });
+      };
+      options.forEach(option => {
+        option.querySelector('.qmdp-pick-button')?.addEventListener('click', event => {
+          event.preventDefault();
+          select(option, 'native-button');
+        });
+      });
+      document.addEventListener('keydown', event => {
+        if (event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+        const index = ['1', '2', '3', '4', '5'].indexOf(event.key);
+        if (index < 0 || !options[index]) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        select(options[index], 'native-keyboard');
+      });
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+          const keys = document.querySelector('.qmdp-frame-right');
+          if (keys && !keys.querySelector('[data-fifth-key]')) {
+            const key = document.createElement('span');
+            key.className = 'qmdp-key';
+            key.dataset.fifthKey = 'true';
+            key.textContent = '5 E';
+            keys.appendChild(key);
+          }
+        }, 30);
+      });
+    })();
+  </script>
+</body>
+</html>
