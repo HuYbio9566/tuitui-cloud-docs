@@ -8384,11 +8384,13 @@
       border: 0 !important;
     }
 
-    /* Final authority: knowledge cards use a neutral gray hover surface. */
-    .kb-layout .kb-grid > .kb-card[data-kb-card-open]:hover,
-    .kb-layout .kb-grid > .kb-card[data-kb-card-open]:focus-visible {
-      background: #F5F6F8 !important;
+    /* Knowledge cards have no visual hover state. */
+    .kb-layout .kb-grid > .kb-card[data-kb-card-open]:hover {
+      background: #FFFFFF !important;
       background-image: none !important;
+      border-color: transparent !important;
+      box-shadow: none !important;
+      transform: none !important;
     }
 
     /* Keep the left cloud-doc module navigation selected state branded. */
@@ -8412,14 +8414,6 @@
       color: #FFFFFF !important;
     }
 
-    /* Main document list rows have no hover surface; navigation is untouched. */
-    .content .doc-list .doc-row:hover,
-    .content .doc-list .kb-doc-row:hover,
-    .content .doc-list .space-doc-line:hover {
-      background: transparent !important;
-      background-image: none !important;
-      box-shadow: none !important;
-    }
   </style>
 </head>
 <body>
