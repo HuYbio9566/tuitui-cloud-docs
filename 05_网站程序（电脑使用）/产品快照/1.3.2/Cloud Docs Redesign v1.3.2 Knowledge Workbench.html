@@ -299,6 +299,99 @@
     }
 
     .desktop.suite-mode .sidebar { display: none; }
+    .desktop.document-mode .sidebar { display: none; }
+    .desktop.document-mode .content {
+      padding: 0 !important;
+    }
+    .desktop.document-mode .content-head {
+      min-height: 56px;
+      height: 56px;
+      padding: 0 20px !important;
+      background: #FFFFFF !important;
+      border-bottom: 1px solid #EEF1F6 !important;
+    }
+    .kb-doc-status {
+      background: transparent !important;
+      background-image: none !important;
+    }
+    .document-path-home-link {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border: 0;
+      border-radius: var(--fs-radius-md);
+      background: transparent;
+      color: var(--fs-text-secondary);
+      cursor: pointer;
+    }
+    .document-path-home-link:hover {
+      background: var(--fs-bg-hover);
+      color: var(--fs-primary);
+    }
+    .document-path-home-link .icon { width: 18px; height: 18px; }
+    .document-path-divider {
+      display: none;
+    }
+
+    /* Document outline selection is a reading position, not a primary
+       module action; keep it neutral instead of using the global blue gradient. */
+    .desktop.document-mode .document-outline-item.active {
+      background: #F1F3F6 !important;
+      background-image: none !important;
+      border-color: transparent !important;
+      color: #303846 !important;
+      box-shadow: none !important;
+    }
+
+    /* The document sidebar entry is a location indicator, not a primary CTA. */
+    .primary-nav > .side-item[data-nav-screen="docs"].active {
+      background: #EEF1F5 !important;
+      background-image: none !important;
+      border-color: transparent !important;
+      color: #303846 !important;
+      box-shadow: none !important;
+    }
+    .primary-nav > .side-item[data-nav-screen="docs"].active > .icon {
+      color: #7D899B !important;
+    }
+
+    /* Sidebar collapse glyph: a panel with a clear left-pointing chevron. */
+    .icon.sidebar-collapse {
+      --icon: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='3.5' y='4' width='17' height='16' rx='2' stroke='currentColor' stroke-width='1.7'/%3E%3Cpath d='M9 4V20M16 8.5L12.5 12L16 15.5' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    }
+
+    .sidebar-restore {
+      position: absolute;
+      top: 14px;
+      left: 12px;
+      z-index: 8;
+      width: 28px;
+      height: 28px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border: 0;
+      border-radius: 8px;
+      background: #FFFFFF;
+      color: var(--fs-text-secondary);
+      box-shadow: 0 1px 4px rgba(31,35,41,.08);
+    }
+    .sidebar-restore:hover {
+      background: #F5F6F8;
+      color: var(--fs-text-title);
+    }
+    .sidebar-restore .icon {
+      transform: scaleX(-1);
+    }
+    .desktop.sidebar-collapsed .sidebar { display: none; }
+    .desktop.sidebar-collapsed .sidebar-restore { display: inline-flex; }
+    .desktop.document-mode .sidebar-restore,
+    .desktop.suite-mode .sidebar-restore { display: none; }
 
     .mobile-topbar,
     .mobile-nav-drawer { display: none; }
@@ -994,6 +1087,7 @@
       background: transparent;
       color: var(--fs-text-tertiary);
       font: inherit;
+      font-size: 15px;
       text-overflow: ellipsis;
       white-space: nowrap;
       cursor: pointer;
@@ -1017,6 +1111,7 @@
       overflow: hidden;
       color: var(--fs-text-title);
       font-weight: 600;
+      font-size: 15px;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
@@ -1056,7 +1151,7 @@
     }
 
     .content.directory-content .tabs {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .content.flat {
@@ -3144,6 +3239,25 @@
       gap: 6px;
     }
 
+    .doc-list-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+      column-gap: 8px;
+      min-height: 30px;
+      margin: 0 10px 2px;
+      padding: 0 0 7px;
+      border-bottom: 1px solid var(--fs-divider);
+      color: var(--fs-text-tertiary);
+      font-size: 12px;
+      line-height: 18px;
+      font-weight: 500;
+    }
+    .doc-list-header span:nth-child(2),
+    .doc-list-header span:nth-child(3) {
+      text-align: right;
+    }
+
     .doc-row {
       width: 100%;
       border: 0;
@@ -3289,7 +3403,7 @@
     }
 
     .kb-card {
-      min-height: 300px;
+      min-height: 250px;
       padding: 18px !important;
       display: flex;
       flex-direction: column;
@@ -3317,7 +3431,7 @@
     .kb-layout.is-collapsed .kb-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
 
     .kb-card .action-row {
-      margin-top: auto;
+      margin-top: 0;
       flex: 0 0 auto;
     }
 
@@ -3326,7 +3440,7 @@
     }
 
     .kb-card > div:not(.card-head):not(.tag-row):not(.action-row) {
-      flex: 1 1 auto;
+      flex: 0 0 auto;
     }
 
     .card-head {
@@ -7970,7 +8084,7 @@
       -webkit-backdrop-filter: none !important;
     }
     .topbar .topbar-actions { display: flex; align-items: center; gap: 8px; }
-    .topbar .topbar-actions .btn { background: rgba(255,255,255,.56) !important; }
+    .topbar .topbar-actions .btn { background: transparent !important; }
     .content,
     .content.soft,
     .content.directory-content,
@@ -8027,7 +8141,7 @@
     .left-rail .rail-item .icon { color: #263447 !important; }
     .left-rail .rail-item:hover,
     .left-rail .rail-item:focus-visible {
-      background: rgba(255,255,255,.46) !important;
+      background: #F5F6F8 !important;
       color: #263447 !important;
       outline: none;
       box-shadow: none !important;
@@ -8082,6 +8196,7 @@
     /* 1.3.2 interaction-only layout: keep the original visual treatment;
        use a transparent wrapper so navigation and content share one group. */
     .workspace-stage {
+      position: relative;
       flex: 1;
       min-width: 0;
       min-height: 0;
@@ -8102,14 +8217,111 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      min-height: 52px;
-      padding: 0 16px;
+      min-height: 40px;
+      height: 40px;
+      padding: 0;
       background: transparent;
     }
     .content-head .topbar-module-tabs { display: flex; align-items: center; }
     .content-head .topbar-actions { display: flex; align-items: center; gap: 8px; }
     .content-head .page-title { margin: 0; }
     .content-head .document-path { min-width: 0; }
+    .content-head + .tabs {
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+    .tabs-with-actions {
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .tab-filter-group {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tab-filter-group::-webkit-scrollbar { display: none; }
+    .tab-inline-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      flex: 0 0 auto;
+    }
+    .knowledge-inline-actions {
+      gap: 8px;
+    }
+    .knowledge-inline-actions .knowledge-search {
+      width: 220px;
+      height: 32px;
+      flex: 0 0 220px;
+      margin: 0;
+      box-shadow: none;
+    }
+    .tab-inline-actions .icon-button {
+      width: 32px;
+      height: 32px;
+      border: 1px solid transparent;
+      border-radius: var(--fs-radius-md);
+      color: var(--fs-text-secondary);
+    }
+    .tab-inline-actions .icon-button[data-ai-assistant] {
+      background: #FFFFFF;
+      border-color: var(--fs-divider);
+      color: var(--fs-text-title);
+    }
+    .tab-inline-actions .icon-button[data-screen="editor"],
+    .tab-inline-actions .icon-button[data-action-panel="createKb"] {
+      background: var(--dna-primary-gradient);
+      border-color: transparent;
+      color: #FFFFFF;
+    }
+    .tab-inline-actions .icon-button[data-ai-assistant]:hover {
+      background: #F5F6F8;
+      color: var(--fs-text-title);
+    }
+    .tab-inline-actions .icon-button[data-screen="editor"]:hover,
+    .tab-inline-actions .icon-button[data-action-panel="createKb"]:hover {
+      background: var(--dna-primary-gradient);
+      color: #FFFFFF;
+      filter: brightness(1.04);
+    }
+    .tab-inline-actions .icon-button:hover {
+      background: var(--fs-bg-hover);
+      color: var(--fs-text-title);
+    }
+
+    /* Neutral hover for tab controls; keep the active state unchanged. */
+    .tabs .tab:not(.active):hover,
+    .catalog-primary-tab:not(.active):hover,
+    .catalog-filter-tab:not(.active):hover {
+      background: #F5F6F8 !important;
+      color: var(--fs-text-title) !important;
+    }
+
+    /* Document detail actions use one neutral outline treatment. */
+    .document-topbar .topbar-actions > .btn:not(.primary),
+    .document-topbar .topbar-actions > .icon-button {
+      height: 28px !important;
+      border: 0 !important;
+      background: #FFFFFF !important;
+      box-shadow: none !important;
+    }
+    .document-topbar .topbar-actions > .icon-button {
+      width: 28px !important;
+    }
+    .document-topbar .topbar-actions > .btn:not(.primary):hover,
+    .document-topbar .topbar-actions > .icon-button:hover {
+      background: #F5F6F8 !important;
+      border-color: transparent !important;
+      box-shadow: none !important;
+    }
+
+    /* Use a simple home glyph for the document breadcrumb; no sparkle/star. */
+    .icon.home {
+      --icon: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.5 10.5L12 3.5L20.5 10.5V20C20.5 20.5523 20.0523 21 19.5 21H4.5C3.94772 21 3.5 20.5523 3.5 20V10.5Z' stroke='black' stroke-width='1.8' stroke-linejoin='round'/%3E%3Cpath d='M9 21V15H15V21' stroke='black' stroke-width='1.8' stroke-linejoin='round'/%3E%3C/svg%3E");
+    }
 
     /* Remove the unintended ~50px blank band above the home workbench;
        preserve the existing horizontal and bottom spacing. */
@@ -8120,7 +8332,7 @@
     /* Keep the active global-nav item as-is; remove the blue rail canvas
        showing underneath it. */
     .left-rail {
-      background: #C6D9F5 !important;
+      background: #DEEAFC !important;
     }
 
     /* Only the primary module navigation uses the blue-violet selected state.
@@ -8153,6 +8365,19 @@
       color: rgba(255,255,255,.72) !important;
     }
 
+    /* Functional module selection keeps the branded blue-violet gradient;
+       favorites and history remain on their quiet neutral selection. */
+    .primary-nav > .side-item.active {
+      background: var(--dna-primary-gradient) !important;
+      background-image: var(--dna-primary-gradient) !important;
+      border-color: transparent !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 12px rgba(91,111,247,.18) !important;
+    }
+    .primary-nav > .side-item.active > .icon {
+      color: rgba(255,255,255,.78) !important;
+    }
+
     /* Confidential status stays red-toned, but has no outline. */
     .tag.danger {
       border: 0 !important;
@@ -8171,6 +8396,10 @@
       <aside class="sidebar" aria-label="云文档导航">
         <div class="brand-row">
           <div class="brand"><span>云文档</span><small class="product-version" aria-label="产品版本 1.3.2">v1.3.2</small></div>
+          <div class="brand-actions" aria-label="云文档侧栏操作">
+            <button class="icon-button" type="button" data-nav-group-search="all" aria-label="搜索" title="搜索"><span class="icon search"></span></button>
+            <button class="icon-button" type="button" data-toggle-sidebar aria-label="收起侧栏" title="收起侧栏"><span class="icon sidebar-collapse"></span></button>
+          </div>
         </div>
         <div class="side-scroll" id="sideNav"></div>
         <div class="sidebar-account-row" aria-label="当前用户">
@@ -8191,6 +8420,7 @@
       <main class="workspace">
         <div class="workspace-stage">
           <div class="mobile-topbar" id="mobileTopbar"></div>
+          <button class="sidebar-restore" type="button" data-toggle-sidebar aria-label="展开侧栏" title="展开侧栏"><span class="icon sidebar-collapse"></span></button>
           <header class="topbar" id="topbar"></header>
         <section class="content soft" id="content" aria-live="polite"></section>
         </div>
@@ -8267,6 +8497,7 @@
       aiAnswerReady: false,
       selectedDocTab: "recent",
       selectedKnowledgeTab: "all",
+      knowledgeQuery: "",
       selectedDiscoverTab: "all",
       selectedToolTab: "recommended",
       toolSection: "skills",
@@ -8285,6 +8516,7 @@
       editorDirty: false,
       activeTaskTitle: "汇总项目进展",
       collapsedNavGroups: [],
+      sidebarCollapsed: false,
       moreMenuOpen: false,
       moreMenuPosition: { top: 340, left: 348 },
       createTypeMenuOpen: false,
@@ -9255,10 +9487,6 @@
         <div class="nav-group ${quickCollapsed ? "is-collapsed" : ""}">
           <div class="nav-title-row">
             <button class="nav-title" type="button" data-toggle-group="quick" aria-expanded="${!quickCollapsed}"><span>我的收藏</span></button>
-            <div class="nav-title-actions">
-              <button class="nav-title-action" type="button" data-nav-group-search="quick" aria-label="搜索我的收藏" title="搜索我的收藏">${icon("search")}</button>
-              <button class="nav-title-action" type="button" data-toggle-group="quick" aria-expanded="${!quickCollapsed}" aria-label="${quickCollapsed ? "展开" : "收起"}我的收藏" title="${quickCollapsed ? "展开" : "收起"}">${icon("chevron")}</button>
-            </div>
           </div>
           <div class="quick-list">
             ${quickItems.map((item) => `
@@ -9273,10 +9501,6 @@
         <div class="nav-group ${conversationCollapsed ? "is-collapsed" : ""}">
           <div class="nav-title-row">
             <button class="nav-title" type="button" data-toggle-group="conversations" aria-expanded="${!conversationCollapsed}"><span>历史任务</span></button>
-            <div class="nav-title-actions">
-              <button class="nav-title-action" type="button" data-nav-group-search="conversations" aria-label="搜索历史任务" title="搜索历史任务">${icon("search")}</button>
-              <button class="nav-title-action" type="button" data-toggle-group="conversations" aria-expanded="${!conversationCollapsed}" aria-label="${conversationCollapsed ? "展开" : "收起"}历史任务" title="${conversationCollapsed ? "展开" : "收起"}">${icon("chevron")}</button>
-            </div>
           </div>
           <div class="conversation-history-list">
             ${conversationItems.map((item) => {
@@ -9441,14 +9665,14 @@
       const actions = {
         home: `<button class="btn" type="button" data-screen="aiHistory">${icon("comment")}AI 历史</button><button class="btn primary" type="button" data-screen="editor">${icon("plus")}新建文档</button>`,
         spaces: `${aiAction("spaces")}<button class="btn primary" type="button" data-action-panel="createSpace">${icon("plus")}新建空间</button>`,
-        docs: `${aiAction("docs")}<button class="btn primary" type="button" data-screen="editor">${icon("plus")}新建文档</button>`,
+        docs: "",
         editor: editorPreviewDocument
           ? `<button class="btn" type="button" data-action-panel="shareDocument" data-action-title="${escapeHtml(editorPreviewDocument.title)}">${icon("share")}分享</button><button class="btn" type="button" data-action-panel="documentInfo">${icon("doc")}文档信息</button><button class="icon-button" type="button" aria-label="更多文档操作" title="更多文档操作" data-action-panel="documentMore">${icon("more")}</button><button class="btn primary" type="button" data-enter-edit>进入编辑</button>`
           : `${aiAction("editor")}<button class="btn ${state.aiDrawerOpen && state.aiDrawerMode === "knowledge" ? "is-active" : ""}" type="button" data-knowledge-drawer-toggle aria-expanded="${state.aiDrawerOpen && state.aiDrawerMode === "knowledge"}" aria-controls="assistantDrawerRoot">${icon("kb")}知识范围</button><button class="btn" type="button" data-editor-save>${icon("doc")}保存</button><button class="btn primary" type="button" data-action-panel="depositAnswer">${icon("kb")}沉淀</button>`,
         ai: `${aiAction("home")}<button class="btn primary" type="button" data-screen="editor">${icon("plus")}新建文档</button>`,
         aiTask: `<button class="btn" type="button" data-screen="home">返回首页</button>${state.taskStatus === "review" ? `<button class="btn primary" type="button" data-task-confirm>${icon("magic")}确认并开始</button>` : state.taskStatus === "complete" ? `<button class="btn primary" type="button" data-task-open-result>${icon("doc")}打开结果</button>` : `<button class="btn primary" type="button" data-task-advance>${icon("magic")}继续执行</button>`}`,
         aiHistory: `<button class="btn" type="button" data-screen="home">返回首页</button><button class="btn primary" type="button" data-screen="home">${icon("plus")}新建 AI 工作</button>`,
-        knowledge: `${aiAction("knowledge")}<button class="btn primary" type="button" data-action-panel="createKb">${icon("plus")}创建知识库</button>`,
+        knowledge: "",
         knowledgeDetail: `<button class="btn" type="button" data-screen="knowledge">返回知识库</button><button class="btn primary" type="button" data-ai-assistant="knowledgeDetail">${icon("ai")}AI 助手</button>`,
         discover: state.selectedDiscoverTab === "experts"
           ? `${aiAction("discover")}<button class="btn primary" type="button" data-action-panel="createExpert">${icon("plus")}创建专家</button>`
@@ -9467,7 +9691,8 @@
       const breadcrumbNodes = editorPreviewDocument ? documentBreadcrumbNodes(editorPreviewDocument) : [];
       const titleMarkup = editorPreviewDocument ? `
         <div class="document-path" aria-label="文档路径">
-          ${icon(state.activeDocumentKind === "kb" || quickEditorDoc?.kind === "kb" ? "kb" : "doc")}
+          <button class="document-path-home-link" type="button" data-document-home aria-label="返回文档列表" title="返回文档列表">${icon("home")}</button>
+          <span class="document-path-divider" aria-hidden="true"></span>
           ${breadcrumbNodes.map((node, index) => `
             <button class="document-path-link" type="button" data-document-breadcrumb="${index}" title="返回${escapeHtml(node.label)}">${escapeHtml(node.label)}</button>
             <span class="document-path-separator" aria-hidden="true">/</span>
@@ -9484,7 +9709,7 @@
       topbar.classList.toggle("directory-topbar", directoryScreen);
       topbar.innerHTML = `
         ${titleMarkup}
-        <div class="topbar-actions">${actions[state.screen] || actions.home}</div>
+        <div class="topbar-actions">${actions[state.screen] ?? actions.home}</div>
       `;
     }
 
@@ -10343,15 +10568,21 @@
         </div>
       ` : "";
       return `
-        <div class="tabs">
-          ${myDocTabs.map((tab) => `<button class="tab ${tab.id === activeTab ? "active" : ""}" type="button" data-doc-tab="${tab.id}">${tab.label}</button>`).join("")}
+        <div class="tabs tabs-with-actions">
+          <div class="tab-filter-group">
+            ${myDocTabs.map((tab) => `<button class="tab ${tab.id === activeTab ? "active" : ""}" type="button" data-doc-tab="${tab.id}">${tab.label}</button>`).join("")}
+          </div>
+          <div class="tab-inline-actions" aria-label="文档操作">
+            <button class="icon-button" type="button" data-ai-assistant="docs" aria-label="打开 AI 助手" title="AI 助手">${icon("ai")}</button>
+            <button class="icon-button" type="button" data-screen="editor" aria-label="新建文档" title="新建文档">${icon("plus")}</button>
+          </div>
         </div>
         <section class="card panel" data-screen-label="v3-我的文档-${activeTab}">
           <div class="section-title">
             <div><p>${view.desc}</p></div>
           </div>
           ${batchBar}
-          ${items.length ? `<div class="doc-list">${items.map(activeTab === "unlinked" ? unlinkedDocRow : myDocRow).join("")}</div>` : emptyState("没有匹配的文档", "可以换个关键词，或切换到其他文档视图。", "新建文档")}
+          ${items.length ? `<div class="doc-list">${activeTab === "unlinked" ? "" : `<div class="doc-list-header" role="row" aria-label="文档列表标题"><span>文档</span><span>操作</span><span>状态</span></div>`}${items.map(activeTab === "unlinked" ? unlinkedDocRow : myDocRow).join("")}</div>` : emptyState("没有匹配的文档", "可以换个关键词，或切换到其他文档视图。", "新建文档")}
         </section>
       `;
     }
@@ -10619,14 +10850,25 @@
 
     function renderKnowledge() {
       const scopedKnowledge = state.selectedKnowledgeTab === "created" ? knowledgeBases.slice(0, 2) : state.selectedKnowledgeTab === "joined" ? knowledgeBases.slice(2, 5) : state.selectedKnowledgeTab === "review" ? knowledgeBases.filter((kb) => kb.docs >= 37) : knowledgeBases;
-      const items = filterItems(scopedKnowledge);
+      const knowledgeQuery = state.knowledgeQuery.trim().toLowerCase();
+      const items = scopedKnowledge.filter((item) => !knowledgeQuery || JSON.stringify(item).toLowerCase().includes(knowledgeQuery));
       if (!items.length) return emptyState("没有找到相关知识库", "可以创建知识库，或去知识广场发现公开资源。", "创建知识库");
       const selectedKb = knowledgeBases.find((kb) => kb.name === state.selectedKbName) || knowledgeBases[0];
       return `
         <div class="kb-layout ${state.kbAskOpen ? "" : "is-collapsed"}" data-screen-label="v3-知识库-本库问答按需展开">
           <section>
-            <div class="tabs">
+            <div class="tabs tabs-with-actions">
+              <div class="tab-filter-group">
               ${[["all","全部"],["created","我创建的"],["joined","我加入的"],["review","待复核"]].map(([id,label]) => `<button class="tab ${state.selectedKnowledgeTab === id ? "active" : ""}" type="button" data-knowledge-tab="${id}">${label}</button>`).join("")}
+              </div>
+              <div class="tab-inline-actions knowledge-inline-actions" aria-label="知识库操作">
+                <label class="catalog-search knowledge-search">
+                  ${icon("search")}
+                  <input type="search" data-knowledge-search aria-label="搜索知识库" placeholder="搜索知识库" value="${escapeHtml(state.knowledgeQuery)}">
+                </label>
+                <button class="icon-button" type="button" data-ai-assistant="knowledge" aria-label="打开 AI 助手" title="AI 助手">${icon("ai")}</button>
+                <button class="icon-button" type="button" data-action-panel="createKb" aria-label="创建知识库" title="创建知识库">${icon("plus")}</button>
+              </div>
             </div>
             <div class="grid cols-2 kb-grid">
               ${items.map((kb) => `
@@ -10707,7 +10949,7 @@
                 <button class="btn compact" type="button" data-open-modal>${icon("plus")}添加文档</button>
               </div>
               <div class="doc-list">
-                ${detailDocs.length ? detailDocs.map((doc) => {
+                ${detailDocs.length ? `<div class="doc-list-header" role="row" aria-label="库内文档列表标题"><span>文档</span><span>操作</span><span>状态</span></div>${detailDocs.map((doc) => {
                   const docName = escapeHtml(doc.name);
                   const favorite = state.favoriteKnowledgeDocs.includes(doc.name);
                   const menuOpen = state.kbDocMenuName === doc.name;
@@ -10743,7 +10985,7 @@
                       ` : ""}
                     </article>
                   `;
-                }).join("") : `<div class="empty-state compact"><span class="tile-icon">${icon("doc")}</span><h3>暂无文档</h3><p>已删除的文档可在回收站中恢复。</p></div>`}
+                }).join("")}` : `<div class="empty-state compact"><span class="tile-icon">${icon("doc")}</span><h3>暂无文档</h3><p>已删除的文档可在回收站中恢复。</p></div>`}
               </div>
             </section>
 
@@ -11895,7 +12137,12 @@
           : `content soft${isDirectoryScreen ? " directory-content" : ""}`;
       content.innerHTML = (map[state.screen] || renderHome)();
       content.dataset.currentScreen = state.screen;
-      document.querySelector(".desktop").classList.toggle("suite-mode", state.screen === "suite");
+      const desktop = document.querySelector(".desktop");
+      const isDocumentDetail = state.screen === "editor"
+        && Boolean(state.activeDocumentPreview || state.selectedQuickId || state.editorPreviewMode);
+      desktop.classList.toggle("suite-mode", state.screen === "suite");
+      desktop.classList.toggle("document-mode", isDocumentDetail);
+      desktop.classList.toggle("sidebar-collapsed", state.sidebarCollapsed);
       renderTopbar();
       const topbar = document.getElementById("topbar");
       const topbarMarkup = topbar.classList.contains("is-hidden") ? "" : topbar.innerHTML;
@@ -12293,6 +12540,22 @@
         return;
       }
 
+      const documentHomeTarget = event.target.closest("[data-document-home]");
+      if (documentHomeTarget) {
+        state.selectedDocTab = state.documentBreadcrumb.find((node) => node.screen === "docs")?.docTab || "recent";
+        state.screen = "docs";
+        state.selectedQuickId = "";
+        state.activeDocumentPreview = null;
+        state.documentBreadcrumb = [];
+        state.editorTitleOverride = "";
+        state.editorPreviewMode = false;
+        state.editorDraftHtml = "";
+        state.editorDirty = false;
+        renderContent();
+        showToast("已返回文档列表");
+        return;
+      }
+
       if (event.target.closest("[data-toggle-document-outline]")) {
         state.documentOutlineCollapsed = !state.documentOutlineCollapsed;
         renderContent();
@@ -12363,7 +12626,14 @@
       if (groupSearch) {
         event.preventDefault();
         event.stopPropagation();
-        showToast(groupSearch.dataset.navGroupSearch === "quick" ? "可在全局搜索中查找收藏" : "可在全局搜索中查找历史任务");
+        showToast(groupSearch.dataset.navGroupSearch === "all" ? "搜索收藏和历史任务" : groupSearch.dataset.navGroupSearch === "quick" ? "可在全局搜索中查找收藏" : "可在全局搜索中查找历史任务");
+        return;
+      }
+
+      const toggleSidebar = event.target.closest("[data-toggle-sidebar]");
+      if (toggleSidebar) {
+        state.sidebarCollapsed = !state.sidebarCollapsed;
+        renderContent();
         return;
       }
 
@@ -13142,6 +13412,19 @@
         renderContent();
         requestAnimationFrame(() => {
           const nextInput = document.querySelector("[data-catalog-search]");
+          if (!nextInput) return;
+          nextInput.focus();
+          nextInput.setSelectionRange(caret, caret);
+        });
+        return;
+      }
+      const knowledgeSearchInput = event.target.closest("[data-knowledge-search]");
+      if (knowledgeSearchInput) {
+        const caret = knowledgeSearchInput.selectionStart ?? knowledgeSearchInput.value.length;
+        state.knowledgeQuery = knowledgeSearchInput.value;
+        renderContent();
+        requestAnimationFrame(() => {
+          const nextInput = document.querySelector("[data-knowledge-search]");
           if (!nextInput) return;
           nextInput.focus();
           nextInput.setSelectionRange(caret, caret);
