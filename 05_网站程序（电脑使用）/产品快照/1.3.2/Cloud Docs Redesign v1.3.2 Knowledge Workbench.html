@@ -8411,6 +8411,21 @@
       background-image: var(--dna-primary-gradient) !important;
       color: #FFFFFF !important;
     }
+
+    /* Restore the selected state of the far-left global rail. */
+    body .left-rail .rail-item.active,
+    body .left-rail .rail-item.active:hover,
+    body .left-rail .rail-item.active:focus-visible {
+      background: var(--dna-primary-gradient) !important;
+      background-image: var(--dna-primary-gradient) !important;
+      color: #FFFFFF !important;
+      border-color: transparent !important;
+      box-shadow: 0 4px 12px rgba(91,111,247,.18) !important;
+    }
+    body .left-rail .rail-item.active .icon,
+    body .left-rail .rail-item.active:hover .icon {
+      color: #FFFFFF !important;
+    }
   </style>
 </head>
 <body>
