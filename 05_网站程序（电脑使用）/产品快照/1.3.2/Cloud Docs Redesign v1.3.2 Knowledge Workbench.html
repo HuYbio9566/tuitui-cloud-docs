@@ -8426,6 +8426,18 @@
     body .left-rail .rail-item.active:hover .icon {
       color: #FFFFFF !important;
     }
+
+    /* Remove hover surface from the far-left rail; selected state remains unchanged. */
+    body .left-rail .rail-item:not(.active):hover,
+    body .left-rail .rail-item:not(.active):focus-visible {
+      background: transparent !important;
+      color: #263447 !important;
+      box-shadow: none !important;
+    }
+    body .left-rail .rail-item:not(.active):hover .icon,
+    body .left-rail .rail-item:not(.active):focus-visible .icon {
+      color: #263447 !important;
+    }
   </style>
 </head>
 <body>
