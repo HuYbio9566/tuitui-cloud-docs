@@ -8385,6 +8385,66 @@
     }
 
     /* Document list rows keep their action reveal, but have no visual hover fill. */
+    .my-doc-list {
+      --my-doc-columns: minmax(220px, 1fr) 108px 132px 102px 160px 112px;
+      min-width: 880px;
+      overflow: visible;
+    }
+    .my-doc-list-header {
+      grid-template-columns: var(--my-doc-columns);
+      column-gap: 8px;
+      min-height: 36px;
+      margin: 0 0 6px;
+      padding: 0 12px;
+      border: 0;
+      border-radius: 6px;
+      background: #F5F6F8;
+      color: #727A87;
+    }
+    .my-doc-list-header span { min-width: 0; text-align: left !important; white-space: nowrap; }
+    .my-doc-row {
+      grid-template-columns: var(--my-doc-columns);
+      column-gap: 8px;
+      padding: 10px 12px;
+    }
+    .my-doc-row .kb-doc-primary { grid-column: 1; grid-row: 1; }
+    .my-doc-person, .my-doc-update, .my-doc-validity {
+      min-width: 0;
+      color: var(--fs-text-secondary);
+      font-size: 12px;
+      line-height: 17px;
+    }
+    .my-doc-person {
+      grid-column: 2;
+      grid-row: 1;
+      display: grid;
+      grid-template-columns: 26px minmax(0, 1fr);
+      align-items: center;
+      gap: 7px;
+    }
+    .my-doc-person-avatar {
+      width: 26px; height: 26px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 50%; background: #EEF1F5; color: #4F5968;
+      font-size: 11px; font-weight: 600;
+    }
+    .my-doc-person-copy, .my-doc-update { display: flex; flex-direction: column; gap: 1px; }
+    .my-doc-person-copy strong, .my-doc-update strong {
+      overflow: hidden; color: #394150; font-size: 12px; line-height: 17px;
+      font-weight: 500; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .my-doc-person-copy span, .my-doc-update span {
+      overflow: hidden; color: #8A93A1; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .my-doc-update { grid-column: 3; grid-row: 1; }
+    .my-doc-validity { grid-column: 4; grid-row: 1; color: #596273; white-space: nowrap; }
+    .my-doc-row .kb-doc-actions { grid-column: 5; grid-row: 1; }
+    .my-doc-row .kb-doc-status {
+      grid-column: 6; grid-row: 1; align-items: flex-start; justify-content: flex-start;
+      flex-direction: column; gap: 3px;
+    }
+    .my-doc-row .kb-doc-menu { right: 120px; }
+    .my-doc-table-scroll { width: 100%; overflow-x: auto; scrollbar-width: thin; }
     .my-doc-row:hover {
       background: #FFFFFF !important;
       background-image: none !important;
@@ -8735,12 +8795,12 @@
     };
 
     const docs = [
-      { name: "AI 工具订阅报销规则汇总", type: "word", owner: "胡玉彪", time: "刚刚", kb: "AI 创新项目组", status: "已关联", relation: "我创建", confidential: true },
-      { name: "技术部周报模板（标准版）", type: "word", owner: "李岩峰", time: "今天 10:24", kb: "360 Agent Teams", status: "已关联", relation: "与我共享" },
-      { name: "体验设计专家走查首页", type: "ppt", owner: "宋登举", time: "昨天 18:20", kb: "智汇云 UI 支撑", status: "待复核", relation: "与我共享" },
-      { name: "AI 人才招聘标准终版", type: "word", owner: "HRBP", time: "05-25", kb: "AI 招聘标准", status: "已关联", relation: "我创建" },
-      { name: "字体合规使用指南 2.0", type: "doc", owner: "法务", time: "05-11", kb: "字体合规", status: "过期提醒", relation: "待我处理" },
-      { name: "集团全国办公区一本通", type: "excel", owner: "行政", time: "01-27", kb: "办公服务", status: "已关联", relation: "我创建" }
+      { name: "AI 工具订阅报销规则汇总", type: "word", owner: "胡玉彪", time: "刚刚", kb: "AI 创新项目组", status: "已关联", relation: "我创建", validUntil: "2026-12-31", confidential: true },
+      { name: "技术部周报模板（标准版）", type: "word", owner: "李岩峰", time: "今天 10:24", kb: "360 Agent Teams", status: "已关联", relation: "与我共享", validUntil: "2026-12-31" },
+      { name: "体验设计专家走查首页", type: "ppt", owner: "宋登举", time: "昨天 18:20", kb: "智汇云 UI 支撑", status: "待复核", relation: "与我共享", validUntil: "2026-09-30" },
+      { name: "AI 人才招聘标准终版", type: "word", owner: "HRBP", time: "05-25", kb: "AI 招聘标准", status: "已关联", relation: "我创建", validUntil: "长期有效" },
+      { name: "字体合规使用指南 2.0", type: "doc", owner: "法务", time: "05-11", kb: "字体合规", status: "过期提醒", relation: "待我处理", validUntil: "2026-07-31" },
+      { name: "集团全国办公区一本通", type: "excel", owner: "行政", time: "01-27", kb: "办公服务", status: "已关联", relation: "我创建", validUntil: "长期有效" }
     ];
 
     const docSpaces = [
@@ -8753,12 +8813,12 @@
     ];
 
     const recentDocs = [
-      { name: "技术部周报模板（标准版）", type: "word", owner: "李岩峰", access: "刚刚打开", reason: "从首页继续编辑", kb: "360 Agent Teams", status: "已关联" },
-      { name: "AI 工具订阅报销规则汇总", type: "word", owner: "胡玉彪", access: "12 分钟前", reason: "用于报销问答引用", kb: "AI 创新项目组", status: "已关联", confidential: true },
-      { name: "工作周报 06.09", type: "excel", owner: "田野", access: "今天 09:42", reason: "从我的收藏打开", kb: "项目周报", status: "待关联" },
-      { name: "字体合规使用指南", type: "doc", owner: "法务", access: "昨天 18:31", reason: "用于风险审阅", kb: "字体合规", status: "过期提醒" },
-      { name: "智汇云会员知识库 FAQ", type: "doc", owner: "吴星星", access: "昨天 16:08", reason: "从知识问答引用", kb: "智汇云会员知识库", status: "已关联" },
-      { name: "体验设计专家走查首页", type: "ppt", owner: "宋登举", access: "本周一", reason: "从评审任务打开", kb: "智汇云 UI 支撑", status: "待复核" }
+      { name: "技术部周报模板（标准版）", type: "word", owner: "李岩峰", relation: "与我共享", access: "刚刚打开", reason: "从首页继续编辑", kb: "360 Agent Teams", status: "已关联", updatedAt: "今天 10:24", validUntil: "2026-12-31" },
+      { name: "AI 工具订阅报销规则汇总", type: "word", owner: "胡玉彪", relation: "我创建", access: "12 分钟前", reason: "用于报销问答引用", kb: "AI 创新项目组", status: "已关联", updatedAt: "12 分钟前", validUntil: "2026-12-31", confidential: true },
+      { name: "工作周报 06.09", type: "excel", owner: "田野", relation: "我创建", access: "今天 09:42", reason: "从我的收藏打开", kb: "项目周报", status: "待关联", updatedAt: "今天 09:30", validUntil: "2026-08-31" },
+      { name: "字体合规使用指南", type: "doc", owner: "法务", relation: "与我共享", access: "昨天 18:31", reason: "用于风险审阅", kb: "字体合规", status: "过期提醒", updatedAt: "07-31 18:31", validUntil: "2026-07-31" },
+      { name: "智汇云会员知识库 FAQ", type: "doc", owner: "吴星星", relation: "与我共享", access: "昨天 16:08", reason: "从知识问答引用", kb: "智汇云会员知识库", status: "已关联", updatedAt: "昨天 15:46", validUntil: "长期有效" },
+      { name: "体验设计专家走查首页", type: "ppt", owner: "宋登举", relation: "与我共享", access: "本周一", reason: "从评审任务打开", kb: "智汇云 UI 支撑", status: "待复核", updatedAt: "本周一 17:20", validUntil: "2026-09-30" }
     ];
 
     const myDocTabs = [
@@ -10420,7 +10480,10 @@
     function normalizeRecentDoc(doc, action = "继续") {
       return {
         ...doc,
-        meta: `${doc.access} · ${doc.reason} · ${doc.kb}`,
+        relation: doc.relation || "我创建",
+        updatedAt: doc.updatedAt || doc.access,
+        validUntil: doc.validUntil || "长期有效",
+        meta: `${doc.reason} · ${doc.kb}`,
         action
       };
     }
@@ -10428,7 +10491,9 @@
     function normalizeOwnedDoc(doc, action = "打开") {
       return {
         ...doc,
-        meta: `${doc.owner} · ${doc.time} · ${doc.kb}`,
+        updatedAt: doc.updatedAt || doc.time,
+        validUntil: doc.validUntil || "长期有效",
+        meta: doc.kb,
         action
       };
     }
@@ -10476,6 +10541,10 @@
       const docName = escapeHtml(doc.name);
       const favorite = state.favoriteMyDocs.includes(doc.name);
       const menuOpen = state.myDocMenuName === doc.name;
+      const personRole = doc.relation === "我创建" ? "创建人" : "分享人";
+      const updatedBy = doc.updatedBy || doc.owner;
+      const updatedAt = doc.updatedAt || doc.time || doc.access || "刚刚";
+      const validUntil = doc.validUntil || "长期有效";
       return `
         <article class="doc-row kb-doc-row my-doc-row ${menuOpen ? "menu-open" : ""}" data-my-doc-row="${docName}">
           <button class="kb-doc-primary" type="button" data-open-document="${docName}" data-document-origin="docs" data-document-kind="${escapeHtml(doc.type || "doc")}" aria-label="打开 ${docName}">
@@ -10485,11 +10554,15 @@
               <p>${escapeHtml(doc.meta)}</p>
             </span>
           </button>
+          <div class="my-doc-person">
+            <span class="my-doc-person-avatar" aria-hidden="true">${escapeHtml(doc.owner).slice(0, 1)}</span>
+            <span class="my-doc-person-copy"><strong>${escapeHtml(doc.owner)}</strong><span>${personRole}</span></span>
+          </div>
+          <div class="my-doc-update"><strong>${escapeHtml(updatedBy)}</strong><span>${escapeHtml(updatedAt)}</span></div>
+          <div class="my-doc-validity">${escapeHtml(validUntil)}</div>
           <div class="tag-row kb-doc-status">
             ${doc.confidential ? `<span class="tag danger">${icon("lock")}保密</span>` : ""}
-            ${doc.relation ? `<span class="tag">${escapeHtml(doc.relation)}</span>` : ""}
             <span class="tag ${statusTone(doc.status)}">${escapeHtml(doc.status)}</span>
-            <button class="btn compact" type="button" data-open-document="${docName}" data-document-origin="docs" data-document-kind="${escapeHtml(doc.type || "doc")}">${escapeHtml(doc.action)}</button>
           </div>
           <div class="kb-doc-actions" role="toolbar" aria-label="${docName} 文档操作">
             <button class="kb-doc-action" type="button" data-my-doc-action="share" data-my-doc-name="${docName}" aria-label="分享 ${docName}" title="分享">${icon("share")}</button>
@@ -10611,7 +10684,7 @@
         </div>
         <section class="card panel" data-screen-label="v3-我的文档-${activeTab}">
           ${batchBar}
-          ${items.length ? `<div class="doc-list">${activeTab === "unlinked" ? "" : `<div class="doc-list-header" role="row" aria-label="文档列表标题"><span>文档</span><span>操作</span><span>状态</span></div>`}${items.map(activeTab === "unlinked" ? unlinkedDocRow : myDocRow).join("")}</div>` : emptyState("没有匹配的文档", "可以换个关键词，或切换到其他文档视图。", "新建文档")}
+          ${items.length ? activeTab === "unlinked" ? `<div class="doc-list">${items.map(unlinkedDocRow).join("")}</div>` : `<div class="my-doc-table-scroll"><div class="doc-list my-doc-list"><div class="doc-list-header my-doc-list-header" role="row" aria-label="文档列表标题"><span>文档</span><span>人员</span><span>更新状态</span><span>有效时间</span><span>操作</span><span>状态</span></div>${items.map(myDocRow).join("")}</div></div>` : emptyState("没有匹配的文档", "可以换个关键词，或切换到其他文档视图。", "新建文档")}
         </section>
       `;
     }
