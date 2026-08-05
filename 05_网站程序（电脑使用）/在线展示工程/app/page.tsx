@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "云文档 · 企业知识工作台",
-  description: "云文档产品交互原型，覆盖知识问答、任务、文档、技能与连接器。",
+  title: "云文档 · 统一知识工作台 · v1.3.1",
+  description: "云文档 1.3.1 视觉迁移原型，保留原信息结构并采用推推知识工作台 Design DNA。",
 };
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
       <iframe
         className="product-frame"
         src="/cloud-docs.html"
-        title="云文档 · 企业知识工作台"
+        title="云文档 · 统一知识工作台 · v1.3.1"
       />
     </main>
   );
