@@ -8412,31 +8412,13 @@
       color: #FFFFFF !important;
     }
 
-    /* Restore the selected state of the far-left global rail. */
-    body .left-rail .rail-item.active,
-    body .left-rail .rail-item.active:hover,
-    body .left-rail .rail-item.active:focus-visible {
-      background: var(--dna-primary-gradient) !important;
-      background-image: var(--dna-primary-gradient) !important;
-      color: #FFFFFF !important;
-      border-color: transparent !important;
-      box-shadow: 0 4px 12px rgba(91,111,247,.18) !important;
-    }
-    body .left-rail .rail-item.active .icon,
-    body .left-rail .rail-item.active:hover .icon {
-      color: #FFFFFF !important;
-    }
-
-    /* Remove hover surface from the far-left rail; selected state remains unchanged. */
-    body .left-rail .rail-item:not(.active):hover,
-    body .left-rail .rail-item:not(.active):focus-visible {
+    /* Main document list rows have no hover surface; navigation is untouched. */
+    .content .doc-list .doc-row:hover,
+    .content .doc-list .kb-doc-row:hover,
+    .content .doc-list .space-doc-line:hover {
       background: transparent !important;
-      color: #263447 !important;
+      background-image: none !important;
       box-shadow: none !important;
-    }
-    body .left-rail .rail-item:not(.active):hover .icon,
-    body .left-rail .rail-item:not(.active):focus-visible .icon {
-      color: #263447 !important;
     }
   </style>
 </head>
