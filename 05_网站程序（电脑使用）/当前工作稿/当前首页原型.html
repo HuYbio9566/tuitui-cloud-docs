@@ -8385,10 +8385,22 @@
     }
 
     /* Final authority: knowledge cards use a neutral gray hover surface. */
-    .kb-card[data-kb-card-open]:hover,
-    .kb-card[data-kb-card-open]:focus-visible {
+    .kb-layout .kb-card[data-kb-card-open]:hover,
+    .kb-layout .kb-card[data-kb-card-open]:focus-visible {
       background: #F5F6F8 !important;
       background-image: none !important;
+    }
+
+    /* Keep the left cloud-doc module navigation selected state branded. */
+    body .primary-nav > .side-item.active {
+      background: var(--dna-primary-gradient) !important;
+      background-image: var(--dna-primary-gradient) !important;
+      color: #FFFFFF !important;
+      border-color: transparent !important;
+      box-shadow: 0 4px 12px rgba(91,111,247,.18) !important;
+    }
+    body .primary-nav > .side-item.active > .icon {
+      color: rgba(255,255,255,.78) !important;
     }
   </style>
 </head>
