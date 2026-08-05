@@ -10610,9 +10610,6 @@
           </div>
         </div>
         <section class="card panel" data-screen-label="v3-我的文档-${activeTab}">
-          <div class="section-title">
-            <div><p>${view.desc}</p></div>
-          </div>
           ${batchBar}
           ${items.length ? `<div class="doc-list">${activeTab === "unlinked" ? "" : `<div class="doc-list-header" role="row" aria-label="文档列表标题"><span>文档</span><span>操作</span><span>状态</span></div>`}${items.map(activeTab === "unlinked" ? unlinkedDocRow : myDocRow).join("")}</div>` : emptyState("没有匹配的文档", "可以换个关键词，或切换到其他文档视图。", "新建文档")}
         </section>
