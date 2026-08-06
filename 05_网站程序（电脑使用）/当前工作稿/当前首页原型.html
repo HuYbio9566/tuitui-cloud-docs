@@ -9912,7 +9912,7 @@
         discover: state.selectedDiscoverTab === "experts"
           ? ""
           : `${aiAction("discover")}<button class="btn primary" type="button" data-action-panel="publishKb">${icon("plus")}发布知识库</button>`,
-        drive: `${aiAction("drive")}<button class="btn primary" type="button" data-action-panel="uploadFile">${icon("upload")}上传</button>`,
+        drive: `<button class="btn" type="button" data-create-type-toggle aria-haspopup="menu" aria-expanded="${state.createTypeMenuOpen}">${icon("plus")}新建</button><button class="btn primary" type="button" data-action-panel="uploadFile">${icon("upload")}上传</button>`,
         tools: state.toolSection === "skills"
           ? `${aiAction("tools")}${state.skillScope === "mine" ? `<button class="btn primary" type="button" data-action-panel="createSkill">${icon("plus")}创建技能</button>` : ""}`
           : state.toolSection === "connectors"
