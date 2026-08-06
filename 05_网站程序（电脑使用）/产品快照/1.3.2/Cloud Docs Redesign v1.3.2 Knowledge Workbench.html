@@ -8403,6 +8403,15 @@
       color: #727A87;
     }
     .my-doc-list-header span { min-width: 0; text-align: left !important; white-space: nowrap; }
+    .my-doc-list.is-created {
+      --my-doc-columns: minmax(220px, 1fr) 112px 172px 102px 48px;
+      min-width: 704px;
+    }
+    .my-doc-list.is-created .my-doc-person { display: none; }
+    .my-doc-list.is-created .my-doc-row .kb-doc-status { grid-column: 2; }
+    .my-doc-list.is-created .my-doc-row .my-doc-update { grid-column: 3; }
+    .my-doc-list.is-created .my-doc-row .my-doc-validity { grid-column: 4; }
+    .my-doc-list.is-created .my-doc-row .kb-doc-actions { grid-column: 5; }
     .my-doc-row {
       grid-template-columns: var(--my-doc-columns);
       column-gap: 8px;
@@ -8475,6 +8484,13 @@
       flex-direction: column; gap: 3px;
     }
     .my-doc-row .kb-doc-menu { right: 8px; }
+    .my-doc-floating-menu {
+      position: fixed;
+      top: var(--my-doc-menu-top);
+      left: var(--my-doc-menu-left);
+      right: auto;
+      z-index: 140;
+    }
     .my-doc-table-scroll { width: 100%; overflow-x: auto; scrollbar-width: thin; }
     .my-doc-panel,
     .my-doc-panel:hover {
@@ -8661,6 +8677,7 @@
       createTypeMenuOpen: false,
       createTypeMenuPosition: { top: 0, left: 0 },
       selectedQuickId: "",
+      myDocMenuPosition: { top: 0, left: 0 },
       documentBreadcrumb: [],
       activeDocumentPreview: null,
       activeDocumentKind: "doc",
@@ -10584,7 +10601,35 @@
       return views[tabId] || views.recent;
     }
 
-    function myDocRow(doc) {
+    function positionMyDocMenu(anchorX, anchorY) {
+      const menuWidth = 168;
+      const menuHeight = 252;
+      const gutter = 8;
+      const viewportWidth = window.innerWidth || 1440;
+      const viewportHeight = window.innerHeight || 900;
+      const left = Math.max(gutter, Math.min(viewportWidth - menuWidth - gutter, anchorX - menuWidth));
+      const openAbove = anchorY + menuHeight + gutter > viewportHeight;
+      const top = openAbove
+        ? Math.max(gutter, anchorY - menuHeight)
+        : Math.min(viewportHeight - menuHeight - gutter, anchorY + 6);
+      state.myDocMenuPosition = { top, left };
+    }
+
+    function myDocMenu(docName) {
+      const escapedName = escapeHtml(docName);
+      return `
+        <div class="kb-doc-menu my-doc-floating-menu" role="menu" aria-label="${escapedName} 更多操作" style="--my-doc-menu-top:${state.myDocMenuPosition.top}px;--my-doc-menu-left:${state.myDocMenuPosition.left}px;">
+          <button class="kb-doc-menu-item" type="button" role="menuitem" data-my-doc-menu-action="move" data-my-doc-name="${escapedName}">${icon("move")}移动到</button>
+          <button class="kb-doc-menu-item" type="button" role="menuitem" data-my-doc-menu-action="copy" data-my-doc-name="${escapedName}">${icon("copy")}复制到</button>
+          <button class="kb-doc-menu-item" type="button" role="menuitem" data-my-doc-menu-action="rename" data-my-doc-name="${escapedName}">${icon("rename")}重命名</button>
+          <button class="kb-doc-menu-item" type="button" role="menuitem" data-my-doc-menu-action="share" data-my-doc-name="${escapedName}">${icon("share")}分享</button>
+          <button class="kb-doc-menu-item" type="button" role="menuitem" data-my-doc-menu-action="download" data-my-doc-name="${escapedName}">${icon("download")}下载</button>
+          <button class="kb-doc-menu-item danger" type="button" role="menuitem" data-my-doc-menu-action="delete" data-my-doc-name="${escapedName}">${icon("trash")}删除</button>
+        </div>
+      `;
+    }
+
+    function myDocRow(doc, hidePerson = false) {
       const docName = escapeHtml(doc.name);
       const menuOpen = state.myDocMenuName === doc.name;
       const updatedBy = doc.updatedBy || doc.owner;
@@ -10599,7 +10644,7 @@
               <p>${escapeHtml(doc.meta)}</p>
             </span>
           </button>
-          <div class="my-doc-person">${escapeHtml(doc.owner)}</div>
+          ${hidePerson ? "" : `<div class="my-doc-person">${escapeHtml(doc.owner)}</div>`}
           <div class="my-doc-update"><strong>${escapeHtml(updatedBy)}</strong><span class="my-doc-update-separator">|</span><span class="my-doc-update-time">更新于${escapeHtml(updatedAt)}</span></div>
           <div class="my-doc-validity">${escapeHtml(validUntil)}</div>
           <div class="tag-row kb-doc-status">
@@ -10609,16 +10654,6 @@
           <div class="kb-doc-actions" role="toolbar" aria-label="${docName} 文档操作">
             <button class="kb-doc-action ${menuOpen ? "active" : ""}" type="button" data-my-doc-action="more" data-my-doc-name="${docName}" aria-label="${docName} 更多操作" aria-haspopup="menu" aria-expanded="${menuOpen}" title="更多">${icon("more")}</button>
           </div>
-          ${menuOpen ? `
-            <div class="kb-doc-menu" role="menu" aria-label="${docName} 更多操作">
-              <button class="kb-doc-menu-item" type="button" role="menuitem" data-my-doc-menu-action="move" data-my-doc-name="${docName}">${icon("move")}移动到</button>
-              <button class="kb-doc-menu-item" type="button" role="menuitem" data-my-doc-menu-action="copy" data-my-doc-name="${docName}">${icon("copy")}复制到</button>
-              <button class="kb-doc-menu-item" type="button" role="menuitem" data-my-doc-menu-action="rename" data-my-doc-name="${docName}">${icon("rename")}重命名</button>
-              <button class="kb-doc-menu-item" type="button" role="menuitem" data-my-doc-menu-action="share" data-my-doc-name="${docName}">${icon("share")}分享</button>
-              <button class="kb-doc-menu-item" type="button" role="menuitem" data-my-doc-menu-action="download" data-my-doc-name="${docName}">${icon("download")}下载</button>
-              <button class="kb-doc-menu-item danger" type="button" role="menuitem" data-my-doc-menu-action="delete" data-my-doc-name="${docName}">${icon("trash")}删除</button>
-            </div>
-          ` : ""}
         </article>
       `;
     }
@@ -10722,7 +10757,7 @@
         </div>
         <section class="card panel my-doc-panel" data-screen-label="v3-我的文档-${activeTab}">
           ${batchBar}
-          ${items.length ? activeTab === "unlinked" ? `<div class="doc-list">${items.map(unlinkedDocRow).join("")}</div>` : `<div class="my-doc-table-scroll"><div class="doc-list my-doc-list"><div class="doc-list-header my-doc-list-header" role="row" aria-label="文档列表标题"><span>文档</span><span>创建人</span><span>状态</span><span>文档动态</span><span>有效时间</span><span>操作</span></div>${items.map(myDocRow).join("")}</div></div>` : emptyState("没有匹配的文档", "可以换个关键词，或切换到其他文档视图。", "新建文档")}
+          ${items.length ? activeTab === "unlinked" ? `<div class="doc-list">${items.map(unlinkedDocRow).join("")}</div>` : `<div class="my-doc-table-scroll"><div class="doc-list my-doc-list ${activeTab === "created" ? "is-created" : ""}"><div class="doc-list-header my-doc-list-header" role="row" aria-label="文档列表标题"><span>文档</span>${activeTab === "created" ? "" : "<span>创建人</span>"}<span>状态</span><span>文档动态</span><span>有效时间</span><span>操作</span></div>${items.map(doc => myDocRow(doc, activeTab === "created")).join("")}</div></div>${state.myDocMenuName ? myDocMenu(state.myDocMenuName) : ""}` : emptyState("没有匹配的文档", "可以换个关键词，或切换到其他文档视图。", "新建文档")}
         </section>
       `;
     }
@@ -12489,10 +12524,14 @@
         const docName = myDocActionTarget.dataset.myDocName;
         if (action === "more") {
           const opening = state.myDocMenuName !== docName;
+          if (opening) {
+            const rect = myDocActionTarget.getBoundingClientRect();
+            positionMyDocMenu(rect.right, rect.bottom);
+          }
           state.myDocMenuName = opening ? docName : "";
           state.kbDocMenuName = "";
           renderContent();
-          if (opening) requestAnimationFrame(() => document.querySelector(".my-doc-row .kb-doc-menu [role='menuitem']")?.focus());
+          if (opening) requestAnimationFrame(() => document.querySelector(".my-doc-floating-menu [role='menuitem']")?.focus());
           return;
         }
         if (action === "favorite") {
@@ -13468,7 +13507,7 @@
         state.kbDocMenuName = "";
         renderContent();
       }
-      if (state.myDocMenuName && !event.target.closest(".my-doc-row.menu-open")) {
+      if (state.myDocMenuName && !event.target.closest(".my-doc-row.menu-open") && !event.target.closest(".my-doc-floating-menu")) {
         state.myDocMenuName = "";
         renderContent();
       }
@@ -13478,10 +13517,11 @@
       const row = event.target.closest(".my-doc-row[data-my-doc-row]");
       if (!row) return;
       event.preventDefault();
+      positionMyDocMenu(event.clientX, event.clientY);
       state.myDocMenuName = row.dataset.myDocRow;
       state.kbDocMenuName = "";
       renderContent();
-      requestAnimationFrame(() => document.querySelector(".my-doc-row.menu-open .kb-doc-menu [role='menuitem']")?.focus());
+      requestAnimationFrame(() => document.querySelector(".my-doc-floating-menu [role='menuitem']")?.focus());
     });
 
     document.addEventListener("keydown", (event) => {
