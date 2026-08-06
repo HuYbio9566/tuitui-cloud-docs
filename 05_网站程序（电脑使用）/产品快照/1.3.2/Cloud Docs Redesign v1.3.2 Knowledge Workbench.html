@@ -8386,8 +8386,8 @@
 
     /* Document list rows keep their action reveal, but have no visual hover fill. */
     .my-doc-list {
-      --my-doc-columns: minmax(220px, 1fr) 108px 112px 172px 102px 160px;
-      min-width: 920px;
+      --my-doc-columns: minmax(220px, 1fr) 108px 112px 172px 102px 48px;
+      min-width: 808px;
       overflow: visible;
       gap: 0;
     }
@@ -8452,7 +8452,24 @@
     }
     .my-doc-update { grid-column: 4; grid-row: 1; }
     .my-doc-validity { grid-column: 5; grid-row: 1; color: #596273; white-space: nowrap; }
-    .my-doc-row .kb-doc-actions { grid-column: 6; grid-row: 1; }
+    .my-doc-row .kb-doc-actions {
+      grid-column: 6;
+      grid-row: 1;
+      width: 32px;
+      max-width: 32px !important;
+      height: 32px;
+      justify-self: center;
+      padding: 0 !important;
+      border: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      transform: none !important;
+    }
+    .my-doc-row .kb-doc-actions .kb-doc-action { display: none; }
+    .my-doc-row .kb-doc-actions [data-my-doc-action="more"] { display: inline-flex; }
     .my-doc-row .kb-doc-status {
       grid-column: 3; grid-row: 1; align-items: flex-start; justify-content: flex-start;
       flex-direction: column; gap: 3px;
@@ -10569,7 +10586,6 @@
 
     function myDocRow(doc) {
       const docName = escapeHtml(doc.name);
-      const favorite = state.favoriteMyDocs.includes(doc.name);
       const menuOpen = state.myDocMenuName === doc.name;
       const updatedBy = doc.updatedBy || doc.owner;
       const updatedAt = doc.updatedAt || doc.time || doc.access || "刚刚";
@@ -10591,10 +10607,6 @@
             <span class="tag ${statusTone(doc.status)}">${escapeHtml(doc.status)}</span>
           </div>
           <div class="kb-doc-actions" role="toolbar" aria-label="${docName} 文档操作">
-            <button class="kb-doc-action" type="button" data-my-doc-action="share" data-my-doc-name="${docName}" aria-label="分享 ${docName}" title="分享">${icon("share")}</button>
-            <button class="kb-doc-action" type="button" data-my-doc-action="download" data-my-doc-name="${docName}" aria-label="下载 ${docName}" title="下载">${icon("download")}</button>
-            <button class="kb-doc-action ${favorite ? "active" : ""}" type="button" data-my-doc-action="favorite" data-my-doc-name="${docName}" aria-label="${favorite ? "取消收藏" : "收藏"} ${docName}" aria-pressed="${favorite}" title="${favorite ? "取消收藏" : "收藏"}">${icon(favorite ? "star-on" : "star")}</button>
-            <button class="kb-doc-action danger" type="button" data-my-doc-action="delete" data-my-doc-name="${docName}" aria-label="删除 ${docName}" title="删除">${icon("trash")}</button>
             <button class="kb-doc-action ${menuOpen ? "active" : ""}" type="button" data-my-doc-action="more" data-my-doc-name="${docName}" aria-label="${docName} 更多操作" aria-haspopup="menu" aria-expanded="${menuOpen}" title="更多">${icon("more")}</button>
           </div>
           ${menuOpen ? `
@@ -13460,6 +13472,16 @@
         state.myDocMenuName = "";
         renderContent();
       }
+    });
+
+    document.addEventListener("contextmenu", (event) => {
+      const row = event.target.closest(".my-doc-row[data-my-doc-row]");
+      if (!row) return;
+      event.preventDefault();
+      state.myDocMenuName = row.dataset.myDocRow;
+      state.kbDocMenuName = "";
+      renderContent();
+      requestAnimationFrame(() => document.querySelector(".my-doc-row.menu-open .kb-doc-menu [role='menuitem']")?.focus());
     });
 
     document.addEventListener("keydown", (event) => {
