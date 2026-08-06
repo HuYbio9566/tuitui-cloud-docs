@@ -8505,6 +8505,12 @@
       box-shadow: none !important;
       transform: none !important;
     }
+    /* Only document rows inside workspace cards use a neutral hover. */
+    .space-card .space-doc-line:hover {
+      background: #F7F8FA !important;
+      background-image: none !important;
+      color: var(--fs-text-title) !important;
+    }
 
     /* Keep the left cloud-doc module navigation selected state branded. */
     body .primary-nav > .side-item.active,
