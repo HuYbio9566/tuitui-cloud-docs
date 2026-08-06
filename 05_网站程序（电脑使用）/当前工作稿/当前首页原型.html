@@ -8386,7 +8386,7 @@
 
     /* Document list rows keep their action reveal, but have no visual hover fill. */
     .my-doc-list {
-      --my-doc-columns: minmax(220px, 1fr) 108px 172px 102px 160px 112px;
+      --my-doc-columns: minmax(220px, 1fr) 108px 112px 172px 102px 160px;
       min-width: 920px;
       overflow: visible;
       gap: 0;
@@ -8450,14 +8450,14 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .my-doc-update { grid-column: 3; grid-row: 1; }
-    .my-doc-validity { grid-column: 4; grid-row: 1; color: #596273; white-space: nowrap; }
-    .my-doc-row .kb-doc-actions { grid-column: 5; grid-row: 1; }
+    .my-doc-update { grid-column: 4; grid-row: 1; }
+    .my-doc-validity { grid-column: 5; grid-row: 1; color: #596273; white-space: nowrap; }
+    .my-doc-row .kb-doc-actions { grid-column: 6; grid-row: 1; }
     .my-doc-row .kb-doc-status {
-      grid-column: 6; grid-row: 1; align-items: flex-start; justify-content: flex-start;
+      grid-column: 3; grid-row: 1; align-items: flex-start; justify-content: flex-start;
       flex-direction: column; gap: 3px;
     }
-    .my-doc-row .kb-doc-menu { right: 120px; }
+    .my-doc-row .kb-doc-menu { right: 8px; }
     .my-doc-table-scroll { width: 100%; overflow-x: auto; scrollbar-width: thin; }
     .my-doc-panel,
     .my-doc-panel:hover {
@@ -10710,7 +10710,7 @@
         </div>
         <section class="card panel my-doc-panel" data-screen-label="v3-我的文档-${activeTab}">
           ${batchBar}
-          ${items.length ? activeTab === "unlinked" ? `<div class="doc-list">${items.map(unlinkedDocRow).join("")}</div>` : `<div class="my-doc-table-scroll"><div class="doc-list my-doc-list"><div class="doc-list-header my-doc-list-header" role="row" aria-label="文档列表标题"><span>文档</span><span>创建人</span><span>文档动态</span><span>有效时间</span><span>操作</span><span>状态</span></div>${items.map(myDocRow).join("")}</div></div>` : emptyState("没有匹配的文档", "可以换个关键词，或切换到其他文档视图。", "新建文档")}
+          ${items.length ? activeTab === "unlinked" ? `<div class="doc-list">${items.map(unlinkedDocRow).join("")}</div>` : `<div class="my-doc-table-scroll"><div class="doc-list my-doc-list"><div class="doc-list-header my-doc-list-header" role="row" aria-label="文档列表标题"><span>文档</span><span>创建人</span><span>状态</span><span>文档动态</span><span>有效时间</span><span>操作</span></div>${items.map(myDocRow).join("")}</div></div>` : emptyState("没有匹配的文档", "可以换个关键词，或切换到其他文档视图。", "新建文档")}
         </section>
       `;
     }
