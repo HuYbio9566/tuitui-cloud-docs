@@ -8247,7 +8247,9 @@
       margin-top: 0;
       margin-bottom: 8px;
     }
-    .content.directory-content > .content-head + .skill-catalog-page {
+    .content.directory-content > .content-head + .skill-catalog-page,
+    .content.directory-content > .content-head + .expert-catalog-page,
+    .content.directory-content > .content-head + .connector-catalog-page {
       margin-top: -12px;
     }
     .tabs-with-actions {
@@ -9866,14 +9868,14 @@
         knowledge: "",
         knowledgeDetail: `<button class="btn" type="button" data-screen="knowledge">返回知识库</button><button class="btn primary" type="button" data-ai-assistant="knowledgeDetail">${icon("ai")}AI 助手</button>`,
         discover: state.selectedDiscoverTab === "experts"
-          ? `${aiAction("discover")}<button class="btn primary" type="button" data-action-panel="createExpert">${icon("plus")}创建专家</button>`
+          ? ""
           : `${aiAction("discover")}<button class="btn primary" type="button" data-action-panel="publishKb">${icon("plus")}发布知识库</button>`,
         drive: `${aiAction("drive")}<button class="btn primary" type="button" data-action-panel="uploadFile">${icon("upload")}上传</button>`,
         tools: state.toolSection === "skills"
           ? `${aiAction("tools")}${state.skillScope === "mine" ? `<button class="btn primary" type="button" data-action-panel="createSkill">${icon("plus")}创建技能</button>` : ""}`
           : state.toolSection === "connectors"
-            ? `${aiAction("tools")}<button class="btn primary" type="button" data-action-panel="addConnector">${icon("plus")}添加连接器</button>`
-            : `${aiAction("tools")}<button class="btn primary" type="button" data-action-panel="createFlow">${icon("plus")}创建流程</button>`
+            ? ""
+            : ""
         ,writingSetup: `<button class="btn" type="button" data-screen="home">取消</button><button class="btn primary" type="button" data-writing-confirm>${icon("magic")}确认并生成</button>`
         ,sourcePreview: `<button class="btn" type="button" data-source-back>返回对话</button><button class="btn primary" type="button" data-source-open-document>${icon("doc")}打开原文</button>`
         ,fileDetail: `<button class="btn" type="button" data-screen="drive">返回云盘</button>${aiAction("drive")}<button class="btn primary" type="button" data-open-modal>${icon("kb")}加入知识库</button>`
