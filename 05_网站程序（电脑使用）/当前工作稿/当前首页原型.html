@@ -9999,7 +9999,7 @@
         <div class="home-mode-switch ${className}" role="group" aria-label="选择 AI 工作模式">
           ${Object.entries(homeModeConfigs).map(([id, config]) => `
             <button class="home-mode-button ${state.homeAiMode === id ? "active" : ""}" type="button" data-home-mode="${id}" aria-pressed="${state.homeAiMode === id}">
-              ${icon(config.icon)}${config.label}
+              ${config.label}
             </button>
           `).join("")}
         </div>
@@ -10017,7 +10017,6 @@
       if (state.homeAiMode === "task") {
         return currentHomeActionBatch(homeTaskTemplates).map((template) => `
           <button class="home-launch-action ${state.selectedTaskTemplate === template.id ? "active" : ""}" type="button" data-home-template-mode="task" data-home-template="${template.id}">
-            <span class="home-launch-action-icon">${icon(template.icon)}</span>
             <span class="home-launch-action-copy"><strong>${template.title}</strong><small>${template.desc}</small></span>
           </button>
         `).join("");
@@ -10026,7 +10025,6 @@
       if (state.homeAiMode === "writing") {
         return currentHomeActionBatch(homeWritingTemplates).map((template) => `
           <button class="home-launch-action ${state.selectedWritingTemplate === template.id ? "active" : ""}" type="button" data-home-template-mode="writing" data-home-template="${template.id}">
-            <span class="home-launch-action-icon">${icon(template.icon)}</span>
             <span class="home-launch-action-copy"><strong>${template.title}</strong><small>${template.desc}</small></span>
           </button>
         `).join("");
@@ -10034,7 +10032,6 @@
 
       return currentHomeActionBatch(homeChatPrompts).map(([label, prompt, description]) => `
         <button class="home-launch-action" type="button" data-home-prompt="${prompt}">
-          <span class="home-launch-action-icon">${icon("home-answer")}</span>
           <span class="home-launch-action-copy"><strong>${label}</strong><small>${description}</small></span>
         </button>
       `).join("");
@@ -10132,7 +10129,7 @@
           <div class="home-composer-tools">
             ${tools.map(([iconName, label, attr]) => `
               <div>
-                <button class="home-tool-button" type="button" ${attr}>${icon(iconName)}${label}</button>
+                <button class="home-tool-button" type="button" ${attr}>${label}</button>
               </div>
             `).join("")}
           </div>
@@ -10170,13 +10167,13 @@
                 <span class="home-ambient-orb mint"></span>
               </div>
               <div class="home-launch-heading">
-                <h1 class="home-launch-title" id="homeLaunchTitle"><span class="home-launch-mark">${icon("ai")}</span>${config.title}</h1>
+                <h1 class="home-launch-title" id="homeLaunchTitle">${config.title}</h1>
                 <p class="home-launch-description">${config.desc}</p>
               </div>
               ${renderHomeModeSwitch("home-launch-mode-switch")}
               <div class="home-launch-suggestions">
                 <div class="home-launch-actions" aria-label="高频功能入口">${renderHomeLaunchActions()}</div>
-                <div class="home-launch-refresh-row"><button class="btn compact home-launch-refresh" type="button" data-home-action-refresh>${icon("refresh")}换一批</button></div>
+                <div class="home-launch-refresh-row"><button class="btn compact home-launch-refresh" type="button" data-home-action-refresh>换一批</button></div>
               </div>
               <div class="home-launch-composer">${renderHomeComposer()}</div>
             </section>
