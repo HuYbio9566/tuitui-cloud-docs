@@ -5957,6 +5957,35 @@
       white-space: nowrap;
     }
 
+    .drive-main .table .drive-row-action {
+      width: 32px;
+      min-width: 32px;
+      height: 28px;
+      justify-content: center;
+      gap: 0;
+      padding: 0 7px;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: width 160ms ease, min-width 160ms ease, gap 160ms ease, padding 160ms ease, background 160ms ease;
+    }
+
+    .drive-main .table .drive-row-action .drive-action-label {
+      display: none;
+    }
+
+    .drive-main .table .drive-row-action:hover,
+    .drive-main .table .drive-row-action:focus-visible {
+      width: auto;
+      min-width: 64px;
+      gap: 5px;
+      padding-inline: 9px;
+    }
+
+    .drive-main .table .drive-row-action:hover .drive-action-label,
+    .drive-main .table .drive-row-action:focus-visible .drive-action-label {
+      display: inline;
+    }
+
     .empty-state {
       min-height: 220px;
       display: flex;
@@ -11416,7 +11445,7 @@
                       <td><button class="file-name" type="button" data-file-open="${escapeHtml(file.name)}" style="border:0;background:transparent;padding:0;text-align:left;">${icon(file.type)}<strong>${file.name}</strong><span class="tag ${file.action === "已入库" ? "green" : file.action === "待摘要" ? "orange" : "blue"}">${file.action}</span></button></td>
                       <td><span class="muted">${file.updated}（${file.owner}）</span></td>
                       <td><span class="muted">${file.size}</span></td>
-                      <td><div class="action-row" style="justify-content:flex-end;"><button class="btn compact primary" type="button" data-ai-assistant="drive">${icon("ai")}提问</button><button class="btn compact" type="button" data-action-panel="summaryFile" data-action-title="${file.name}">${icon("summary")}摘要</button><button class="btn compact" type="button" data-open-modal>${icon("kb")}入库</button></div></td>
+                      <td><div class="action-row drive-row-actions" style="justify-content:flex-end;"><button class="btn compact primary drive-row-action" type="button" data-ai-assistant="drive" aria-label="提问" title="提问">${icon("ai")}<span class="drive-action-label">提问</span></button><button class="btn compact drive-row-action" type="button" data-action-panel="summaryFile" data-action-title="${file.name}" aria-label="摘要" title="摘要">${icon("summary")}<span class="drive-action-label">摘要</span></button><button class="btn compact drive-row-action" type="button" data-open-modal aria-label="入库" title="入库">${icon("kb")}<span class="drive-action-label">入库</span></button></div></td>
                     </tr>
                   `).join("") : `<tr><td colspan="4">${emptyState("没有找到匹配文件", "可以上传资料后生成摘要并加入知识库。", "上传资料")}</td></tr>`}
                 </tbody>
