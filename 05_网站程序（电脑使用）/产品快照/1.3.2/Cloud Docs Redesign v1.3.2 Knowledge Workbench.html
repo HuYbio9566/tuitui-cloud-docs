@@ -8238,9 +8238,17 @@
     .content-head .topbar-actions { display: flex; align-items: center; gap: 8px; }
     .content-head .page-title { margin: 0; }
     .content-head .document-path { min-width: 0; }
-    .content-head + .tabs {
-      margin-top: 8px;
+    /* Keep 8px breathing room between the top navigation and each page's
+       secondary tab/toolbar row, regardless of its wrapper structure. */
+    .content.directory-content > .content-head {
       margin-bottom: 8px;
+    }
+    .content-head + .tabs {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+    .content.directory-content > .content-head + .skill-catalog-page {
+      margin-top: -12px;
     }
     .tabs-with-actions {
       justify-content: space-between;
