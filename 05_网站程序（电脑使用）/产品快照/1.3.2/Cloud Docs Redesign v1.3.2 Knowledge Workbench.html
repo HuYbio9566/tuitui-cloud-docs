@@ -11437,14 +11437,14 @@
                   <col style="width: 10%">
                   <col style="width: 30%">
                 </colgroup>
-                <thead><tr><th>名称</th><th>修改时间（修改人）</th><th>大小</th><th style="text-align:right;">知识动作</th></tr></thead>
+                <thead><tr><th>名称</th><th>修改时间（修改人）</th><th>大小</th><th>知识动作</th></tr></thead>
                 <tbody>
                   ${items.length ? items.map((file) => `
                     <tr data-drive-item="${escapeHtml(file.name)}">
                       <td><button class="file-name" type="button" data-file-open="${escapeHtml(file.name)}" style="border:0;background:transparent;padding:0;text-align:left;">${icon(file.type)}<strong>${file.name}</strong><span class="tag ${file.action === "已入库" ? "green" : file.action === "待摘要" ? "orange" : "blue"}">${file.action}</span></button></td>
                       <td><span class="muted">${file.updated}（${file.owner}）</span></td>
                       <td><span class="muted">${file.size}</span></td>
-                      <td><div class="action-row drive-row-actions" style="justify-content:flex-end;"><button class="btn compact primary drive-row-action" type="button" data-ai-assistant="drive" aria-label="提问" title="提问">${icon("ai")}<span class="drive-action-label">提问</span></button><button class="btn compact drive-row-action" type="button" data-action-panel="summaryFile" data-action-title="${file.name}" aria-label="摘要" title="摘要">${icon("summary")}<span class="drive-action-label">摘要</span></button><button class="btn compact drive-row-action" type="button" data-open-modal aria-label="入库" title="入库">${icon("kb")}<span class="drive-action-label">入库</span></button></div></td>
+                      <td><div class="action-row drive-row-actions"><button class="btn compact primary drive-row-action" type="button" data-ai-assistant="drive" aria-label="提问" title="提问">${icon("ai")}<span class="drive-action-label">提问</span></button><button class="btn compact drive-row-action" type="button" data-action-panel="summaryFile" data-action-title="${file.name}" aria-label="摘要" title="摘要">${icon("summary")}<span class="drive-action-label">摘要</span></button><button class="btn compact drive-row-action" type="button" data-open-modal aria-label="入库" title="入库">${icon("kb")}<span class="drive-action-label">入库</span></button></div></td>
                     </tr>
                   `).join("") : `<tr><td colspan="4">${emptyState("没有找到匹配文件", "可以上传资料后生成摘要并加入知识库。", "上传资料")}</td></tr>`}
                 </tbody>
