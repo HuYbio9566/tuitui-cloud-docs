@@ -8386,8 +8386,8 @@
 
     /* Document list rows keep their action reveal, but have no visual hover fill. */
     .my-doc-list {
-      --my-doc-columns: minmax(220px, 1fr) 108px 132px 102px 160px 112px;
-      min-width: 880px;
+      --my-doc-columns: minmax(220px, 1fr) 108px 172px 102px 160px 112px;
+      min-width: 920px;
       overflow: visible;
       gap: 0;
     }
@@ -8429,13 +8429,26 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .my-doc-update { display: flex; flex-direction: column; gap: 1px; }
-    .my-doc-update strong {
-      overflow: hidden; color: #394150; font-size: 12px; line-height: 17px;
-      font-weight: 500; text-overflow: ellipsis; white-space: nowrap;
+    .my-doc-update {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      overflow: hidden;
+      white-space: nowrap;
     }
-    .my-doc-update span {
-      overflow: hidden; color: #8A93A1; text-overflow: ellipsis; white-space: nowrap;
+    .my-doc-update strong {
+      flex: 0 0 auto;
+      color: #394150;
+      font-size: 12px;
+      line-height: 17px;
+      font-weight: 500;
+    }
+    .my-doc-update-separator { color: #C4CAD3; }
+    .my-doc-update-time {
+      overflow: hidden;
+      color: #8A93A1;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .my-doc-update { grid-column: 3; grid-row: 1; }
     .my-doc-validity { grid-column: 4; grid-row: 1; color: #596273; white-space: nowrap; }
@@ -10571,7 +10584,7 @@
             </span>
           </button>
           <div class="my-doc-person">${escapeHtml(doc.owner)}</div>
-          <div class="my-doc-update"><strong>${escapeHtml(updatedBy)}</strong><span>${escapeHtml(updatedAt)}</span></div>
+          <div class="my-doc-update"><strong>${escapeHtml(updatedBy)}</strong><span class="my-doc-update-separator">|</span><span class="my-doc-update-time">更新于${escapeHtml(updatedAt)}</span></div>
           <div class="my-doc-validity">${escapeHtml(validUntil)}</div>
           <div class="tag-row kb-doc-status">
             ${doc.confidential ? `<span class="tag danger">${icon("lock")}保密</span>` : ""}
@@ -10697,7 +10710,7 @@
         </div>
         <section class="card panel my-doc-panel" data-screen-label="v3-我的文档-${activeTab}">
           ${batchBar}
-          ${items.length ? activeTab === "unlinked" ? `<div class="doc-list">${items.map(unlinkedDocRow).join("")}</div>` : `<div class="my-doc-table-scroll"><div class="doc-list my-doc-list"><div class="doc-list-header my-doc-list-header" role="row" aria-label="文档列表标题"><span>文档</span><span>创建人</span><span>更新状态</span><span>有效时间</span><span>操作</span><span>状态</span></div>${items.map(myDocRow).join("")}</div></div>` : emptyState("没有匹配的文档", "可以换个关键词，或切换到其他文档视图。", "新建文档")}
+          ${items.length ? activeTab === "unlinked" ? `<div class="doc-list">${items.map(unlinkedDocRow).join("")}</div>` : `<div class="my-doc-table-scroll"><div class="doc-list my-doc-list"><div class="doc-list-header my-doc-list-header" role="row" aria-label="文档列表标题"><span>文档</span><span>创建人</span><span>文档动态</span><span>有效时间</span><span>操作</span><span>状态</span></div>${items.map(myDocRow).join("")}</div></div>` : emptyState("没有匹配的文档", "可以换个关键词，或切换到其他文档视图。", "新建文档")}
         </section>
       `;
     }
