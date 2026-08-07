@@ -9975,7 +9975,7 @@
       const aiAction = (context = state.screen) => `<button class="btn" type="button" data-ai-assistant="${context}">${icon("ai")}AI 助手</button>`;
       const actions = {
         home: `<button class="btn" type="button" data-screen="aiHistory">${icon("comment")}AI 历史</button><button class="btn primary" type="button" data-screen="editor">${icon("plus")}新建文档</button>`,
-        spaces: `${aiAction("spaces")}<button class="btn primary" type="button" data-action-panel="createSpace">${icon("plus")}新建空间</button>`,
+        spaces: "",
         docs: "",
         editor: editorPreviewDocument
           ? `<button class="btn" type="button" data-action-panel="shareDocument" data-action-title="${escapeHtml(editorPreviewDocument.title)}">${icon("share")}分享</button><button class="btn" type="button" data-action-panel="documentInfo">${icon("doc")}文档信息</button><button class="icon-button" type="button" aria-label="更多文档操作" title="更多文档操作" data-action-panel="documentMore">${icon("more")}</button><button class="btn primary" type="button" data-enter-edit>进入编辑</button>`
@@ -9985,9 +9985,7 @@
         aiHistory: `<button class="btn" type="button" data-screen="home">返回首页</button><button class="btn primary" type="button" data-screen="home">${icon("plus")}新建 AI 工作</button>`,
         knowledge: "",
         knowledgeDetail: `<button class="btn" type="button" data-screen="knowledge">返回知识库</button><button class="btn primary" type="button" data-ai-assistant="knowledgeDetail">${icon("ai")}AI 助手</button>`,
-        discover: state.selectedDiscoverTab === "experts"
-          ? ""
-          : `${aiAction("discover")}<button class="btn primary" type="button" data-action-panel="publishKb">${icon("plus")}发布知识库</button>`,
+        discover: "",
         drive: `<button class="btn" type="button" data-create-type-toggle aria-haspopup="menu" aria-expanded="${state.createTypeMenuOpen}">${icon("plus")}新建</button><button class="btn primary" type="button" data-action-panel="uploadFile">${icon("upload")}上传</button>`,
         tools: state.toolSection === "skills"
           ? `${aiAction("tools")}${state.skillScope === "mine" ? `<button class="btn primary" type="button" data-action-panel="createSkill">${icon("plus")}创建技能</button>` : ""}`
@@ -10871,8 +10869,12 @@
       const items = filterItems(scopedSpaces);
       if (!items.length) return emptyState("没有找到相关空间", "可以换个关键词，或新建团队协作空间。", "新建空间");
       return `
-        <div class="tabs">
-          ${[["all","我参与的"],["owned","我负责的"],["department","部门空间"],["open","开放空间"],["favorite","我收藏的"]].map(([id,label]) => `<button class="tab ${state.selectedSpaceTab === id ? "active" : ""}" type="button" data-space-tab="${id}">${label}</button>`).join("")}
+        <div class="tabs tabs-with-actions">
+          <div class="tab-filter-group">${[["all","我参与的"],["owned","我负责的"],["department","部门空间"],["open","开放空间"],["favorite","我收藏的"]].map(([id,label]) => `<button class="tab ${state.selectedSpaceTab === id ? "active" : ""}" type="button" data-space-tab="${id}">${label}</button>`).join("")}</div>
+          <div class="tab-inline-actions knowledge-inline-actions" aria-label="文档空间操作">
+            <button class="icon-button" type="button" data-ai-assistant="spaces" aria-label="打开 AI 助手" title="AI 助手">${icon("ai")}</button>
+            <button class="icon-button" type="button" data-action-panel="createSpace" aria-label="新建空间" title="新建空间">${icon("plus")}</button>
+          </div>
         </div>
         <div class="grid cols-2" data-screen-label="v3-文档空间-协作空间入口">
           ${items.map((space) => `
@@ -11434,11 +11436,16 @@
           if (activeDiscoverTab === "合规与安全") return item.category.includes("合规") || item.category.includes("安全");
           return item.category === activeDiscoverTab;
         });
-      const items = filterItems(scopedResources);
+      const items = filterCatalog(scopedResources);
       if (!items.length) return emptyState("未找到相关知识库", "可以换个关键词，或发布团队内部常用资源。", "发布知识库");
       return `
-        <div class="tabs" data-screen-label="v2-知识广场-仅知识资源">
-          ${discoverTabs.map((tab) => `<button class="tab ${tab.id === activeDiscoverTab ? "active" : ""}" type="button" data-discover-tab="${tab.id}">${tab.label}</button>`).join("")}
+        <div class="tabs tabs-with-actions" data-screen-label="v2-知识广场-仅知识资源">
+          <div class="tab-filter-group">${discoverTabs.map((tab) => `<button class="tab ${tab.id === activeDiscoverTab ? "active" : ""}" type="button" data-discover-tab="${tab.id}">${tab.label}</button>`).join("")}</div>
+          <div class="tab-inline-actions knowledge-inline-actions" aria-label="知识广场操作">
+            ${catalogSearch("搜索知识库")}
+            <button class="icon-button" type="button" data-ai-assistant="discover" aria-label="打开 AI 助手" title="AI 助手">${icon("ai")}</button>
+            <button class="icon-button" type="button" data-action-panel="publishKb" aria-label="发布知识库" title="发布知识库">${icon("plus")}</button>
+          </div>
         </div>
         <div class="grid cols-3">
           ${items.map((item) => `
