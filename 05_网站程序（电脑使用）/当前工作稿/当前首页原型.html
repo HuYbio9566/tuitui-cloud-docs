@@ -389,7 +389,7 @@
       transform: scaleX(-1);
     }
     .desktop.sidebar-collapsed .sidebar { display: none; }
-    .desktop.sidebar-collapsed .sidebar-restore { display: inline-flex; }
+    .desktop.sidebar-collapsed .content-head .sidebar-restore { display: inline-flex; }
     .desktop.document-mode .sidebar-restore,
     .desktop.suite-mode .sidebar-restore { display: none; }
 
@@ -8662,9 +8662,17 @@
       color: #FFFFFF !important;
     }
 
-    /* Reserve space for the restore button after the sidebar is collapsed. */
-    .desktop.sidebar-collapsed:not(.document-mode):not(.suite-mode) .content-head {
-      padding-left: 52px !important;
+    /* Keep the restore control inside the same flex row as the top navigation. */
+    .content-head .topbar-leading {
+      min-width: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .content-head .sidebar-restore {
+      position: static;
+      flex: 0 0 28px;
     }
     .desktop.sidebar-collapsed:not(.document-mode):not(.suite-mode) .content-head .topbar-module-tabs {
       padding-left: 12px;
@@ -10010,8 +10018,11 @@
       ` : moduleTabs || `<div><h1 class="page-title">${pageTitle}</h1></div>`;
       topbar.classList.toggle("document-topbar", Boolean(editorPreviewDocument));
       topbar.classList.toggle("directory-topbar", directoryScreen);
+      const restoreControl = state.sidebarCollapsed && !editorPreviewDocument && state.screen !== "suite"
+        ? `<button class="sidebar-restore" type="button" data-toggle-sidebar aria-label="展开侧栏" title="展开侧栏"><span class="icon sidebar-collapse"></span></button>`
+        : "";
       topbar.innerHTML = `
-        ${titleMarkup}
+        <div class="topbar-leading">${restoreControl}${titleMarkup}</div>
         <div class="topbar-actions">${actions[state.screen] ?? actions.home}</div>
       `;
     }
