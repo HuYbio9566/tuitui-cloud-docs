@@ -8490,7 +8490,7 @@
 
     /* Document list rows keep their action reveal, but have no visual hover fill. */
     .my-doc-list {
-      --my-doc-columns: minmax(220px, 1fr) 108px 112px 172px 102px 48px;
+      --my-doc-columns: minmax(220px, 1fr) 108px 112px 172px 102px 64px;
       min-width: 808px;
       overflow: visible;
       gap: 0;
@@ -8508,8 +8508,8 @@
     }
     .my-doc-list-header span { min-width: 0; text-align: left !important; white-space: nowrap; }
     .my-doc-list.is-created {
-      --my-doc-columns: minmax(220px, 1fr) 112px 172px 102px 48px;
-      min-width: 704px;
+      --my-doc-columns: minmax(220px, 1fr) 112px 172px 102px 64px;
+      min-width: 720px;
     }
     .my-doc-list.is-created .my-doc-person { display: none; }
     .my-doc-list.is-created .my-doc-row .kb-doc-status { grid-column: 2; }
@@ -8568,8 +8568,8 @@
     .my-doc-row .kb-doc-actions {
       grid-column: 6;
       grid-row: 1;
-      width: 32px;
-      max-width: 32px !important;
+      width: 64px;
+      max-width: 64px !important;
       height: 32px;
       justify-self: center;
       padding: 0 !important;
@@ -8582,6 +8582,7 @@
       transform: none !important;
     }
     .my-doc-row .kb-doc-actions .kb-doc-action { display: none; }
+    .my-doc-row .kb-doc-actions [data-my-doc-action="favorite"],
     .my-doc-row .kb-doc-actions [data-my-doc-action="more"] { display: inline-flex; }
     .my-doc-row .kb-doc-status {
       grid-column: 3; grid-row: 1; align-items: flex-start; justify-content: flex-start;
@@ -10790,6 +10791,7 @@
     function myDocRow(doc, hidePerson = false) {
       const docName = escapeHtml(doc.name);
       const menuOpen = state.myDocMenuName === doc.name;
+      const favorite = state.favoriteMyDocs.includes(doc.name);
       const updatedBy = doc.updatedBy || doc.owner;
       const updatedAt = doc.updatedAt || doc.time || doc.access || "刚刚";
       const validUntil = doc.validUntil || "长期有效";
@@ -10810,6 +10812,7 @@
             <span class="tag ${statusTone(doc.status)}">${escapeHtml(doc.status)}</span>
           </div>
           <div class="kb-doc-actions" role="toolbar" aria-label="${docName} 文档操作">
+            <button class="kb-doc-action ${favorite ? "active" : ""}" type="button" data-my-doc-action="favorite" data-my-doc-name="${docName}" aria-label="${favorite ? "取消收藏" : "收藏"} ${docName}" aria-pressed="${favorite}" title="${favorite ? "取消收藏" : "收藏"}">${icon(favorite ? "star-on" : "star")}</button>
             <button class="kb-doc-action ${menuOpen ? "active" : ""}" type="button" data-my-doc-action="more" data-my-doc-name="${docName}" aria-label="${docName} 更多操作" aria-haspopup="menu" aria-expanded="${menuOpen}" title="更多">${icon("more")}</button>
           </div>
         </article>
