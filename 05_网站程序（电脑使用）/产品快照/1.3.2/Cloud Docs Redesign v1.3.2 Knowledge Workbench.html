@@ -936,6 +936,38 @@
       color: var(--fs-primary);
     }
 
+    .quick-item-row {
+      min-width: 0;
+      height: 32px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 26px;
+      align-items: center;
+      border-radius: var(--fs-radius-md);
+    }
+    .quick-item-row:hover,
+    .quick-item-row:focus-within { background: var(--fs-bg-hover); }
+    .quick-item-row.active { background: var(--fs-bg-selected); }
+    .quick-item-row .quick-item { height: 32px; }
+    .quick-item-more {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      border-radius: var(--fs-radius-sm);
+      background: transparent;
+      color: var(--fs-text-tertiary);
+      cursor: pointer;
+      opacity: 0;
+    }
+    .quick-item-row:hover .quick-item-more,
+    .quick-item-more:focus-visible,
+    .quick-item-row.menu-open .quick-item-more { opacity: 1; }
+    .quick-item-more:hover,
+    .quick-item-more:focus-visible { background: #FFFFFF; color: var(--fs-text-title); }
+    .quick-item-more .icon { width: 14px; height: 14px; }
+
     .workspace {
       flex: 1;
       min-width: 0;
@@ -8775,6 +8807,9 @@
       myDocMenuName: "",
       favoriteMyDocs: [],
       deletedMyDocs: [],
+      quickMenuName: "",
+      quickMenuPosition: { top: 0, left: 0 },
+      unfavoriteQuickItems: [],
       selectedConversationId: "",
       documentOutlineCollapsed: false,
       mobileNavOpen: false,
@@ -9733,11 +9768,18 @@
             <button class="nav-title" type="button" data-toggle-group="quick" aria-expanded="${!quickCollapsed}"><span>我的收藏</span></button>
           </div>
           <div class="quick-list">
-            ${quickItems.map((item) => `
-              <button class="quick-item ${state.selectedQuickId === item.id ? "active" : ""}" type="button" data-quick-item="${item.id}">
-                ${quickItemIcon(item)}<span>${item.label}</span>
-              </button>
-            `).join("")}
+            ${quickItems.filter((item) => !state.unfavoriteQuickItems.includes(item.id)).map((item) => {
+              const active = state.selectedQuickId === item.id;
+              const menuOpen = state.quickMenuName === item.id;
+              return `
+                <div class="quick-item-row ${active ? "active" : ""} ${menuOpen ? "menu-open" : ""}" data-quick-row="${item.id}">
+                  <button class="quick-item ${active ? "active" : ""}" type="button" data-quick-item="${item.id}">
+                    ${quickItemIcon(item)}<span>${item.label}</span>
+                  </button>
+                  <button class="quick-item-more" type="button" data-quick-more="${item.id}" aria-label="${item.label}的更多操作" aria-haspopup="menu" aria-expanded="${menuOpen}" title="更多操作">${icon("more")}</button>
+                </div>
+              `;
+            }).join("")}
           </div>
         </div>
       `;
@@ -9763,6 +9805,9 @@
       `;
 
       document.getElementById("sideNav").innerHTML = renderPrimarySideNav() + quick + conversationHistory;
+      if (state.quickMenuName) {
+        document.getElementById("sideNav").insertAdjacentHTML("beforeend", quickDocMenu(state.quickMenuName));
+      }
       renderMoreNavMenu();
       renderCreateTypeMenu();
     }
@@ -10698,6 +10743,34 @@
         ? Math.max(gutter, anchorY - menuHeight)
         : Math.min(viewportHeight - menuHeight - gutter, anchorY + 6);
       state.myDocMenuPosition = { top, left };
+    }
+
+    function positionQuickMenu(anchorX, anchorY) {
+      const menuWidth = 168;
+      const menuHeight = 176;
+      const gutter = 8;
+      const viewportWidth = window.innerWidth || 1440;
+      const viewportHeight = window.innerHeight || 900;
+      const left = Math.max(gutter, Math.min(viewportWidth - menuWidth - gutter, anchorX));
+      const openAbove = anchorY + menuHeight + gutter > viewportHeight;
+      const top = openAbove
+        ? Math.max(gutter, anchorY - menuHeight)
+        : Math.min(viewportHeight - menuHeight - gutter, anchorY + 6);
+      state.quickMenuPosition = { top, left };
+    }
+
+    function quickDocMenu(docId) {
+      const item = quickItems.find((candidate) => candidate.id === docId);
+      if (!item) return "";
+      const escapedName = escapeHtml(item.label);
+      return `
+        <div class="kb-doc-menu my-doc-floating-menu quick-floating-menu" role="menu" aria-label="${escapedName} 更多操作" style="--my-doc-menu-top:${state.quickMenuPosition.top}px;--my-doc-menu-left:${state.quickMenuPosition.left}px;">
+          <button class="kb-doc-menu-item" type="button" role="menuitem" data-quick-menu-action="unfavorite" data-quick-menu-id="${item.id}">${icon("star-on")}取消收藏</button>
+          <button class="kb-doc-menu-item" type="button" role="menuitem" data-quick-menu-action="rename" data-quick-menu-id="${item.id}">${icon("rename")}重命名</button>
+          <button class="kb-doc-menu-item" type="button" role="menuitem" data-quick-menu-action="share" data-quick-menu-id="${item.id}">${icon("share")}分享</button>
+          <button class="kb-doc-menu-item danger" type="button" role="menuitem" data-quick-menu-action="delete" data-quick-menu-id="${item.id}">${icon("trash")}删除</button>
+        </div>
+      `;
     }
 
     function myDocMenu(docName) {
@@ -12582,6 +12655,48 @@
         return;
       }
 
+      const quickMoreTarget = event.target.closest("[data-quick-more]");
+      if (quickMoreTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        const docId = quickMoreTarget.dataset.quickMore;
+        const opening = state.quickMenuName !== docId;
+        if (opening) {
+          const rect = quickMoreTarget.getBoundingClientRect();
+          positionQuickMenu(rect.right, rect.bottom);
+        }
+        state.quickMenuName = opening ? docId : "";
+        state.myDocMenuName = "";
+        state.kbDocMenuName = "";
+        renderSideNav();
+        if (opening) requestAnimationFrame(() => document.querySelector(".quick-floating-menu [role=\"menuitem\"]")?.focus());
+        return;
+      }
+
+      const quickMenuTarget = event.target.closest("[data-quick-menu-action]");
+      if (quickMenuTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        const action = quickMenuTarget.dataset.quickMenuAction;
+        const docId = quickMenuTarget.dataset.quickMenuId;
+        const item = quickItems.find((candidate) => candidate.id === docId);
+        state.quickMenuName = "";
+        renderSideNav();
+        if (!item) return;
+        if (action === "unfavorite") {
+          state.unfavoriteQuickItems = [...state.unfavoriteQuickItems, docId];
+          renderSideNav();
+          showToast(`已取消收藏：${item.label}`);
+        } else if (action === "share") {
+          openActionPanel("shareDocument", item.label);
+        } else if (action === "delete") {
+          openActionPanel("deleteMyDocument", item.label);
+        } else if (action === "rename") {
+          openActionPanel("renameKnowledgeDoc", item.label);
+        }
+        return;
+      }
+
       const recentDocTarget = event.target.closest("[data-recent-doc]");
       if (recentDocTarget) {
         const documentName = recentDocTarget.dataset.recentDoc;
@@ -13595,17 +13710,34 @@
         state.myDocMenuName = "";
         renderContent();
       }
+      if (state.quickMenuName && !event.target.closest(".quick-item-row.menu-open") && !event.target.closest(".quick-floating-menu")) {
+        state.quickMenuName = "";
+        renderSideNav();
+      }
     });
 
     document.addEventListener("contextmenu", (event) => {
       const row = event.target.closest(".my-doc-row[data-my-doc-row]");
-      if (!row) return;
-      event.preventDefault();
-      positionMyDocMenu(event.clientX, event.clientY);
-      state.myDocMenuName = row.dataset.myDocRow;
-      state.kbDocMenuName = "";
-      renderContent();
-      requestAnimationFrame(() => document.querySelector(".my-doc-floating-menu [role='menuitem']")?.focus());
+      if (row) {
+        event.preventDefault();
+        positionMyDocMenu(event.clientX, event.clientY);
+        state.myDocMenuName = row.dataset.myDocRow;
+        state.quickMenuName = "";
+        state.kbDocMenuName = "";
+        renderContent();
+        requestAnimationFrame(() => document.querySelector(".my-doc-floating-menu [role='menuitem']")?.focus());
+        return;
+      }
+      const quickRow = event.target.closest(".quick-item-row[data-quick-row]");
+      if (quickRow) {
+        event.preventDefault();
+        positionQuickMenu(event.clientX, event.clientY);
+        state.quickMenuName = quickRow.dataset.quickRow;
+        state.myDocMenuName = "";
+        state.kbDocMenuName = "";
+        renderSideNav();
+        requestAnimationFrame(() => document.querySelector(".quick-floating-menu [role='menuitem']")?.focus());
+      }
     });
 
     document.addEventListener("keydown", (event) => {
@@ -13663,6 +13795,10 @@
       if (state.myDocMenuName) {
         state.myDocMenuName = "";
         renderContent();
+      }
+      if (state.quickMenuName) {
+        state.quickMenuName = "";
+        renderSideNav();
       }
       if (state.mobileNavOpen) {
         state.mobileNavOpen = false;
