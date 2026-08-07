@@ -3,3 +3,14 @@
 
 # nested git backup
 **/.git-embedded-backup
+
+# 本地项目资料（不属于可运行网站）
+00_老板首页/
+02_项目管理/
+03_设计资料/
+04_历史资料/
+05_网站程序（电脑使用）/
+*.md
+*.png
+!README.md
+!assets/**/*.png
