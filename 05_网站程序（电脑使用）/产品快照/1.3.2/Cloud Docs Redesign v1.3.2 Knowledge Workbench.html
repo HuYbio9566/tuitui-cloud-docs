@@ -366,8 +366,8 @@
 
     .sidebar-restore {
       position: absolute;
-      top: 14px;
-      left: 12px;
+      top: 20px;
+      left: 20px;
       z-index: 8;
       width: 28px;
       height: 28px;
@@ -8659,7 +8659,11 @@
 
     /* Reserve space for the restore button after the sidebar is collapsed. */
     .desktop.sidebar-collapsed:not(.document-mode):not(.suite-mode) .content-head {
-      padding-left: 26px !important;
+      padding-left: 52px !important;
+    }
+    .desktop.sidebar-collapsed:not(.document-mode):not(.suite-mode) .content-head .topbar-module-tabs {
+      padding-left: 12px;
+      border-left: 1px solid var(--dna-divider);
     }
 
   </style>
