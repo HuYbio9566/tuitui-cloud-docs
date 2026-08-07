@@ -8584,6 +8584,10 @@
     .my-doc-row .kb-doc-actions .kb-doc-action { display: none; }
     .my-doc-row .kb-doc-actions [data-my-doc-action="favorite"],
     .my-doc-row .kb-doc-actions [data-my-doc-action="more"] { display: inline-flex; }
+    .my-doc-row .kb-doc-actions [data-my-doc-action="more"] { opacity: 0; }
+    .my-doc-row:hover .kb-doc-actions [data-my-doc-action="more"],
+    .my-doc-row:focus-within .kb-doc-actions [data-my-doc-action="more"],
+    .my-doc-row.menu-open .kb-doc-actions [data-my-doc-action="more"] { opacity: 1; }
     .my-doc-row .kb-doc-status {
       grid-column: 3; grid-row: 1; align-items: flex-start; justify-content: flex-start;
       flex-direction: column; gap: 3px;
@@ -10734,7 +10738,7 @@
 
     function positionMyDocMenu(anchorX, anchorY) {
       const menuWidth = 168;
-      const menuHeight = 252;
+      const menuHeight = 132;
       const gutter = 8;
       const viewportWidth = window.innerWidth || 1440;
       const viewportHeight = window.innerHeight || 900;
@@ -10778,11 +10782,8 @@
       const escapedName = escapeHtml(docName);
       return `
         <div class="kb-doc-menu my-doc-floating-menu" role="menu" aria-label="${escapedName} 更多操作" style="--my-doc-menu-top:${state.myDocMenuPosition.top}px;--my-doc-menu-left:${state.myDocMenuPosition.left}px;">
-          <button class="kb-doc-menu-item" type="button" role="menuitem" data-my-doc-menu-action="move" data-my-doc-name="${escapedName}">${icon("move")}移动到</button>
-          <button class="kb-doc-menu-item" type="button" role="menuitem" data-my-doc-menu-action="copy" data-my-doc-name="${escapedName}">${icon("copy")}复制到</button>
           <button class="kb-doc-menu-item" type="button" role="menuitem" data-my-doc-menu-action="rename" data-my-doc-name="${escapedName}">${icon("rename")}重命名</button>
           <button class="kb-doc-menu-item" type="button" role="menuitem" data-my-doc-menu-action="share" data-my-doc-name="${escapedName}">${icon("share")}分享</button>
-          <button class="kb-doc-menu-item" type="button" role="menuitem" data-my-doc-menu-action="download" data-my-doc-name="${escapedName}">${icon("download")}下载</button>
           <button class="kb-doc-menu-item danger" type="button" role="menuitem" data-my-doc-menu-action="delete" data-my-doc-name="${escapedName}">${icon("trash")}删除</button>
         </div>
       `;
@@ -12725,15 +12726,12 @@
         const action = myDocActionTarget.dataset.myDocAction;
         const docName = myDocActionTarget.dataset.myDocName;
         if (action === "more") {
-          const opening = state.myDocMenuName !== docName;
-          if (opening) {
-            const rect = myDocActionTarget.getBoundingClientRect();
-            positionMyDocMenu(rect.right, rect.bottom);
-          }
-          state.myDocMenuName = opening ? docName : "";
+          const rect = myDocActionTarget.getBoundingClientRect();
+          positionMyDocMenu(rect.right, rect.bottom);
+          state.myDocMenuName = docName;
           state.kbDocMenuName = "";
           renderContent();
-          if (opening) requestAnimationFrame(() => document.querySelector(".my-doc-floating-menu [role='menuitem']")?.focus());
+          requestAnimationFrame(() => document.querySelector(".my-doc-floating-menu [role='menuitem']")?.focus());
           return;
         }
         if (action === "favorite") {
@@ -13741,6 +13739,19 @@
         renderSideNav();
         requestAnimationFrame(() => document.querySelector(".quick-floating-menu [role='menuitem']")?.focus());
       }
+    });
+
+    document.addEventListener("pointerover", (event) => {
+      const more = event.target.closest('.my-doc-row [data-my-doc-action="more"]');
+      if (!more || more.matches(':focus-visible')) return;
+      const docName = more.dataset.myDocName;
+      if (!docName || state.myDocMenuName === docName) return;
+      const rect = more.getBoundingClientRect();
+      positionMyDocMenu(rect.right, rect.bottom);
+      state.myDocMenuName = docName;
+      state.quickMenuName = "";
+      state.kbDocMenuName = "";
+      renderContent();
     });
 
     document.addEventListener("keydown", (event) => {
