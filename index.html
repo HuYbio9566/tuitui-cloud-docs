@@ -2507,6 +2507,10 @@
     }
 
     /* 历史任务详情：沿用 GPT / Codex 的任务线程结构。 */
+    .content.home-conversation-content {
+      padding: 0 !important;
+    }
+
     .task-thread-page {
       height: 100%;
       min-height: 0;
@@ -6041,24 +6045,11 @@
       padding: 0 7px;
       overflow: hidden;
       white-space: nowrap;
-      transition: width 160ms ease, min-width 160ms ease, gap 160ms ease, padding 160ms ease, background 160ms ease;
+      transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
     }
 
     .drive-main .table .drive-row-action .drive-action-label {
       display: none;
-    }
-
-    .drive-main .table .drive-row-action:hover,
-    .drive-main .table .drive-row-action:focus-visible {
-      width: auto;
-      min-width: 64px;
-      gap: 5px;
-      padding-inline: 9px;
-    }
-
-    .drive-main .table .drive-row-action:hover .drive-action-label,
-    .drive-main .table .drive-row-action:focus-visible .drive-action-label {
-      display: inline;
     }
 
     .empty-state {
@@ -8417,19 +8408,24 @@
       color: var(--fs-text-title);
     }
     .tab-inline-actions .icon-button[data-screen="editor"],
-    .tab-inline-actions .icon-button[data-action-panel="createKb"] {
-      background: var(--dna-primary-gradient);
-      border-color: transparent;
-      color: #FFFFFF;
+    .tab-inline-actions .icon-button[data-action-panel="createSpace"],
+    .tab-inline-actions .icon-button[data-action-panel="createKb"],
+    .tab-inline-actions .icon-button[data-action-panel="publishKb"] {
+      background: var(--dna-primary-gradient) !important;
+      background-image: var(--dna-primary-gradient) !important;
+      border-color: transparent !important;
+      color: #FFFFFF !important;
     }
     .tab-inline-actions .icon-button[data-ai-assistant]:hover {
       background: #F5F6F8;
       color: var(--fs-text-title);
     }
     .tab-inline-actions .icon-button[data-screen="editor"]:hover,
-    .tab-inline-actions .icon-button[data-action-panel="createKb"]:hover {
-      background: var(--dna-primary-gradient);
-      color: #FFFFFF;
+    .tab-inline-actions .icon-button[data-action-panel="createSpace"]:hover,
+    .tab-inline-actions .icon-button[data-action-panel="createKb"]:hover,
+    .tab-inline-actions .icon-button[data-action-panel="publishKb"]:hover {
+      background: var(--dna-primary-gradient) !important;
+      color: #FFFFFF !important;
       filter: brightness(1.04);
     }
     .tab-inline-actions .icon-button:hover {
@@ -8449,7 +8445,7 @@
     .document-topbar .topbar-actions > .btn:not(.primary),
     .document-topbar .topbar-actions > .icon-button {
       height: 28px !important;
-      border: 0 !important;
+      border: 1px solid #D9DDE5 !important;
       background: #FFFFFF !important;
       box-shadow: none !important;
     }
@@ -8467,7 +8463,7 @@
     .document-topbar .topbar-actions > .btn:not(.primary):hover,
     .document-topbar .topbar-actions > .icon-button:hover {
       background: #F5F6F8 !important;
-      border-color: transparent !important;
+      border-color: #C9CED8 !important;
       box-shadow: none !important;
     }
 
@@ -8667,13 +8663,24 @@
       color: var(--fs-text-title) !important;
     }
     /* Match the document-detail more button to the outlined buttons beside it. */
+    .desktop.document-mode .content-head .topbar-actions > .btn:not(.primary),
+    .desktop.document-mode .content-head .topbar-actions > .icon-button {
+      border: 1px solid #D9DDE5 !important;
+      background: #FFFFFF !important;
+      box-shadow: none !important;
+    }
+    .desktop.document-mode .content-head .topbar-actions > .btn:not(.primary):hover,
+    .desktop.document-mode .content-head .topbar-actions > .icon-button:hover {
+      border-color: #C9CED8 !important;
+      background: #F7F8FA !important;
+    }
     .desktop.document-mode .content-head [data-action-panel="documentMore"] {
-      border: 1px solid var(--dna-border) !important;
+      border: 1px solid #D9DDE5 !important;
       background: #FFFFFF !important;
       box-shadow: none !important;
     }
     .desktop.document-mode .content-head [data-action-panel="documentMore"]:hover {
-      border-color: var(--dna-border) !important;
+      border-color: #C9CED8 !important;
       background: #F7F8FA !important;
     }
 
@@ -8868,7 +8875,7 @@
       favoriteKnowledgeDocs: [],
       deletedKnowledgeDocs: [],
       myDocMenuName: "",
-      favoriteMyDocs: [],
+      favoriteMyDocs: ["AI 工具订阅报销规则汇总", "智汇云会员知识库 FAQ", "工作周报 06.09", "字体合规使用指南", "技术部周报模板（标准版）"],
       deletedMyDocs: [],
       quickMenuName: "",
       quickMenuPosition: { top: 0, left: 0 },
@@ -8878,7 +8885,7 @@
       documentOutlineCollapsed: false,
       mobileNavOpen: false,
       suiteModule: "cloud-doc",
-      selectedSpaceTab: "all",
+      selectedSpaceTab: "recent",
       selectedDriveNode: "效能工程部",
       expandedDriveNodes: ["360", "技术中台"],
       driveView: "list",
@@ -9076,11 +9083,10 @@
     ];
 
     const myDocTabs = [
-      { id: "recent", label: "最近打开" },
+      { id: "recent", label: "最近更新" },
       { id: "created", label: "我创建的" },
       { id: "shared", label: "与我共享" },
-      { id: "pending", label: "待我处理" },
-      { id: "unlinked", label: "待关联知识库" }
+      { id: "favorite", label: "收藏文档" }
     ];
 
     const knowledgeBases = [
@@ -10773,6 +10779,9 @@
 
     function getMyDocView(tabId) {
       const pendingDocs = docs.filter((doc) => doc.relation === "待我处理" || doc.status === "待复核" || doc.status === "过期提醒");
+      const favoriteDocs = [...recentDocs, ...docs]
+        .filter((doc, index, allDocs) => state.favoriteMyDocs.includes(doc.name) && allDocs.findIndex((item) => item.name === doc.name) === index)
+        .map((doc) => doc.access ? normalizeRecentDoc(doc) : normalizeOwnedDoc(doc));
       const unlinkedDocs = [
         ...recentDocs.filter((doc) => doc.status === "待关联").map((doc) => normalizeRecentDoc(doc, "关联")),
         normalizeRecentDoc({ name: "采购凭证截图归档", type: "doc", owner: "胡玉彪", access: "昨天 17:46", reason: "等待选择归属知识库", kb: "未关联", status: "待关联" }, "关联"),
@@ -10780,7 +10789,7 @@
       ];
       const views = {
         recent: {
-          desc: "默认回到最近打开的文档，适合继续编辑、引用和复核。",
+          desc: "默认展示最近更新的文档，适合继续编辑、引用和复核。",
           items: recentDocs.map((doc) => normalizeRecentDoc(doc))
         },
         created: {
@@ -10790,6 +10799,10 @@
         shared: {
           desc: "集中查看别人共享给我的文档，保留来源人、时间和关联知识库状态。",
           items: docs.filter((doc) => doc.relation === "与我共享").map((doc) => normalizeOwnedDoc(doc))
+        },
+        favorite: {
+          desc: "集中查看已收藏的常用文档，便于快速访问和持续跟进。",
+          items: favoriteDocs
         },
         pending: {
           desc: "汇总需要我复核、处理过期提醒或补充确认的文档。",
@@ -10914,12 +10927,12 @@
     }
 
     function renderSpaces() {
-      const scopedSpaces = state.selectedSpaceTab === "owned" ? docSpaces.filter((space) => ["胡玉彪", "宋登举"].includes(space.owner)) : state.selectedSpaceTab === "department" ? docSpaces.slice(3) : state.selectedSpaceTab === "open" ? docSpaces.filter((space) => !space.confidential) : state.selectedSpaceTab === "favorite" ? docSpaces.filter((space) => space.favorite) : docSpaces;
+      const scopedSpaces = state.selectedSpaceTab === "recent" ? docSpaces.slice(0, 4) : state.selectedSpaceTab === "owned" ? docSpaces.filter((space) => ["胡玉彪", "宋登举"].includes(space.owner)) : state.selectedSpaceTab === "department" ? docSpaces.slice(3) : state.selectedSpaceTab === "open" ? docSpaces.filter((space) => !space.confidential) : state.selectedSpaceTab === "favorite" ? docSpaces.filter((space) => space.favorite) : docSpaces;
       const items = filterItems(scopedSpaces);
       if (!items.length) return emptyState("没有找到相关空间", "可以换个关键词，或新建团队协作空间。", "新建空间");
       return `
         <div class="tabs tabs-with-actions">
-          <div class="tab-filter-group">${[["all","我参与的"],["owned","我负责的"],["department","部门空间"],["open","开放空间"],["favorite","我收藏的"]].map(([id,label]) => `<button class="tab ${state.selectedSpaceTab === id ? "active" : ""}" type="button" data-space-tab="${id}">${label}</button>`).join("")}</div>
+          <div class="tab-filter-group">${[["recent","最近访问"],["all","我参与的"],["owned","我负责的"],["department","部门空间"],["open","开放空间"],["favorite","收藏空间"]].map(([id,label]) => `<button class="tab ${state.selectedSpaceTab === id ? "active" : ""}" type="button" data-space-tab="${id}">${label}</button>`).join("")}</div>
           <div class="tab-inline-actions knowledge-inline-actions" aria-label="文档空间操作">
             <button class="icon-button" type="button" data-ai-assistant="spaces" aria-label="打开 AI 助手" title="AI 助手">${icon("ai")}</button>
             <button class="icon-button" type="button" data-action-panel="createSpace" aria-label="新建空间" title="新建空间">${icon("plus")}</button>
@@ -11701,7 +11714,7 @@
     }
 
     function currentDocTabLabel() {
-      return myDocTabs.find((tab) => tab.id === state.selectedDocTab)?.label || "最近打开";
+      return myDocTabs.find((tab) => tab.id === state.selectedDocTab)?.label || "最近更新";
     }
 
     function getAssistantContext() {
@@ -12795,7 +12808,7 @@
           kind: recentDoc.type || quickItem?.kind || "doc",
           origin: [
             { label: "我的文档", screen: "docs", docTab: "recent" },
-            { label: "最近打开", screen: "docs", docTab: "recent" }
+            { label: "最近更新", screen: "docs", docTab: "recent" }
           ],
           meta: recentDoc
         });
@@ -12958,7 +12971,7 @@
           };
         } else {
           const activeTab = myDocTabs.some((tab) => tab.id === state.selectedDocTab) ? state.selectedDocTab : "recent";
-          const tabLabel = myDocTabs.find((tab) => tab.id === activeTab)?.label || "最近打开";
+          const tabLabel = myDocTabs.find((tab) => tab.id === activeTab)?.label || "最近更新";
           const sourceDocument = recentDocs.find((item) => item.name === title) || docs.find((item) => item.name === title) || {};
           origin = [
             { label: "我的文档", screen: "docs", docTab: activeTab },
