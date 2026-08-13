@@ -3495,7 +3495,8 @@
 
     .kb-card .card-head { min-height: 58px; }
     .kb-card .card-title { gap: 12px; }
-    .kb-card .card-avatar { width: 42px; height: 42px; border-radius: 12px; background: var(--dna-primary-gradient-soft) !important; color: #5B6FF7 !important; }
+    .kb-card .card-avatar { width: 42px; height: 42px; border-radius: 12px; background: var(--dna-primary-gradient) !important; color: #FFFFFF !important; }
+    .kb-card .card-avatar .icon { color: #FFFFFF !important; }
     .kb-card .card-title h3 { font-size: 16px; line-height: 23px; }
     .kb-card .card-title p { margin-top: 4px !important; color: #677080 !important; font-size: 12px; line-height: 19px; }
     .kb-card > div:not(.card-head):not(.tag-row):not(.action-row) { flex: 0 0 auto !important; }
@@ -3505,6 +3506,49 @@
     .kb-card .tag.blue { background: #EEF0FF !important; border-color: #CDD0F5 !important; color: #5B6FF7 !important; }
     .kb-card .action-row { margin-top: auto; padding-top: 12px; border-top: 1px solid #E4EAF4; }
     .kb-card .btn.primary { background: var(--dna-primary-gradient) !important; }
+
+    .kb-card-documents {
+      min-height: 92px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 2px 0;
+    }
+
+    .kb-card-document {
+      min-width: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 14px;
+      min-height: 26px;
+      color: var(--fs-text-title);
+      font-size: 13px;
+      line-height: 20px;
+    }
+
+    .kb-card-document-name {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .kb-card-document-name::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      margin: 0 9px 2px 1px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .kb-card-document-time {
+      color: var(--fs-text-tertiary);
+      font-size: 12px;
+      white-space: nowrap;
+    }
 
     .kb-grid { gap: 14px !important; }
     .kb-layout.is-collapsed .kb-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
@@ -4600,6 +4644,147 @@
       line-height: 20px;
     }
 
+    .assistant-kb-switcher {
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    .assistant-kb-trigger {
+      width: 100%;
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 10px;
+      border: 1px solid var(--fs-divider);
+      border-radius: var(--fs-radius-md);
+      background: #FFFFFF;
+      color: var(--fs-text-title);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 140ms var(--fs-ease-out), background 140ms var(--fs-ease-out);
+    }
+
+    .assistant-kb-trigger:hover,
+    .assistant-kb-trigger[aria-expanded="true"] {
+      border-color: rgba(91, 112, 255, 0.42);
+      background: #F7F8FA;
+    }
+
+    .assistant-kb-trigger-main {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .assistant-kb-trigger-main .icon {
+      flex: 0 0 auto;
+      color: var(--fs-primary);
+    }
+
+    .assistant-kb-trigger-label {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .assistant-kb-trigger-label strong {
+      margin: 0;
+      overflow: hidden;
+      color: var(--fs-text-title);
+      font-size: 13px;
+      line-height: 20px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .assistant-kb-trigger-label span {
+      color: var(--fs-text-secondary);
+      font-size: 11px;
+      line-height: 16px;
+    }
+
+    .assistant-kb-trigger > .icon.chevron {
+      flex: 0 0 auto;
+      width: 16px;
+      height: 16px;
+      transition: transform 140ms var(--fs-ease-out);
+    }
+
+    .assistant-kb-trigger[aria-expanded="true"] > .icon.chevron {
+      transform: rotate(180deg);
+    }
+
+    .assistant-kb-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 6px;
+      padding: 6px;
+      border: 1px solid var(--fs-divider);
+      border-radius: var(--fs-radius-md);
+      background: #FFFFFF;
+      box-shadow: var(--fs-shadow-md);
+    }
+
+    .assistant-kb-option {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--fs-text-title);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .assistant-kb-option:hover,
+    .assistant-kb-option.active {
+      background: #F7F8FA;
+    }
+
+    .assistant-kb-option .tile-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+    }
+
+    .assistant-kb-option-copy {
+      min-width: 0;
+    }
+
+    .assistant-kb-option-copy strong,
+    .assistant-kb-option-copy span {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .assistant-kb-option-copy strong {
+      margin: 0;
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+    .assistant-kb-option-copy span {
+      color: var(--fs-text-secondary);
+      font-size: 11px;
+      line-height: 16px;
+    }
+
+    .assistant-kb-option-state {
+      color: var(--fs-primary);
+      font-size: 11px;
+      line-height: 16px;
+    }
+
     .assistant-message {
       padding: 12px;
       border-radius: var(--fs-radius-lg);
@@ -5610,6 +5795,238 @@
 
     .kb-doc-menu-item.danger { color: #D92D20; }
 
+    .kb-content-table-scroll {
+      width: 100%;
+      overflow: visible;
+    }
+
+    .kb-content-breadcrumb {
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin: 0 0 8px;
+      padding: 0 4px;
+      overflow: hidden;
+      color: #8A93A1;
+      font-size: 12px;
+      line-height: 18px;
+      white-space: nowrap;
+    }
+
+    .kb-content-breadcrumb button {
+      min-width: 0;
+      border: 0;
+      padding: 3px 0;
+      overflow: hidden;
+      background: transparent;
+      color: #727A87;
+      font: inherit;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .kb-content-breadcrumb button:hover,
+    .kb-content-breadcrumb button:focus-visible {
+      color: var(--fs-blue);
+      outline: none;
+    }
+
+    .kb-content-breadcrumb-separator {
+      flex: 0 0 auto;
+      color: #C4CAD3;
+    }
+
+    .kb-content-breadcrumb-current {
+      min-width: 0;
+      overflow: hidden;
+      color: #394150;
+      font-weight: 600;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .kb-content-pagination {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 4px 0;
+      color: #8A93A1;
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+    .kb-content-pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .kb-content-page-button {
+      min-width: 28px;
+      height: 28px;
+      border: 1px solid #E1E5EB;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 7px;
+      background: #FFFFFF;
+      color: #596273;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .kb-content-page-button:hover:not(:disabled) {
+      border-color: #C9D2DF;
+      background: #F7F8FA;
+      color: #394150;
+    }
+
+    .kb-content-page-button.active {
+      border-color: transparent;
+      background: var(--dna-primary-gradient);
+      color: #FFFFFF;
+    }
+
+    .kb-content-page-button:disabled {
+      color: #C4CAD3;
+      cursor: not-allowed;
+      opacity: 0.72;
+    }
+
+    .kb-detail-assistant-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .kb-detail-assistant-section { padding: 16px; }
+    .kb-detail-assistant-divider {
+      height: 1px;
+      margin: 0 16px;
+      background: #ECEFF3;
+    }
+
+    .kb-content-list {
+      --kb-content-columns: minmax(180px, 1fr) 76px 84px minmax(138px, 166px) 48px;
+      min-width: 0;
+      gap: 0;
+    }
+
+    .kb-content-list-header {
+      grid-template-columns: var(--kb-content-columns);
+      column-gap: 8px;
+      min-height: 36px;
+      margin: 0 0 6px;
+      padding: 0 12px;
+      border: 0;
+      border-radius: 6px;
+      background: #F5F6F8;
+      color: #727A87;
+    }
+
+    .kb-content-list-header span {
+      min-width: 0;
+      text-align: left !important;
+      white-space: nowrap;
+    }
+
+    .kb-content-row {
+      grid-template-columns: var(--kb-content-columns);
+      column-gap: 8px;
+      min-height: 68px;
+      padding: 10px 12px;
+      border: 0 !important;
+      border-bottom: 1px solid #ECEFF3 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+
+    .kb-content-row:last-child { border-bottom: 0 !important; }
+    .kb-content-row .kb-doc-primary { grid-column: 1; grid-row: 1; }
+
+    .kb-content-creator,
+    .kb-content-update {
+      min-width: 0;
+      color: var(--fs-text-secondary);
+      font-size: 12px;
+      line-height: 17px;
+    }
+
+    .kb-content-creator {
+      grid-column: 2;
+      grid-row: 1;
+      overflow: hidden;
+      color: #394150;
+      font-weight: 500;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .kb-content-row .kb-doc-status {
+      grid-column: 3;
+      grid-row: 1;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    .kb-content-update {
+      grid-column: 4;
+      grid-row: 1;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .kb-content-update strong {
+      flex: 0 0 auto;
+      color: #394150;
+      font-size: 12px;
+      line-height: 17px;
+      font-weight: 500;
+    }
+
+    .kb-content-update-separator { color: #C4CAD3; }
+    .kb-content-update-time {
+      overflow: hidden;
+      color: #8A93A1;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .kb-content-row .kb-doc-actions {
+      grid-column: 5;
+      grid-row: 1;
+      width: 48px;
+      max-width: 48px !important;
+      height: 32px;
+      justify-self: center;
+      justify-content: center;
+      padding: 0 !important;
+      border: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      transform: none !important;
+    }
+
+    .kb-content-row .kb-doc-actions .kb-doc-action { display: none; }
+    .kb-content-row .kb-doc-actions [data-kb-doc-action="more"] { display: inline-flex; }
+    .kb-content-row:hover {
+      background: #F7F8FA !important;
+      background-image: none !important;
+      border-color: #ECEFF3 !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+
     @media (hover: none) {
       .kb-doc-actions {
         opacity: 1;
@@ -6141,6 +6558,23 @@
       border-top: 1px solid var(--fs-divider);
     }
 
+    .link-kb-tabs { display: inline-flex; gap: 4px; padding: 4px; margin: 12px 0; border-radius: 10px; background: #F4F5F7; }
+    .link-kb-tab { min-height: 32px; padding: 5px 14px; border: 0; border-radius: 8px; background: transparent; color: var(--fs-text-secondary); font-size: 13px; cursor: pointer; }
+    .link-kb-tab:hover { color: var(--fs-text-title); }
+    .link-kb-tab.active { background: #FFFFFF; color: var(--fs-primary); font-weight: 600; box-shadow: 0 1px 4px rgba(31, 35, 41, 0.08); }
+    .link-kb-list { display: flex; flex-direction: column; gap: 6px; max-height: 310px; overflow: auto; }
+    .link-kb-option { width: 100%; display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 10px; border: 1px solid transparent; border-radius: 10px; background: #FFFFFF; color: var(--fs-text-title); text-align: left; cursor: pointer; }
+    .link-kb-option[hidden] { display: none; }
+    .link-kb-option:hover { background: #F7F8FA; }
+    .link-kb-option.active { border-color: rgba(91, 112, 255, 0.48); background: #F7F8FF; }
+    .link-kb-option .tile-icon { width: 36px; height: 36px; }
+    .link-kb-option-copy { min-width: 0; }
+    .link-kb-option-copy strong, .link-kb-option-copy span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .link-kb-option-copy strong { font-size: 13px; line-height: 20px; }
+    .link-kb-option-copy span { color: var(--fs-text-secondary); font-size: 12px; line-height: 18px; }
+    .link-kb-radio { width: 16px; height: 16px; border: 1.5px solid #C7CCD6; border-radius: 50%; box-shadow: inset 0 0 0 3px #FFFFFF; }
+    .link-kb-option.active .link-kb-radio { border-color: var(--fs-primary); background: var(--fs-primary); }
+
     .action-summary {
       display: grid;
       gap: 10px;
@@ -6165,6 +6599,439 @@
       color: var(--fs-text-secondary);
       font-size: 13px;
       line-height: 21px;
+    }
+
+    .add-knowledge-modal {
+      width: min(1040px, calc(100vw - 64px));
+      max-height: calc(100vh - 48px);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .add-knowledge-modal .modal-header {
+      flex: 0 0 auto;
+      padding: 24px 32px 16px;
+      border-bottom: 0;
+    }
+
+    .add-knowledge-modal .modal-header h2 {
+      font-size: 20px;
+      line-height: 28px;
+    }
+
+    .add-knowledge-body {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto;
+      padding: 0 32px 18px;
+    }
+
+    .add-knowledge-dropzone {
+      min-height: 256px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 28px;
+      border: 1px dashed #78B7FF;
+      border-radius: 16px;
+      background: #FCFDFF;
+      color: var(--fs-text-title);
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 140ms var(--fs-ease-out), background 140ms var(--fs-ease-out);
+    }
+
+    .add-knowledge-dropzone:hover,
+    .add-knowledge-dropzone:focus-within,
+    .add-knowledge-dropzone.dragging {
+      border-color: var(--fs-primary);
+      background: #F8FAFF;
+    }
+
+    .add-knowledge-dropzone input { display: none; }
+
+    .add-knowledge-folder-visual {
+      width: 64px;
+      height: 64px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 12px;
+    }
+
+    .add-knowledge-folder-visual img { width: 64px; height: 64px; object-fit: contain; }
+
+    .add-knowledge-dropzone strong {
+      font-size: 18px;
+      line-height: 28px;
+    }
+
+    .add-knowledge-dropzone span {
+      max-width: 680px;
+      color: #778397;
+      font-size: 14px;
+      line-height: 24px;
+    }
+
+    .add-knowledge-sources {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .add-knowledge-source {
+      position: relative;
+      min-height: 104px;
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      align-items: center;
+      gap: 14px;
+      overflow: hidden;
+      padding: 18px 24px;
+      border: 1px solid #EEF1F5;
+      border-radius: 12px;
+      background: #FFFFFF;
+      color: var(--fs-text-title);
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(31, 35, 41, 0.04);
+    }
+
+    .add-knowledge-source::after {
+      content: "";
+      position: absolute;
+      right: 22px;
+      bottom: -32px;
+      width: 112px;
+      height: 124px;
+      border-radius: 8px;
+      background: repeating-linear-gradient(to bottom, #E7ECF3 0 2px, transparent 2px 12px), #FFFFFF;
+      box-shadow: 0 8px 24px rgba(31, 35, 41, 0.08);
+      opacity: 0.7;
+      transform: rotate(9deg);
+      pointer-events: none;
+    }
+
+    .add-knowledge-source:hover { background: #F8F9FA; }
+
+    .add-knowledge-source-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: #1677FF;
+      background: #EAF5FF;
+      z-index: 1;
+    }
+
+    .add-knowledge-source-icon .icon {
+      width: 24px;
+      height: 24px;
+      color: inherit;
+    }
+
+    .add-knowledge-source[data-add-knowledge-action="cloud-drive"] .add-knowledge-source-icon {
+      color: #00B42A;
+      background: #E8FBEF;
+    }
+
+    .add-knowledge-source-copy { position: relative; z-index: 1; min-width: 0; }
+    .add-knowledge-source-copy strong,
+    .add-knowledge-source-copy span { display: block; }
+    .add-knowledge-source-copy strong { font-size: 16px; line-height: 24px; }
+    .add-knowledge-source-copy span { margin-top: 4px; color: #98A2B3; font-size: 13px; line-height: 20px; }
+
+    .add-knowledge-analysis {
+      margin-top: 20px;
+      padding: 24px 28px;
+      border-radius: 16px;
+      background: #FAFBFC;
+    }
+
+    .add-knowledge-analysis h3 { margin: 0 0 10px; font-size: 18px; line-height: 28px; }
+    .add-knowledge-analysis p { margin: 0; color: #667085; font-size: 14px; line-height: 24px; }
+    .add-knowledge-analysis a { color: #1677FF; text-decoration: none; }
+
+    .add-knowledge-footer {
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px 22px;
+      border-top: 0;
+    }
+
+    .add-knowledge-auto {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #1677FF;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .cloud-import-modal {
+      width: min(1320px, calc(100vw - 48px));
+      height: min(820px, calc(100vh - 40px));
+      max-width: none;
+      display: flex;
+      flex-direction: column;
+      border-radius: 12px;
+    }
+
+    .cloud-import-modal .modal-header {
+      flex: 0 0 auto;
+      padding: 24px 28px 18px;
+      border-bottom: 0;
+    }
+
+    .cloud-import-modal .modal-header h2 { font-size: 20px; line-height: 28px; }
+
+    .cloud-import-body {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 0 28px;
+    }
+
+    .cloud-import-search {
+      width: min(720px, 72%);
+      height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 16px;
+      margin-bottom: 18px;
+      border: 1px solid #D8E0EA;
+      border-radius: 6px;
+      color: #98A2B3;
+      background: #FFFFFF;
+    }
+
+    .cloud-import-search .icon { width: 20px; height: 20px; flex: 0 0 auto; }
+    .cloud-import-search input { width: 100%; border: 0; outline: 0; color: var(--fs-text-title); background: transparent; font: inherit; }
+    .cloud-import-search input::placeholder { color: #98A2B3; }
+
+    .cloud-import-browser {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 350px minmax(0, 1fr);
+      border: 1px solid #D8E0EA;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #FFFFFF;
+    }
+
+    .cloud-import-tree {
+      padding: 18px 14px;
+      overflow: auto;
+      border-right: 1px solid #D8E0EA;
+    }
+
+    .cloud-tree-node {
+      width: 100%;
+      min-height: 48px;
+      display: grid;
+      grid-template-columns: 22px 34px minmax(0, 1fr);
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border: 0;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--fs-text-title);
+      font-size: 15px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .cloud-tree-node.level-1 { padding-left: 38px; }
+    .cloud-tree-node:hover { background: #F6F7F9; }
+    .cloud-tree-node.active { background: #F1F5FF; color: #245DDE; }
+    .cloud-tree-caret { color: #778397; font-size: 13px; text-align: center; }
+
+    .cloud-tree-icon {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      color: #FFFFFF;
+      background: #087BF5;
+    }
+
+    .cloud-tree-icon.collab { background: #35B8F5; }
+    .cloud-tree-icon.personal { background: #FFB21A; }
+    .cloud-tree-icon.group { background: #6576F4; }
+    .cloud-tree-icon .icon { width: 17px; height: 17px; }
+
+    .cloud-import-content { min-width: 0; overflow: auto; }
+
+    .cloud-import-empty {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: #98A2B3;
+      font-size: 16px;
+    }
+
+    .cloud-import-empty-visual {
+      position: relative;
+      width: 110px;
+      height: 82px;
+    }
+
+    .cloud-import-empty-visual::before {
+      content: "";
+      position: absolute;
+      left: 22px;
+      top: 26px;
+      width: 66px;
+      height: 48px;
+      border-radius: 8px 8px 14px 14px;
+      background: linear-gradient(150deg, #BFD8FF, #4B86F4);
+      box-shadow: 0 18px 30px rgba(75, 134, 244, 0.18);
+      transform: perspective(80px) rotateX(-8deg);
+    }
+
+    .cloud-import-empty-visual::after {
+      content: "";
+      position: absolute;
+      right: 10px;
+      top: 4px;
+      width: 32px;
+      height: 16px;
+      background: linear-gradient(145deg, transparent 48%, #AFC9EF 50% 56%, transparent 58%);
+      transform: rotate(-12deg);
+    }
+
+    .cloud-import-list-head,
+    .cloud-import-row {
+      display: grid;
+      grid-template-columns: minmax(240px, 1fr) 150px 140px;
+      align-items: center;
+      gap: 16px;
+      padding: 0 22px;
+    }
+
+    .cloud-import-list-head { height: 46px; color: #778397; background: #F7F8FA; font-size: 13px; font-weight: 600; }
+    .cloud-import-row { min-height: 64px; border-bottom: 1px solid #EEF1F5; cursor: pointer; }
+    .cloud-import-row:hover { background: #F7F8FA; }
+    .cloud-import-row.selected { background: transparent; }
+    .cloud-import-file { min-width: 0; display: flex; align-items: center; gap: 12px; }
+    .cloud-import-file input { width: 16px; height: 16px; accent-color: var(--fs-primary); }
+    .cloud-import-file .tile-icon { width: 36px; height: 36px; flex: 0 0 36px; }
+    .cloud-import-file-copy { min-width: 0; }
+    .cloud-import-file-copy strong,
+    .cloud-import-file-copy span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .cloud-import-file-copy strong { font-size: 14px; line-height: 22px; }
+    .cloud-import-file-copy span { color: #98A2B3; font-size: 12px; line-height: 18px; }
+    .cloud-import-meta { color: #667085; font-size: 13px; }
+
+    .cloud-import-footer {
+      flex: 0 0 auto;
+      min-height: 74px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 28px 18px;
+      border-top: 0;
+    }
+
+    .cloud-import-count { color: #98A2B3; font-size: 14px; }
+    .cloud-import-count strong { color: var(--fs-primary); font-weight: 600; }
+    .cloud-import-footer-actions { display: flex; gap: 12px; }
+    .cloud-import-footer .btn { min-width: 112px; }
+
+    @media (max-width: 820px) {
+      .cloud-import-modal { width: calc(100vw - 20px); height: calc(100vh - 20px); }
+      .cloud-import-browser { grid-template-columns: 220px minmax(0, 1fr); }
+      .cloud-import-search { width: 100%; }
+      .cloud-import-list-head, .cloud-import-row { grid-template-columns: minmax(180px, 1fr) 110px; }
+      .cloud-import-list-head > :nth-child(3), .cloud-import-row > :nth-child(3) { display: none; }
+    }
+
+    .document-import-modal {
+      width: min(1080px, calc(100vw - 48px));
+      height: min(720px, calc(100vh - 40px));
+      max-width: none;
+      display: flex;
+      flex-direction: column;
+      border-radius: 12px;
+    }
+    .document-import-modal .modal-header { flex: 0 0 auto; padding: 24px 28px 16px; border-bottom: 0; }
+    .document-import-modal .modal-header h2 { font-size: 20px; line-height: 28px; }
+    .document-import-body { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; padding: 0 28px; }
+    .document-import-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+    .document-import-tabs { display: inline-flex; gap: 4px; padding: 3px; border-radius: 8px; background: #F4F5F7; }
+    .document-import-tab { min-height: 34px; padding: 6px 14px; border: 0; border-radius: 6px; background: transparent; color: #667085; font-size: 13px; cursor: pointer; }
+    .document-import-tab.active { color: var(--fs-primary); background: #FFFFFF; font-weight: 600; box-shadow: 0 1px 4px rgba(31, 35, 41, 0.08); }
+    .document-import-search { width: 280px; height: 38px; display: flex; align-items: center; gap: 8px; padding: 0 12px; margin: 0; border: 1px solid #D8E0EA; border-radius: 6px; color: #98A2B3; background: #FFFFFF; }
+    .document-import-search .icon { width: 18px; height: 18px; flex: 0 0 auto; }
+    .document-import-search input { width: 100%; border: 0; outline: 0; color: var(--fs-text-title); background: transparent; font: inherit; font-size: 13px; }
+    .document-import-search input::placeholder { color: #98A2B3; }
+    .document-import-hint { margin: 0 0 12px; color: #98A2B3; font-size: 13px; line-height: 20px; }
+    .document-import-list { flex: 1 1 auto; min-height: 0; overflow: auto; border: 1px solid #D8E0EA; border-radius: 6px; background: #FFFFFF; }
+    .document-import-list-head, .document-import-row { display: grid; grid-template-columns: minmax(300px, 1fr) 120px 160px 96px; align-items: center; gap: 14px; padding: 0 18px; }
+    .document-import-list-head { height: 44px; color: #778397; background: #F7F8FA; font-size: 13px; font-weight: 600; }
+    .document-import-row { min-height: 68px; border-bottom: 1px solid #EEF1F5; cursor: pointer; }
+    .document-import-row:hover { background: #F7F8FA; }
+    .document-import-row.selected { background: transparent; }
+    .document-import-row.is-linked { cursor: not-allowed; background: #FAFBFC; }
+    .document-import-row.is-linked:hover { background: #FAFBFC; }
+    .document-import-row.is-linked .document-import-file,
+    .document-import-row.is-linked .document-import-copy strong,
+    .document-import-row.is-linked .document-import-owner,
+    .document-import-row.is-linked .document-import-updated,
+    .document-import-row.is-linked .document-import-status { color: #B5BCC8; }
+    .document-import-row.is-linked .tile-icon { opacity: 0.48; filter: grayscale(1); }
+    .document-import-row.is-linked input { cursor: not-allowed; opacity: 0.45; }
+    .document-import-row.is-restricted { cursor: not-allowed; background: #FAFBFC; }
+    .document-import-row.is-restricted:hover { background: #FAFBFC; }
+    .document-import-row.is-restricted .document-import-file,
+    .document-import-row.is-restricted .document-import-copy strong,
+    .document-import-row.is-restricted .document-import-owner,
+    .document-import-row.is-restricted .document-import-updated,
+    .document-import-row.is-restricted .document-import-status { color: #B5BCC8; }
+    .document-import-row.is-restricted .tile-icon { opacity: 0.48; filter: grayscale(1); }
+    .document-import-row.is-restricted input { cursor: not-allowed; opacity: 0.45; }
+    .document-import-file { min-width: 0; display: flex; align-items: center; gap: 10px; }
+    .document-import-file input { width: 16px; height: 16px; accent-color: var(--fs-primary); }
+    .document-import-file .tile-icon { width: 36px; height: 36px; flex: 0 0 36px; }
+    .document-import-copy { min-width: 0; }
+    .document-import-copy strong, .document-import-copy span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .document-import-copy strong { font-size: 14px; line-height: 22px; }
+    .document-import-copy span, .document-import-meta { color: #98A2B3; font-size: 12px; line-height: 18px; }
+    .document-import-owner, .document-import-updated { color: #667085; font-size: 13px; }
+    .document-import-status { color: #667085; font-size: 12px; }
+    .document-import-empty { min-height: 260px; display: flex; align-items: center; justify-content: center; color: #98A2B3; font-size: 14px; }
+    .document-import-footer { flex: 0 0 auto; min-height: 74px; align-items: center; justify-content: space-between; padding: 12px 28px 18px; border-top: 0; }
+    .document-import-count { color: #98A2B3; font-size: 14px; }
+    .document-import-count strong { color: var(--fs-primary); font-weight: 600; }
+    .document-import-footer-actions { display: flex; gap: 12px; }
+    .document-import-footer .btn { min-width: 112px; }
+    @media (max-width: 820px) {
+      .document-import-modal { width: calc(100vw - 20px); height: calc(100vh - 20px); }
+      .document-import-toolbar { align-items: stretch; flex-direction: column; }
+      .document-import-search { width: 100%; }
+      .document-import-list-head, .document-import-row { grid-template-columns: minmax(240px, 1fr) 100px; }
+      .document-import-list-head > :nth-child(2), .document-import-row > :nth-child(2), .document-import-list-head > :nth-child(3), .document-import-row > :nth-child(3) { display: none; }
+    }
+
+    @media (max-width: 760px) {
+      .add-knowledge-modal { width: calc(100vw - 24px); max-height: calc(100vh - 24px); }
+      .add-knowledge-modal .modal-header { padding: 20px 20px 14px; }
+      .add-knowledge-body { padding: 0 20px 16px; }
+      .add-knowledge-dropzone { min-height: 210px; }
+      .add-knowledge-sources { grid-template-columns: 1fr; }
+      .add-knowledge-footer { padding: 0 20px 20px; }
     }
 
     .guide-mask {
@@ -7719,6 +8586,17 @@
       color: #6E6E73;
     }
 
+    .home-launch-composer .home-tool-button.is-selected-scope {
+      border-color: #CDD0F5 !important;
+      background: var(--dna-primary-gradient-soft) !important;
+      color: #5B6FF7 !important;
+      font-weight: 600;
+    }
+
+    .home-launch-composer .home-composer-tools:has(.home-kb-menu) {
+      overflow: visible;
+    }
+
     .home-launch-composer .home-mode-submit {
       width: 40px;
       height: 40px;
@@ -8352,6 +9230,9 @@
     .content-head .topbar-actions { display: flex; align-items: center; gap: 8px; }
     .content-head .page-title { margin: 0; }
     .content-head .document-path { min-width: 0; }
+    .content > .content-head + .kb-detail {
+      margin-top: 16px;
+    }
     /* Keep 8px breathing room between the top navigation and each page's
        secondary tab/toolbar row, regardless of its wrapper structure. */
     .content.directory-content > .content-head {
@@ -8391,6 +9272,8 @@
     .knowledge-inline-actions .knowledge-search {
       width: 220px;
       height: 32px;
+      min-height: 32px;
+      box-sizing: border-box;
       flex: 0 0 220px;
       margin: 0;
       box-shadow: none;
@@ -8656,6 +9539,14 @@
       box-shadow: none !important;
       transform: none !important;
     }
+    .kb-detail .kb-content-row:hover,
+    .kb-detail .kb-content-row.menu-open {
+      background: #F7F8FA !important;
+      background-image: none !important;
+      border-color: #ECEFF3 !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
     /* Only document rows inside workspace cards use a neutral hover. */
     .space-card .space-doc-line:hover {
       background: #F7F8FA !important;
@@ -8782,19 +9673,26 @@
       <div class="modal-body">
         <div class="section-title">
           <div>
-            <h2>推荐关联的知识库</h2>
-            <p>根据标题、正文关键词和项目归属匹配，可稍后调整。</p>
+            <h2>选择要关联的知识库</h2>
+            <p id="linkModalSubject">为当前内容选择一个有权限的知识库。</p>
           </div>
         </div>
-        <div class="doc-list">
-          <div class="doc-row"><span class="tile-icon"><span class="icon kb"></span></span><div><h3>AI 创新项目组</h3><p>匹配度 92% · 已继承项目权限</p></div><span class="tag blue">推荐</span></div>
-          <div class="doc-row"><span class="tile-icon"><span class="icon shield"></span></span><div><h3>智汇云会员知识库</h3><p>匹配度 76% · 常规密级</p></div><span class="tag">可选</span></div>
-          <div class="doc-row"><span class="tile-icon"><span class="icon lock"></span></span><div><h3>报销与采购 FAQ</h3><p>匹配度 68% · 保密文档不进入公开广场</p></div><span class="tag danger"><span class="icon lock"></span>保密</span></div>
+        <div class="link-kb-tabs" role="tablist" aria-label="知识库分类">
+          <button class="link-kb-tab active" type="button" role="tab" aria-selected="true" data-link-kb-tab="created">我创建的</button>
+          <button class="link-kb-tab" type="button" role="tab" aria-selected="false" data-link-kb-tab="joined">我加入的</button>
+        </div>
+        <div class="link-kb-list" role="listbox" aria-label="选择知识库">
+          <button class="link-kb-option active" type="button" role="option" aria-selected="true" data-link-kb-option="AI 创新项目组" data-link-kb-group="created"><span class="tile-icon"><span class="icon lock"></span></span><span class="link-kb-option-copy"><strong>AI 创新项目组</strong><span>37 篇文档 · 方静 · 匹配度 92%</span></span><span class="link-kb-radio" aria-hidden="true"></span></button>
+          <button class="link-kb-option" type="button" role="option" aria-selected="false" data-link-kb-option="智汇云会员知识库" data-link-kb-group="created"><span class="tile-icon"><span class="icon kb"></span></span><span class="link-kb-option-copy"><strong>智汇云会员知识库</strong><span>128 篇文档 · 吴星星 · 常规密级</span></span><span class="link-kb-radio" aria-hidden="true"></span></button>
+          <button class="link-kb-option" type="button" role="option" aria-selected="false" data-link-kb-option="智汇云 UI 支撑" data-link-kb-group="joined"><span class="tile-icon"><span class="icon kb"></span></span><span class="link-kb-option-copy"><strong>智汇云 UI 支撑</strong><span>14 篇文档 · 宋登举 · 可问答</span></span><span class="link-kb-radio" aria-hidden="true"></span></button>
+          <button class="link-kb-option" type="button" role="option" aria-selected="false" data-link-kb-option="报销与采购 FAQ" data-link-kb-group="joined"><span class="tile-icon"><span class="icon lock"></span></span><span class="link-kb-option-copy"><strong>报销与采购 FAQ</strong><span>42 篇文档 · 胡玉彪 · 保密</span></span><span class="link-kb-radio" aria-hidden="true"></span></button>
+          <button class="link-kb-option" type="button" role="option" aria-selected="false" data-link-kb-option="360 大模型安全" data-link-kb-group="joined"><span class="tile-icon"><span class="icon kb"></span></span><span class="link-kb-option-copy"><strong>360 大模型安全</strong><span>18 篇文档 · 安全团队 · 常规密级</span></span><span class="link-kb-radio" aria-hidden="true"></span></button>
+          <button class="link-kb-option" type="button" role="option" aria-selected="false" data-link-kb-option="办公服务一本通" data-link-kb-group="joined"><span class="tile-icon"><span class="icon kb"></span></span><span class="link-kb-option-copy"><strong>办公服务一本通</strong><span>21 篇文档 · 行政 · 常规密级</span></span><span class="link-kb-radio" aria-hidden="true"></span></button>
         </div>
       </div>
       <div class="modal-footer">
         <button class="btn" type="button" data-close-modal>稍后再说</button>
-        <button class="btn primary" type="button" data-close-modal data-toast="已关联到 AI 创新项目组">确认关联</button>
+        <button class="btn primary" type="button" data-link-kb-confirm>确认关联</button>
       </div>
     </div>
   </div>
@@ -8831,11 +9729,16 @@
       installingSkill: "",
       connectedConnectors: [],
       kbAskOpen: false,
+      assistantKbMenuOpen: false,
+      assistantDocumentMenuOpen: false,
+      selectedAssistantDocName: "",
       aiDrawerOpen: false,
       aiDrawerMode: "assistant",
       aiContext: "home",
       aiDraft: "",
       selectedKbName: "AI 创新项目组",
+      knowledgeFolderPath: [],
+      knowledgeContentPage: 1,
       selectedScope: "推荐范围",
       homeKbScope: "推荐范围",
       homeKbMenuOpen: false,
@@ -8890,6 +9793,9 @@
       expandedDriveNodes: ["360", "技术中台"],
       driveView: "list",
       selectedFileName: "",
+      linkKbTab: "created",
+      selectedLinkKbName: "AI 创新项目组",
+      linkSubject: "当前内容",
       taskStatus: "review",
       taskStep: 0,
       writingGoal: "",
@@ -9090,12 +9996,12 @@
     ];
 
     const knowledgeBases = [
-      { name: "AI 创新项目组", desc: "AI 工具报销、技术标、竞品分析和项目复盘。", owner: "方静", docs: 37, hot: ["6 月 AI 工具怎么报销？", "技术标生成需要哪些材料？", "哪些资料属于保密？"], confidential: true },
-      { name: "智汇云会员知识库", desc: "会员体系、用户反馈、客服 FAQ 和产品规则。", owner: "吴星星", docs: 128, hot: ["会员权益怎么解释？", "用户反馈如何归类？", "退款规则在哪里？"] },
-      { name: "智汇云 UI 支撑", desc: "设计规范、组件说明、走查记录和体验问题库。", owner: "宋登举", docs: 14, hot: ["按钮规范是什么？", "页面走查模板在哪里？", "哪些组件已废弃？"] },
-      { name: "报销与采购 FAQ", desc: "报销、采购、合同和审批流程的常见问题。", owner: "胡玉彪", docs: 42, hot: ["订阅类工具怎么报？", "采购审批需要谁确认？", "截图凭证有什么要求？"], confidential: true },
-      { name: "360 大模型安全", desc: "大模型内容安全、护栏、评测与资产识别。", owner: "安全团队", docs: 18, hot: ["敏感内容如何过滤？", "评测基线是什么？", "资产识别字段有哪些？"] },
-      { name: "办公服务一本通", desc: "办公区、会议室、行政流程和服务入口。", owner: "行政", docs: 21, hot: ["会议室怎么预定？", "办公地址在哪里？", "访客流程是什么？"] }
+      { name: "AI 创新项目组", desc: "AI 工具报销、技术标、竞品分析和项目复盘。", owner: "方静", docs: 37, ownership: "created", hot: ["6 月 AI 工具怎么报销？", "技术标生成需要哪些材料？", "哪些资料属于保密？"], confidential: true },
+      { name: "智汇云会员知识库", desc: "会员体系、用户反馈、客服 FAQ 和产品规则。", owner: "吴星星", docs: 128, ownership: "created", hot: ["会员权益怎么解释？", "用户反馈如何归类？", "退款规则在哪里？"] },
+      { name: "智汇云 UI 支撑", desc: "设计规范、组件说明、走查记录和体验问题库。", owner: "宋登举", docs: 14, ownership: "joined", hot: ["按钮规范是什么？", "页面走查模板在哪里？", "哪些组件已废弃？"] },
+      { name: "报销与采购 FAQ", desc: "报销、采购、合同和审批流程的常见问题。", owner: "胡玉彪", docs: 42, ownership: "joined", hot: ["订阅类工具怎么报？", "采购审批需要谁确认？", "截图凭证有什么要求？"], confidential: true },
+      { name: "360 大模型安全", desc: "大模型内容安全、护栏、评测与资产识别。", owner: "安全团队", docs: 18, ownership: "joined", hot: ["敏感内容如何过滤？", "评测基线是什么？", "资产识别字段有哪些？"] },
+      { name: "办公服务一本通", desc: "办公区、会议室、行政流程和服务入口。", owner: "行政", docs: 21, ownership: "joined", hot: ["会议室怎么预定？", "办公地址在哪里？", "访客流程是什么？"] }
     ];
 
     const homeKbOptions = ["推荐范围", "当前文档", "全部知识库", ...knowledgeBases.map((kb) => kb.name)];
@@ -9185,17 +10091,84 @@
 
     const knowledgeDetailDocs = {
       "智汇云会员知识库": [
+        { name: "会员运营共享资料", type: "folder", owner: "产品运营", updated: "今天 11:32", status: "已同步", desc: "云盘文件夹 · 自动同步新增与更新内容" },
         { name: "智汇云会员权益说明", type: "doc", owner: "吴星星", updated: "今天 11:20", status: "已复核", desc: "会员权益、套餐差异和到期口径" },
         { name: "会员客服 FAQ 汇总", type: "doc", owner: "客服运营", updated: "昨天 18:06", status: "已入库", desc: "咨询高频问题和标准回复" },
         { name: "退款与续费规则", type: "excel", owner: "商业化", updated: "07-02 15:43", status: "待复核", desc: "退款边界、续费优惠和人工审批" },
-        { name: "用户反馈归类表", type: "doc", owner: "产品运营", updated: "06-28 09:35", status: "已入库", desc: "反馈标签、责任团队和处理状态" }
+        { name: "用户反馈归类表", type: "doc", owner: "产品运营", updated: "06-28 09:35", status: "已入库", desc: "反馈标签、责任团队和处理状态" },
+        { name: "会员运营月报", type: "ppt", owner: "产品运营", updated: "06-26 17:18", status: "已复核", desc: "会员增长、续费和活动表现" },
+        { name: "客服升级处理规范", type: "doc", owner: "客服运营", updated: "06-24 14:30", status: "已入库", desc: "升级场景、处理时限与责任人" },
+        { name: "会员权益变更记录", type: "excel", owner: "商业化", updated: "06-21 10:05", status: "已复核", desc: "权益版本、变更内容和生效时间" },
+        { name: "会员活动复盘模板", type: "doc", owner: "产品运营", updated: "06-18 16:42", status: "待复核", desc: "活动目标、效果和改进建议" }
       ],
       "AI 创新项目组": [
+        { name: "AI 创新项目资料", type: "folder", owner: "方静", updated: "刚刚同步", status: "已同步", desc: "云盘文件夹 · 持续同步项目资料" },
         { name: "AI 工具订阅报销规则汇总", type: "word", owner: "胡玉彪", updated: "12 分钟前", status: "已入库", desc: "工具订阅、项目编号和凭证要求" },
         { name: "技术标 prompt 及其步骤方案", type: "doc", owner: "方静", updated: "06-15 19:20", status: "已复核", desc: "技术标生成流程和示例提示词" },
-        { name: "竞品生成技术标", type: "ppt", owner: "李欣", updated: "05-25 10:12", status: "待复核", desc: "竞品分析、生成效果和风险记录" }
+        { name: "竞品生成技术标", type: "ppt", owner: "李欣", updated: "05-25 10:12", status: "待复核", desc: "竞品分析、生成效果和风险记录" },
+        { name: "AI 项目周报 06.14", type: "doc", owner: "方静", updated: "05-24 18:36", status: "已复核", desc: "项目进展、风险与下周计划" },
+        { name: "技术标需求清单", type: "excel", owner: "李欣", updated: "05-22 11:08", status: "已入库", desc: "需求范围、材料和交付节点" },
+        { name: "大模型能力评测报告", type: "ppt", owner: "王少一", updated: "05-20 16:45", status: "已复核", desc: "模型能力、质量指标和评测结论" },
+        { name: "项目风险台账", type: "excel", owner: "方静", updated: "05-18 09:32", status: "已入库", desc: "风险等级、负责人和处理进展" },
+        { name: "AI 工具账号管理规范", type: "doc", owner: "胡玉彪", updated: "05-16 14:20", status: "已复核", desc: "账号申请、共享和回收规范" },
+        { name: "方案评审会议纪要", type: "doc", owner: "方静", updated: "05-14 17:58", status: "已入库", desc: "评审结论、修改项与负责人" },
+        { name: "用户反馈汇总", type: "excel", owner: "李欣", updated: "05-12 10:26", status: "待复核", desc: "用户问题、建议和处理状态" },
+        { name: "项目复盘模板", type: "doc", owner: "方静", updated: "05-10 15:40", status: "已入库", desc: "目标、过程、结果和经验沉淀" }
       ]
     };
+
+    const knowledgeFolderContents = {
+      "智汇云会员知识库": {
+        "会员运营共享资料": [
+          { name: "会员活动资料", type: "folder", owner: "产品运营", updated: "今天 11:28", status: "已同步", desc: "云盘文件夹 · 会员活动方案与素材" },
+          { name: "会员触达策略", type: "doc", owner: "产品运营", updated: "今天 10:46", status: "已复核", desc: "分层触达节奏与渠道策略" },
+          { name: "会员数据周报", type: "excel", owner: "数据运营", updated: "昨天 17:30", status: "已入库", desc: "会员增长、活跃和续费数据" }
+        ],
+        "会员运营共享资料/会员活动资料": [
+          { name: "暑期会员活动方案", type: "doc", owner: "产品运营", updated: "今天 09:20", status: "已复核", desc: "暑期会员活动目标、权益与排期" },
+          { name: "会员活动视觉素材", type: "folder", owner: "品牌设计", updated: "昨天 16:12", status: "已同步", desc: "云盘文件夹 · 活动主视觉与渠道尺寸" }
+        ]
+      },
+      "AI 创新项目组": {
+        "AI 创新项目资料": [
+          { name: "项目报销资料", type: "folder", owner: "方静", updated: "刚刚同步", status: "已同步", desc: "云盘文件夹 · 订阅凭证与报销说明" },
+          { name: "竞品研究资料", type: "folder", owner: "李欣", updated: "8 分钟前", status: "已同步", desc: "云盘文件夹 · 竞品能力与方案拆解" },
+          { name: "AI 项目启动会纪要", type: "doc", owner: "方静", updated: "今天 10:18", status: "已复核", desc: "项目目标、负责人和里程碑" },
+          { name: "项目成员与分工", type: "excel", owner: "方静", updated: "昨天 18:22", status: "已入库", desc: "项目成员、角色与交付责任" }
+        ],
+        "AI 创新项目资料/项目报销资料": [
+          { name: "6 月订阅凭证", type: "folder", owner: "胡玉彪", updated: "刚刚同步", status: "已同步", desc: "云盘文件夹 · 订单截图与支付凭证" },
+          { name: "AI 工具报销流程说明", type: "doc", owner: "胡玉彪", updated: "12 分钟前", status: "已复核", desc: "申请步骤、项目编号与审批要求" },
+          { name: "订阅工具清单", type: "excel", owner: "方静", updated: "今天 09:42", status: "已入库", desc: "工具名称、用途、费用与负责人" }
+        ],
+        "AI 创新项目资料/项目报销资料/6 月订阅凭证": [
+          { name: "ChatGPT Team 支付凭证", type: "image", owner: "胡玉彪", updated: "刚刚更新", status: "已入库", desc: "6 月团队订阅支付截图" },
+          { name: "Cursor 订阅订单", type: "doc", owner: "胡玉彪", updated: "5 分钟前", status: "已入库", desc: "订单编号、订阅周期和项目用途" }
+        ],
+        "AI 创新项目资料/竞品研究资料": [
+          { name: "竞品功能对比", type: "excel", owner: "李欣", updated: "8 分钟前", status: "已复核", desc: "核心功能、定价和差异化能力" },
+          { name: "竞品方案截图", type: "folder", owner: "李欣", updated: "今天 09:36", status: "已同步", desc: "云盘文件夹 · 竞品关键页面截图" }
+        ]
+      }
+    };
+
+    function knowledgeItemsAtPath(kbName, path = []) {
+      if (!path.length) return knowledgeDetailDocs[kbName] || [];
+      return knowledgeFolderContents[kbName]?.[path.join("/")] || [];
+    }
+
+    function allKnowledgeItems(kbName = "") {
+      if (kbName) {
+        return [
+          ...(knowledgeDetailDocs[kbName] || []),
+          ...Object.values(knowledgeFolderContents[kbName] || {}).flat()
+        ];
+      }
+      return [
+        ...Object.values(knowledgeDetailDocs).flat(),
+        ...Object.values(knowledgeFolderContents).flatMap((folders) => Object.values(folders).flat())
+      ];
+    }
 
     const knowledgeDetailQuestions = {
       "智汇云会员知识库": [
@@ -9208,6 +10181,39 @@
         { title: "6 月 AI 工具怎么报销？", source: "来自报销规则汇总" },
         { title: "技术标生成需要哪些材料？", source: "引用技术标 prompt 文档" },
         { title: "哪些资料属于保密？", source: "来自项目复盘和权限规则" }
+      ]
+    };
+
+    const knowledgeCardDocuments = {
+      "AI 创新项目组": [
+        ["AI 工具订阅报销规则汇总", "12 分钟前"],
+        ["技术标 prompt 及其步骤方案", "06-15"],
+        ["竞品生成技术标", "05-25"]
+      ],
+      "智汇云会员知识库": [
+        ["智汇云会员权益说明", "今天 11:20"],
+        ["会员客服 FAQ 汇总", "昨天 18:06"],
+        ["退款与续费规则", "07-02"]
+      ],
+      "智汇云 UI 支撑": [
+        ["体验设计专家走查", "2 年前"],
+        ["按钮与弹窗交互规范", "06-28"],
+        ["组件废弃清单", "06-20"]
+      ],
+      "报销与采购 FAQ": [
+        ["订阅类工具报销指引", "15 小时前"],
+        ["采购审批流程说明", "昨天"],
+        ["截图凭证要求", "1 周前"]
+      ],
+      "360 大模型安全": [
+        ["敏感内容过滤规范", "今天 09:40"],
+        ["大模型评测基线", "昨天"],
+        ["资产识别字段说明", "06-30"]
+      ],
+      "办公服务一本通": [
+        ["会议室预定指南", "今天 08:30"],
+        ["办公区地址与交通", "昨天"],
+        ["访客接待流程", "06-26"]
       ]
     };
 
@@ -9928,7 +10934,7 @@
     function buildDocumentPreview(title, meta = {}) {
       const source = recentDocs.find((item) => item.name === title)
         || docs.find((item) => item.name === title)
-        || Object.values(knowledgeDetailDocs).flat().find((item) => item.name === title)
+        || allKnowledgeItems().find((item) => item.name === title)
         || {};
       const status = meta.status || source.status || "草稿";
       const updated = meta.updated || source.updated || source.time || source.access || "刚刚更新";
@@ -10039,17 +11045,17 @@
         aiTask: `<button class="btn" type="button" data-screen="home">返回首页</button>${state.taskStatus === "review" ? `<button class="btn primary" type="button" data-task-confirm>${icon("magic")}确认并开始</button>` : state.taskStatus === "complete" ? `<button class="btn primary" type="button" data-task-open-result>${icon("doc")}打开结果</button>` : `<button class="btn primary" type="button" data-task-advance>${icon("magic")}继续执行</button>`}`,
         aiHistory: `<button class="btn" type="button" data-screen="home">返回首页</button><button class="btn primary" type="button" data-screen="home">${icon("plus")}新建 AI 工作</button>`,
         knowledge: "",
-        knowledgeDetail: `<button class="btn" type="button" data-screen="knowledge">返回知识库</button><button class="btn primary" type="button" data-ai-assistant="knowledgeDetail">${icon("ai")}AI 助手</button>`,
+        knowledgeDetail: "",
         discover: "",
         drive: `<button class="btn" type="button" data-create-type-toggle aria-haspopup="menu" aria-expanded="${state.createTypeMenuOpen}">${icon("plus")}新建</button><button class="btn primary" type="button" data-action-panel="uploadFile">${icon("upload")}上传</button>`,
         tools: state.toolSection === "skills"
-          ? `${aiAction("tools")}${state.skillScope === "mine" ? `<button class="btn primary" type="button" data-action-panel="createSkill">${icon("plus")}创建技能</button>` : ""}`
+          ? `${state.skillScope === "mine" ? `<button class="btn primary" type="button" data-action-panel="createSkill">${icon("plus")}创建技能</button>` : ""}`
           : state.toolSection === "connectors"
             ? ""
             : ""
         ,writingSetup: `<button class="btn" type="button" data-screen="home">取消</button><button class="btn primary" type="button" data-writing-confirm>${icon("magic")}确认并生成</button>`
         ,sourcePreview: `<button class="btn" type="button" data-source-back>返回对话</button><button class="btn primary" type="button" data-source-open-document>${icon("doc")}打开原文</button>`
-        ,fileDetail: `<button class="btn" type="button" data-screen="drive">返回云盘</button>${aiAction("drive")}<button class="btn primary" type="button" data-open-modal>${icon("kb")}加入知识库</button>`
+        ,fileDetail: `<button class="btn" type="button" data-screen="drive">返回云盘</button>${aiAction("drive")}<button class="btn primary" type="button" data-open-modal data-link-subject="${escapeHtml(state.selectedFileName || "当前文件")}">${icon("kb")}加入知识库</button>`
         ,suite: `<button class="btn" type="button" data-rail-module="cloud-doc">${icon("rail-cloud-doc")}进入云文档</button><button class="btn primary" type="button" data-suite-primary>${icon("plus")}新建</button>`
       };
       const breadcrumbNodes = editorPreviewDocument ? documentBreadcrumbNodes(editorPreviewDocument) : [];
@@ -10062,6 +11068,11 @@
             <span class="document-path-separator" aria-hidden="true">/</span>
           `).join("")}
           <span class="document-path-title" title="${escapeHtml(editorPreviewDocument.title)}">${escapeHtml(editorPreviewDocument.title)}</span>
+        </div>
+      ` : state.screen === "knowledgeDetail" ? `
+        <div class="editor-title-control">
+          <button class="editor-back-button" type="button" data-screen="knowledge" aria-label="返回知识库" title="返回知识库">${icon("arrow")}</button>
+          <h1 class="page-title">${escapeHtml(pageTitle)}</h1>
         </div>
       ` : state.screen === "editor" ? `
         <div class="editor-title-control">
@@ -10289,8 +11300,11 @@
     function renderHomeComposer() {
       const mode = state.homeAiMode;
       const config = homeModeConfigs[mode];
+      const composerPlaceholder = mode === "chat" && !["推荐范围", "工作空间"].includes(state.homeKbScope)
+        ? `基于「${state.homeKbScope}」提问`
+        : config.placeholder;
       const tools = [
-        ["home-scope", "工作空间", "data-action-panel=\"workspacePicker\""],
+        ["home-scope", mode === "chat" ? state.homeKbScope : "工作空间", mode === "chat" ? "data-home-kb-toggle" : "data-action-panel=\"workspacePicker\""],
         ["magic", "Auto", "data-action-panel=\"modelPicker\""],
         ["home-citation", "来源", "data-action-panel=\"sourcePicker\""],
         ["home-task", "技能", "data-action-panel=\"skillPicker\""]
@@ -10320,13 +11334,25 @@
 
       return `
         <div class="home-mode-composer">
-          <textarea class="home-mode-input" data-home-mode-input="${mode}" rows="1" aria-label="${config.label}目标" placeholder="${config.placeholder}">${escapeHtml(state.homeAiDrafts[mode])}</textarea>
+          <textarea class="home-mode-input" data-home-mode-input="${mode}" rows="1" aria-label="${config.label}目标" placeholder="${escapeHtml(composerPlaceholder)}">${escapeHtml(state.homeAiDrafts[mode])}</textarea>
           <div class="home-composer-tools">
-            ${tools.map(([iconName, label, attr]) => `
-              <div>
-                <button class="home-tool-button" type="button" ${attr}>${label}</button>
+            ${tools.map(([iconName, label, attr]) => {
+              const isKbScope = attr === "data-home-kb-toggle";
+              return `
+              <div class="${isKbScope ? "home-kb-picker" : ""}">
+                <button class="home-tool-button ${isKbScope && !["推荐范围", "工作空间"].includes(state.homeKbScope) ? "is-selected-scope" : ""}" type="button" ${attr} ${isKbScope ? `aria-haspopup="listbox" aria-expanded="${state.homeKbMenuOpen}"` : ""}>${isKbScope ? icon("kb") : ""}${escapeHtml(label)}</button>
+                ${isKbScope && state.homeKbMenuOpen ? `
+                  <div class="home-kb-menu" role="listbox" aria-label="选择知识库">
+                    ${homeKbOptions.map((option) => `
+                      <button class="home-kb-option ${state.homeKbScope === option ? "active" : ""}" type="button" role="option" aria-selected="${state.homeKbScope === option}" data-home-kb-option="${escapeHtml(option)}">
+                        <span>${escapeHtml(option)}</span>
+                        ${state.homeKbScope === option ? `<span class="home-kb-current">当前</span>` : ""}
+                      </button>
+                    `).join("")}
+                  </div>
+                ` : ""}
               </div>
-            `).join("")}
+            `;}).join("")}
           </div>
           <button class="home-mode-submit" type="button" data-home-mode-send aria-label="${mode === "chat" ? "发送问题" : mode === "task" ? "开始任务" : "开始写作"}" ${state.homeAiDrafts[mode].trim() ? "" : "disabled aria-disabled=\"true\""}>${icon("home-send")}</button>
         </div>
@@ -10709,7 +11735,7 @@
             <div class="setup-section"><h3>AI 摘要</h3><p>该文件主要记录项目目标、阶段进展、风险和后续责任人。当前发现 2 个需要确认的依赖项，适合沉淀到项目知识库。</p><div class="task-result-grid"><div class="task-result-card"><strong>4</strong><span>核心结论</span></div><div class="task-result-card"><strong>2</strong><span>风险事项</span></div><div class="task-result-card"><strong>3</strong><span>负责人待办</span></div></div></div>
             <div class="setup-section"><h3>内容预览</h3><div class="document-callout">项目已完成首页信息层级与可信问答闭环，下一阶段需要补齐任务执行异常、移动端导航和知识复核状态。</div><p style="margin-top:12px;">建议在入库前确认文件密级和负责人，并把风险项同步到工作周报。</p></div>
           </section>
-          <aside class="card file-detail-side"><div class="section-title"><div><h2>知识动作</h2><p>所有动作继承原文件权限。</p></div></div><button class="btn primary" style="width:100%;" type="button" data-ai-assistant="drive">${icon("ai")}基于文件提问</button><button class="btn" style="width:100%;margin-top:8px;" type="button" data-action-panel="summaryFile" data-action-title="${escapeHtml(file.name)}">${icon("summary")}重新生成摘要</button><button class="btn" style="width:100%;margin-top:8px;" type="button" data-open-modal>${icon("kb")}加入知识库</button><div class="inline-notice" style="margin-top:16px;">${icon("shield")}保密文件只有获得授权后才进入 AI 检索。</div></aside>
+          <aside class="card file-detail-side"><div class="section-title"><div><h2>知识动作</h2><p>所有动作继承原文件权限。</p></div></div><button class="btn primary" style="width:100%;" type="button" data-file-start="${escapeHtml(file.name)}">${icon("ai")}基于文件提问</button><button class="btn" style="width:100%;margin-top:8px;" type="button" data-action-panel="summaryFile" data-action-title="${escapeHtml(file.name)}">${icon("summary")}重新生成摘要</button><button class="btn" style="width:100%;margin-top:8px;" type="button" data-open-modal data-link-subject="${escapeHtml(file.name)}">${icon("kb")}加入知识库</button><div class="inline-notice" style="margin-top:16px;">${icon("shield")}保密文件只有获得授权后才进入 AI 检索。</div></aside>
         </div>
       `;
     }
@@ -10919,7 +11945,7 @@
           </div>
           <div class="tag-row">
             <span class="tag blue">${icon("kb")}AI 推荐</span>
-            <button class="btn compact primary" type="button" data-open-modal>确认关联</button>
+            <button class="btn compact primary" type="button" data-open-modal data-link-subject="${escapeHtml(doc.name)}">确认关联</button>
             <button class="btn compact" type="button" data-toast="已忽略本次推荐">忽略</button>
           </div>
         </div>
@@ -10965,7 +11991,7 @@
               </div>
               <div class="action-row">
                 <button class="btn compact primary" type="button" data-screen="docs">${icon("doc")}查看文档</button>
-                <button class="btn compact" type="button" data-open-modal>${icon("kb")}关联知识库</button>
+                <button class="btn compact" type="button" data-open-modal data-link-subject="${escapeHtml(space.name)}">${icon("kb")}关联知识库</button>
                 <button class="btn compact" type="button" data-space-favorite="${space.name}">${icon("star")}收藏</button>
               </div>
             </article>
@@ -11269,7 +12295,8 @@
     }
 
     function renderKnowledge() {
-      const scopedKnowledge = state.selectedKnowledgeTab === "created" ? knowledgeBases.slice(0, 2) : state.selectedKnowledgeTab === "joined" ? knowledgeBases.slice(2, 5) : state.selectedKnowledgeTab === "review" ? knowledgeBases.filter((kb) => kb.docs >= 37) : knowledgeBases;
+      if (!["all", "created", "joined"].includes(state.selectedKnowledgeTab)) state.selectedKnowledgeTab = "all";
+      const scopedKnowledge = state.selectedKnowledgeTab === "created" ? knowledgeBases.filter((kb) => kb.ownership === "created") : state.selectedKnowledgeTab === "joined" ? knowledgeBases.filter((kb) => kb.ownership === "joined") : knowledgeBases;
       const knowledgeQuery = state.knowledgeQuery.trim().toLowerCase();
       const items = scopedKnowledge.filter((item) => !knowledgeQuery || JSON.stringify(item).toLowerCase().includes(knowledgeQuery));
       if (!items.length) return emptyState("没有找到相关知识库", "可以创建知识库，或去知识广场发现公开资源。", "创建知识库");
@@ -11279,7 +12306,7 @@
           <section>
             <div class="tabs tabs-with-actions">
               <div class="tab-filter-group">
-              ${[["all","全部"],["created","我创建的"],["joined","我加入的"],["review","待复核"]].map(([id,label]) => `<button class="tab ${state.selectedKnowledgeTab === id ? "active" : ""}" type="button" data-knowledge-tab="${id}">${label}</button>`).join("")}
+              ${[["all","全部"],["created","我创建的"],["joined","我加入的"]].map(([id,label]) => `<button class="tab ${state.selectedKnowledgeTab === id ? "active" : ""}" type="button" data-knowledge-tab="${id}">${label}</button>`).join("")}
               </div>
               <div class="tab-inline-actions knowledge-inline-actions" aria-label="知识库操作">
                 <label class="catalog-search knowledge-search">
@@ -11300,17 +12327,16 @@
                     </div>
                     ${kb.confidential ? `<span class="tag danger">${icon("lock")}保密</span>` : `<span class="tag green">常规</span>`}
                   </div>
-                  <div class="tag-row">
-                    <span class="tag">${kb.docs} 篇文档</span>
-                    <span class="tag">${kb.owner}</span>
-                    <span class="tag blue">${icon("ai")}可问答</span>
-                  </div>
-                  <div>
-                    <p style="margin-bottom: 6px;">热门问题</p>
-                    <div class="tag-row">${kb.hot.map((q) => `<span class="tag">${q}</span>`).join("")}</div>
+                  <div class="kb-card-documents" aria-label="${escapeHtml(kb.name)}最近文档">
+                    ${(knowledgeCardDocuments[kb.name] || []).slice(0, 3).map(([name, time]) => `
+                      <div class="kb-card-document">
+                        <span class="kb-card-document-name" title="${escapeHtml(name)}">${escapeHtml(name)}</span>
+                        <span class="kb-card-document-time">${escapeHtml(time)}</span>
+                      </div>
+                    `).join("")}
                   </div>
                   <div class="action-row">
-                    <button class="btn compact primary" type="button" data-kb-ask="${kb.name}">${icon("ai")}本库问答</button>
+                    <button class="btn compact primary" type="button" data-kb-start="${kb.name}">${icon("ai")}本库问答</button>
                     <button class="btn compact" type="button" data-kb-open="${kb.name}">${icon("doc")}查看文档</button>
                     <button class="btn compact" type="button" data-action-panel="shareKb" data-action-title="${kb.name}">${icon("share")}分享</button>
                   </div>
@@ -11340,7 +12366,25 @@
 
     function renderKnowledgeDetail() {
       const kb = knowledgeBases.find((item) => item.name === state.selectedKbName) || knowledgeBases[1];
-      const detailDocs = (knowledgeDetailDocs[kb.name] || []).filter((doc) => !state.deletedKnowledgeDocs.includes(doc.name));
+      const rootDetailDocs = (knowledgeDetailDocs[kb.name] || []).filter((doc) => !state.deletedKnowledgeDocs.includes(doc.name));
+      const folderPath = Array.isArray(state.knowledgeFolderPath) ? state.knowledgeFolderPath : [];
+      const allDetailDocs = knowledgeItemsAtPath(kb.name, folderPath).filter((doc) => !state.deletedKnowledgeDocs.includes(doc.name));
+      const pageSize = 6;
+      const totalPages = Math.max(1, Math.ceil(allDetailDocs.length / pageSize));
+      const currentPage = Math.min(Math.max(1, state.knowledgeContentPage || 1), totalPages);
+      const detailDocs = allDetailDocs.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+      const folderCount = rootDetailDocs.filter((item) => item.type === "folder").length;
+      const folderBreadcrumb = folderPath.length ? `
+        <nav class="kb-content-breadcrumb" aria-label="当前文件夹路径">
+          <button type="button" data-kb-folder-level="0">库内内容</button>
+          ${folderPath.map((folderName, index) => `
+            <span class="kb-content-breadcrumb-separator" aria-hidden="true">/</span>
+            ${index === folderPath.length - 1
+              ? `<span class="kb-content-breadcrumb-current" aria-current="page">${escapeHtml(folderName)}</span>`
+              : `<button type="button" data-kb-folder-level="${index + 1}">${escapeHtml(folderName)}</button>`}
+          `).join("")}
+        </nav>
+      ` : "";
       const questions = knowledgeDetailQuestions[kb.name] || kb.hot.map((title) => ({ title, source: `来自 ${kb.name}` }));
       return `
         <div class="kb-detail" data-screen-label="v3-知识库-二级详情页">
@@ -11355,9 +12399,9 @@
               </div>
             </div>
             <div class="kb-detail-meta">
-              <div class="kb-detail-stat"><span>库内文档</span><strong>${kb.docs} 篇</strong></div>
+              <div class="kb-detail-stat"><span>库内内容</span><strong>${kb.docs} 篇 · ${folderCount} 个文件夹</strong></div>
               <div class="kb-detail-stat"><span>负责人</span><strong>${kb.owner}</strong></div>
-              <div class="kb-detail-stat"><span>最近更新</span><strong>${detailDocs[0]?.updated || "今天"}</strong></div>
+              <div class="kb-detail-stat"><span>最近更新</span><strong>${rootDetailDocs[0]?.updated || "今天"}</strong></div>
               <div class="kb-detail-stat"><span>问答来源</span><strong>仅本库</strong></div>
             </div>
           </section>
@@ -11365,32 +12409,39 @@
           <div class="kb-detail-layout">
             <section class="card panel">
               <div class="section-title">
-                <div><h2>库内文档</h2><p>只展示当前知识库下的文档、规则和 FAQ。</p></div>
-                <button class="btn compact" type="button" data-open-modal>${icon("plus")}添加文档</button>
+                <div><h2>库内内容</h2><p>包含直接添加的文档，以及从云盘关联并持续同步的文件夹。</p></div>
+                <button class="btn compact" type="button" data-action-panel="addKnowledgeContent" data-action-title="${escapeHtml(kb.name)}">${icon("plus")}添加内容</button>
               </div>
-              <div class="doc-list">
-                ${detailDocs.length ? `<div class="doc-list-header" role="row" aria-label="库内文档列表标题"><span>文档</span><span>操作</span><span>状态</span></div>${detailDocs.map((doc) => {
+              <div class="kb-content-table-scroll">
+                ${folderBreadcrumb}
+                ${detailDocs.length ? `<div class="doc-list kb-content-list"><div class="doc-list-header kb-content-list-header" role="row" aria-label="库内内容列表标题"><span>内容</span><span>创建人</span><span>状态</span><span>动态信息</span><span>操作</span></div>${detailDocs.map((doc) => {
                   const docName = escapeHtml(doc.name);
-                  const favorite = state.favoriteKnowledgeDocs.includes(doc.name);
+                  const isFolder = doc.type === "folder";
                   const menuOpen = state.kbDocMenuName === doc.name;
+                  const addedBy = escapeHtml(doc.addedBy || doc.owner);
+                  const activity = doc.updated === "刚刚同步"
+                    ? "刚刚更新"
+                    : doc.updated.includes("前")
+                      ? `${doc.updated}更新`
+                      : `${doc.updated} 更新`;
+                  const openAttributes = isFolder
+                    ? `data-open-kb-folder="${docName}"`
+                    : `data-open-document="${docName}" data-document-origin="knowledge" data-document-kb="${escapeHtml(kb.name)}" data-document-kind="${escapeHtml(doc.type || "doc")}"`;
                   return `
-                    <article class="doc-row kb-doc-row ${menuOpen ? "menu-open" : ""}" data-kb-doc-row="${docName}">
-                      <button class="kb-doc-primary" type="button" data-open-document="${docName}" data-document-origin="knowledge" data-document-kb="${escapeHtml(kb.name)}" data-document-kind="${escapeHtml(doc.type || "doc")}">
+                    <article class="doc-row kb-doc-row kb-content-row ${menuOpen ? "menu-open" : ""}" data-kb-doc-row="${docName}">
+                      <button class="kb-doc-primary" type="button" ${openAttributes} aria-label="${isFolder ? "查看文件夹" : "打开"} ${docName}">
                         <span class="tile-icon">${icon(doc.type)}</span>
                         <span class="kb-doc-copy">
                           <h3>${docName}</h3>
-                          <p>${escapeHtml(doc.desc)} · ${escapeHtml(doc.owner)} · ${escapeHtml(doc.updated)}</p>
+                          <p>${escapeHtml(doc.desc)}</p>
                         </span>
                       </button>
+                      <div class="kb-content-creator">${escapeHtml(doc.owner)}</div>
                       <div class="tag-row kb-doc-status">
                         <span class="tag ${doc.status === "待复核" ? "blue" : "green"}">${escapeHtml(doc.status)}</span>
-                        <button class="btn compact kb-doc-open" type="button" data-open-document="${docName}" data-document-origin="knowledge" data-document-kb="${escapeHtml(kb.name)}" data-document-kind="${escapeHtml(doc.type || "doc")}" aria-label="打开 ${docName}">打开</button>
                       </div>
-                      <div class="kb-doc-actions" role="toolbar" aria-label="${docName} 文档操作">
-                        <button class="kb-doc-action" type="button" data-kb-doc-action="share" data-kb-doc-name="${docName}" aria-label="分享 ${docName}" title="分享">${icon("share")}</button>
-                        <button class="kb-doc-action" type="button" data-kb-doc-action="download" data-kb-doc-name="${docName}" aria-label="下载 ${docName}" title="下载">${icon("download")}</button>
-                        <button class="kb-doc-action ${favorite ? "active" : ""}" type="button" data-kb-doc-action="favorite" data-kb-doc-name="${docName}" aria-label="${favorite ? "取消收藏" : "收藏"} ${docName}" aria-pressed="${favorite}" title="${favorite ? "取消收藏" : "收藏"}">${icon(favorite ? "star-on" : "star")}</button>
-                        <button class="kb-doc-action danger" type="button" data-kb-doc-action="delete" data-kb-doc-name="${docName}" aria-label="删除 ${docName}" title="删除">${icon("trash")}</button>
+                      <div class="kb-content-update"><strong>${addedBy}</strong><span class="kb-content-update-separator">|</span><span class="kb-content-update-time">${escapeHtml(activity)}</span></div>
+                      <div class="kb-doc-actions" role="toolbar" aria-label="${docName} ${isFolder ? "文件夹" : "文档"}操作">
                         <button class="kb-doc-action ${menuOpen ? "active" : ""}" type="button" data-kb-doc-action="more" data-kb-doc-name="${docName}" aria-label="${docName} 更多操作" aria-haspopup="menu" aria-expanded="${menuOpen}" title="更多">${icon("more")}</button>
                       </div>
                       ${menuOpen ? `
@@ -11405,34 +12456,47 @@
                       ` : ""}
                     </article>
                   `;
-                }).join("")}` : `<div class="empty-state compact"><span class="tile-icon">${icon("doc")}</span><h3>暂无文档</h3><p>已删除的文档可在回收站中恢复。</p></div>`}
+                }).join("")}</div>` : `<div class="empty-state compact"><span class="tile-icon">${icon("doc")}</span><h3>暂无内容</h3><p>可以添加文档，或关联一个云盘文件夹。</p></div>`}
+                ${allDetailDocs.length ? `
+                  <div class="kb-content-pagination" aria-label="库内内容分页">
+                    <span>共 ${allDetailDocs.length} 项，每页 ${pageSize} 项</span>
+                    <div class="kb-content-pagination-controls">
+                      <button class="kb-content-page-button" type="button" data-kb-content-page="${currentPage - 1}" aria-label="上一页" ${currentPage === 1 ? "disabled" : ""}>‹</button>
+                      ${Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => `<button class="kb-content-page-button ${page === currentPage ? "active" : ""}" type="button" data-kb-content-page="${page}" aria-label="第 ${page} 页" aria-current="${page === currentPage ? "page" : "false"}">${page}</button>`).join("")}
+                      <button class="kb-content-page-button" type="button" data-kb-content-page="${currentPage + 1}" aria-label="下一页" ${currentPage === totalPages ? "disabled" : ""}>›</button>
+                    </div>
+                  </div>
+                ` : ""}
               </div>
             </section>
 
             <aside class="kb-detail-side">
-              <section class="card panel">
-                <div class="section-title">
-                  <div><h2>热门问题</h2><p>来自本库文档与最近问答。</p></div>
+              <section class="card kb-detail-assistant-card">
+                <div class="kb-detail-assistant-section">
+                  <div class="section-title">
+                    <div><h2>热门问题</h2><p>来自本库内容与最近问答。</p></div>
+                  </div>
+                  <div class="insight-list">
+                    ${questions.map((question) => `
+                      <button class="kb-question" type="button" data-ai-assistant="knowledgeDetail" data-ai-prompt="${question.title}">
+                        <span class="tile-icon">${icon("ai")}</span>
+                        <div><h3>${question.title}</h3><p>${question.source}</p></div>
+                      </button>
+                    `).join("")}
+                  </div>
                 </div>
-                <div class="insight-list">
-                  ${questions.map((question) => `
-                    <button class="kb-question" type="button" data-ai-assistant="knowledgeDetail" data-ai-prompt="${question.title}">
-                      <span class="tile-icon">${icon("ai")}</span>
-                      <div><h3>${question.title}</h3><p>${question.source}</p></div>
-                    </button>
-                  `).join("")}
-                </div>
-              </section>
-              <section class="card panel">
-                <div class="section-title">
-                  <div><h2>本库问答</h2><p>回答只引用当前知识库。</p></div>
-                </div>
-                <div class="mini-answer">
-                  问答范围已限定为「${kb.name}」，引用结果会显示来源文档、更新时间和权限状态。
-                </div>
-                <div class="action-row" style="margin-top: 12px;">
-                  <button class="btn compact primary" type="button" data-kb-ask="${kb.name}">${icon("ai")}开始提问</button>
-                  <button class="btn compact" type="button" data-ai-assistant="knowledgeDetail">打开 AI 助手</button>
+                <div class="kb-detail-assistant-divider" aria-hidden="true"></div>
+                <div class="kb-detail-assistant-section">
+                  <div class="section-title">
+                    <div><h2>本库问答</h2><p>回答只引用当前知识库。</p></div>
+                  </div>
+                  <div class="mini-answer">
+                    问答范围已限定为「${kb.name}」，引用结果会显示来源内容、更新时间和权限状态。
+                  </div>
+                  <div class="action-row" style="margin-top: 12px;">
+                    <button class="btn compact primary" type="button" data-kb-start="${escapeHtml(kb.name)}">${icon("ai")}开始提问</button>
+                    <button class="btn compact" type="button" data-ai-assistant="knowledgeDetail">打开 AI 助手</button>
+                  </div>
                 </div>
               </section>
             </aside>
@@ -11619,7 +12683,7 @@
                       <td><button class="file-name" type="button" data-file-open="${escapeHtml(file.name)}" style="border:0;background:transparent;padding:0;text-align:left;">${icon(file.type)}<strong>${file.name}</strong><span class="tag ${file.action === "已入库" ? "green" : file.action === "待摘要" ? "orange" : "blue"}">${file.action}</span></button></td>
                       <td><span class="muted">${file.updated}（${file.owner}）</span></td>
                       <td><span class="muted">${file.size}</span></td>
-                      <td><div class="action-row drive-row-actions"><button class="btn compact primary drive-row-action" type="button" data-ai-assistant="drive" aria-label="提问" title="提问">${icon("ai")}<span class="drive-action-label">提问</span></button><button class="btn compact drive-row-action" type="button" data-action-panel="summaryFile" data-action-title="${file.name}" aria-label="摘要" title="摘要">${icon("summary")}<span class="drive-action-label">摘要</span></button><button class="btn compact drive-row-action" type="button" data-open-modal aria-label="入库" title="入库">${icon("kb")}<span class="drive-action-label">入库</span></button></div></td>
+                      <td><div class="action-row drive-row-actions"><button class="btn compact primary drive-row-action" type="button" data-file-start="${escapeHtml(file.name)}" aria-label="基于${escapeHtml(file.name)}提问" title="提问">${icon("ai")}<span class="drive-action-label">提问</span></button><button class="btn compact drive-row-action" type="button" data-action-panel="summaryFile" data-action-title="${file.name}" aria-label="摘要" title="摘要">${icon("summary")}<span class="drive-action-label">摘要</span></button><button class="btn compact drive-row-action" type="button" data-open-modal data-link-subject="${escapeHtml(file.name)}" aria-label="入库" title="入库">${icon("kb")}<span class="drive-action-label">入库</span></button></div></td>
                     </tr>
                   `).join("") : `<tr><td colspan="4">${emptyState("没有找到匹配文件", "可以上传资料后生成摘要并加入知识库。", "上传资料")}</td></tr>`}
                 </tbody>
@@ -11721,6 +12785,8 @@
       const context = state.aiContext || state.screen || "home";
       const quickDoc = quickItems.find((item) => item.id === state.selectedQuickId && item.screen === "editor");
       const editorTitle = quickDoc?.editorTitle || "AI 工具订阅报销规则汇总";
+      const assistantDoc = [...recentDocs, ...docs].find((item) => item.name === state.selectedAssistantDocName);
+      const assistantDocKb = assistantDoc?.kb || "未关联知识库";
       const contexts = {
         home: {
           title: "首页 AI 助手",
@@ -11733,12 +12799,12 @@
         },
         docs: {
           title: "我的文档 AI 助手",
-          scope: `我的文档 · ${currentDocTabLabel()}`,
-          desc: "已带入当前文档视图、列表筛选条件和文档关联状态。",
-          chips: [currentDocTabLabel(), "权限内检索", "回答显示引用"],
-          message: "你可以让 AI 对当前列表做归类、找待处理事项，或把未关联文档推荐到合适知识库。",
-          prompts: ["找出当前列表里需要我处理的文档", "哪些文档适合加入 AI 创新项目组？", "把这些文档按知识库归类"],
-          placeholder: "基于当前文档列表提问"
+          scope: assistantDoc ? assistantDoc.name : `我的文档 · ${currentDocTabLabel()}`,
+          desc: assistantDoc ? "已带入选中文档内容、关联知识库和当前账号的访问权限。" : "已带入当前文档视图、列表筛选条件和文档关联状态。",
+          chips: assistantDoc ? [assistantDoc.name, assistantDocKb, "回答显示引用"] : [currentDocTabLabel(), "权限内检索", "回答显示引用"],
+          message: assistantDoc ? `当前问答只围绕「${assistantDoc.name}」展开，并在答案中标注文档来源和更新时间。` : "你可以让 AI 对当前列表做归类、找待处理事项，或把未关联文档推荐到合适知识库。",
+          prompts: assistantDoc ? [`总结「${assistantDoc.name}」`, "提取文档中的待办和风险", `基于「${assistantDoc.name}」生成 FAQ`] : ["找出当前列表里需要我处理的文档", "哪些文档适合加入 AI 创新项目组？", "把这些文档按知识库归类"],
+          placeholder: assistantDoc ? `基于「${assistantDoc.name}」提问` : "基于当前文档列表提问"
         },
         editor: {
           title: "当前文档 AI 助手",
@@ -11869,6 +12935,14 @@
         return;
       }
       const ctx = getAssistantContext();
+      const assistantContextKey = state.aiContext || state.screen || "home";
+      const canSwitchKnowledgeBase = assistantContextKey === "knowledge";
+      const canSwitchDocument = assistantContextKey === "docs";
+      const activeAssistantKb = knowledgeBases.find((item) => item.name === state.selectedKbName) || knowledgeBases[0];
+      const assistantDocOptions = canSwitchDocument
+        ? getMyDocView(state.selectedDocTab).items.filter((doc) => !state.deletedMyDocs.includes(doc.name))
+        : [];
+      const activeAssistantDoc = [...recentDocs, ...docs].find((item) => item.name === state.selectedAssistantDocName);
       root.innerHTML = `
         <div class="assistant-layer" role="presentation">
           <aside class="assistant-drawer" role="complementary" aria-label="${ctx.title}" style="width:${state.aiDrawerWidth}px">
@@ -11883,6 +12957,61 @@
             <div class="assistant-body">
               <div class="assistant-context">
                 <strong>已带入上下文</strong>
+                ${canSwitchKnowledgeBase ? `
+                  <div class="assistant-kb-switcher">
+                    <button class="assistant-kb-trigger" type="button" data-assistant-kb-toggle aria-haspopup="listbox" aria-expanded="${state.assistantKbMenuOpen}">
+                      <span class="assistant-kb-trigger-main">
+                        ${icon(activeAssistantKb.confidential ? "lock" : "kb")}
+                        <span class="assistant-kb-trigger-label">
+                          <strong>${escapeHtml(activeAssistantKb.name)}</strong>
+                          <span>${activeAssistantKb.docs} 篇文档 · ${escapeHtml(activeAssistantKb.owner)}</span>
+                        </span>
+                      </span>
+                      ${icon("chevron")}
+                    </button>
+                    ${state.assistantKbMenuOpen ? `
+                      <div class="assistant-kb-menu" role="listbox" aria-label="切换知识库">
+                        ${knowledgeBases.map((kb) => `
+                          <button class="assistant-kb-option ${kb.name === activeAssistantKb.name ? "active" : ""}" type="button" role="option" aria-selected="${kb.name === activeAssistantKb.name}" data-assistant-kb-option="${escapeHtml(kb.name)}">
+                            <span class="tile-icon">${icon(kb.confidential ? "lock" : "kb")}</span>
+                            <span class="assistant-kb-option-copy"><strong>${escapeHtml(kb.name)}</strong><span>${kb.docs} 篇文档 · ${escapeHtml(kb.owner)}</span></span>
+                            ${kb.name === activeAssistantKb.name ? `<span class="assistant-kb-option-state">当前</span>` : ""}
+                          </button>
+                        `).join("")}
+                      </div>
+                    ` : ""}
+                  </div>
+                ` : ""}
+                ${canSwitchDocument ? `
+                  <div class="assistant-kb-switcher">
+                    <button class="assistant-kb-trigger" type="button" data-assistant-doc-toggle aria-haspopup="listbox" aria-expanded="${state.assistantDocumentMenuOpen}">
+                      <span class="assistant-kb-trigger-main">
+                        ${icon(activeAssistantDoc?.type || "doc")}
+                        <span class="assistant-kb-trigger-label">
+                          <strong>${escapeHtml(activeAssistantDoc?.name || "当前文档列表")}</strong>
+                          <span>${activeAssistantDoc ? `${escapeHtml(activeAssistantDoc.owner)} · ${escapeHtml(activeAssistantDoc.kb || "未关联知识库")}` : `${escapeHtml(currentDocTabLabel())} · ${assistantDocOptions.length} 篇文档`}</span>
+                        </span>
+                      </span>
+                      ${icon("chevron")}
+                    </button>
+                    ${state.assistantDocumentMenuOpen ? `
+                      <div class="assistant-kb-menu" role="listbox" aria-label="切换问答文档">
+                        <button class="assistant-kb-option ${activeAssistantDoc ? "" : "active"}" type="button" role="option" aria-selected="${!activeAssistantDoc}" data-assistant-doc-option="__list__">
+                          <span class="tile-icon">${icon("doc")}</span>
+                          <span class="assistant-kb-option-copy"><strong>当前文档列表</strong><span>${escapeHtml(currentDocTabLabel())} · ${assistantDocOptions.length} 篇文档</span></span>
+                          ${activeAssistantDoc ? "" : `<span class="assistant-kb-option-state">当前</span>`}
+                        </button>
+                        ${assistantDocOptions.map((doc) => `
+                          <button class="assistant-kb-option ${doc.name === activeAssistantDoc?.name ? "active" : ""}" type="button" role="option" aria-selected="${doc.name === activeAssistantDoc?.name}" data-assistant-doc-option="${escapeHtml(doc.name)}">
+                            <span class="tile-icon">${icon(doc.confidential ? "lock" : doc.type || "doc")}</span>
+                            <span class="assistant-kb-option-copy"><strong>${escapeHtml(doc.name)}</strong><span>${escapeHtml(doc.owner)} · ${escapeHtml(doc.kb || "未关联知识库")}</span></span>
+                            ${doc.name === activeAssistantDoc?.name ? `<span class="assistant-kb-option-state">当前</span>` : ""}
+                          </button>
+                        `).join("")}
+                      </div>
+                    ` : ""}
+                  </div>
+                ` : ""}
                 <p>${ctx.desc}</p>
                 <div class="tag-row">${ctx.chips.map((chip) => `<span class="tag blue">${chip}</span>`).join("")}</div>
               </div>
@@ -12090,6 +13219,15 @@
             ["下一步", "创建后进入知识库详情页，先补热门问题和库内文档。"]
           ]
         },
+        addKnowledgeContent: {
+          title: `添加内容 · ${safeTitle}`,
+          primary: "继续添加",
+          cards: [
+            ["直接添加文档", "上传或选择单篇文档，进入知识库后可单独复核、更新和移除。"],
+            ["关联云盘文件夹", "选择有权限的云盘文件夹，文件新增、修改和删除会持续同步到知识库。"],
+            ["权限与问答", "文档和文件夹都继承原位置权限；无权内容不会进入检索与回答。"]
+          ]
+        },
         publishKb: {
           title: "发布知识库",
           primary: "提交发布检查",
@@ -12243,6 +13381,64 @@
       lastFocusedElement = document.activeElement;
       const panel = actionPanelContent(type, title);
       const root = document.getElementById("actionModalRoot");
+      if (type === "addKnowledgeContent") {
+        root.innerHTML = `
+          <div class="modal-mask show" id="actionModal" role="dialog" aria-modal="true" aria-labelledby="addKnowledgeTitle">
+            <div class="modal add-knowledge-modal">
+              <div class="modal-header">
+                <h2 id="addKnowledgeTitle">添加知识</h2>
+                <button class="icon-button" type="button" data-action-close aria-label="关闭添加知识弹窗"><span class="icon close"></span></button>
+              </div>
+              <div class="add-knowledge-body">
+                <label class="add-knowledge-dropzone">
+                  <input type="file" multiple data-add-knowledge-files accept=".doc,.docx,.xls,.xlsx,.ppt,.pptx,.pdf,.txt,.epub,.csv,image/*">
+                  <span class="add-knowledge-folder-visual"><img src="assets/upload-folder.png" alt=""></span>
+                  <strong>拖入文件或从本地上传</strong>
+                  <span>支持 Word、Excel、PPT、PDF、TXT、EPUB、CSV、图片等格式文件，限每个文件<br>300MB 以内</span>
+                </label>
+                <div class="add-knowledge-sources">
+                  <button class="add-knowledge-source" type="button" data-add-knowledge-action="document">
+                    <span class="add-knowledge-source-icon">${icon("doc")}</span>
+                    <span class="add-knowledge-source-copy"><strong>从文档导入</strong><span>从我的文档中选择内容导入知识库</span></span>
+                  </button>
+                  <button class="add-knowledge-source" type="button" data-add-knowledge-action="cloud-drive">
+                    <span class="add-knowledge-source-icon">${icon("drive")}</span>
+                    <span class="add-knowledge-source-copy"><strong>从云盘导入</strong><span>从云盘选择文件或文件夹导入知识库</span></span>
+                  </button>
+                </div>
+                <section class="add-knowledge-analysis">
+                  <h3>深度解析</h3>
+                  <p>开启后，将采用360自研模型深度解析文件中的图表及公式等数据，为科研分析、商业决策等复杂场景提供更精准支持。同时将增加算力资源消耗，解析时长增加<a href="#" data-add-knowledge-action="example">查看示例</a></p>
+                </section>
+              </div>
+              <div class="modal-footer add-knowledge-footer">
+                <button class="add-knowledge-auto" type="button" data-add-knowledge-action="automation">自动采集任务</button>
+                <button class="btn" type="button" data-action-close>取消</button>
+              </div>
+            </div>
+          </div>
+        `;
+        focusDialog(root);
+        const dropzone = root.querySelector(".add-knowledge-dropzone");
+        const fileInput = root.querySelector("[data-add-knowledge-files]");
+        ["dragenter", "dragover"].forEach((eventName) => dropzone.addEventListener(eventName, (event) => {
+          event.preventDefault();
+          dropzone.classList.add("dragging");
+        }));
+        ["dragleave", "drop"].forEach((eventName) => dropzone.addEventListener(eventName, (event) => {
+          event.preventDefault();
+          dropzone.classList.remove("dragging");
+        }));
+        dropzone.addEventListener("drop", (event) => {
+          const count = event.dataTransfer?.files?.length || 0;
+          if (count) showToast(`已选择 ${count} 个文件，准备上传`);
+        });
+        fileInput.addEventListener("change", () => {
+          const count = fileInput.files?.length || 0;
+          if (count) showToast(`已选择 ${count} 个文件，准备上传`);
+        });
+        return;
+      }
       root.innerHTML = `
         <div class="modal-mask show" id="actionModal" role="dialog" aria-modal="true" aria-labelledby="actionModalTitle">
           <div class="modal">
@@ -12267,6 +13463,187 @@
           </div>
         </div>
       `;
+      focusDialog(root);
+    }
+
+    function openCloudImportPanel(mode = "file", knowledgeName = "") {
+      const isFolderMode = mode === "folder";
+      const isDocumentMode = mode === "document";
+      const root = document.getElementById("actionModalRoot");
+      const entries = isFolderMode ? [
+        { name: "AI 创新项目资料", kind: "folder", detail: "12 个文件 · 持续同步", updated: "刚刚", size: "—" },
+        { name: "技术中台共享资料", kind: "folder", detail: "28 个文件 · 部门空间", updated: "昨天 18:20", size: "—" },
+        { name: "效能工程部公共资料", kind: "folder", detail: "9 个文件 · 团队空间", updated: "08-10 14:32", size: "—" }
+      ] : [
+        { name: "AI 工具订阅报销规则汇总.docx", kind: "doc", detail: "Word 文档", updated: "刚刚", size: "2.8 MB" },
+        { name: "技术标 prompt 及其步骤方案.docx", kind: "doc", detail: "Word 文档", updated: "12 分钟前", size: "1.6 MB" },
+        { name: "竞品生成技术标.pptx", kind: "ppt", detail: "演示文稿", updated: "今天 10:12", size: "8.4 MB" },
+        { name: "项目复盘与权限规则.pdf", kind: "pdf", detail: "PDF 文档", updated: "昨天 18:06", size: "5.2 MB" },
+        { name: "工具订阅费用明细.xlsx", kind: "excel", detail: "Excel 表格", updated: "08-09 16:40", size: "986 KB" }
+      ];
+      root.innerHTML = `
+        <div class="modal-mask show" id="actionModal" role="dialog" aria-modal="true" aria-labelledby="cloudImportTitle">
+          <div class="modal cloud-import-modal">
+            <div class="modal-header">
+              <h2 id="cloudImportTitle">${isFolderMode ? "添加文件夹" : (isDocumentMode ? "添加文档" : "添加文件")}</h2>
+              <button class="icon-button" type="button" data-action-close aria-label="关闭云盘选择"><span class="icon close"></span></button>
+            </div>
+            <div class="cloud-import-body">
+              <label class="cloud-import-search">${icon("search")}<input type="search" placeholder="搜索${isFolderMode ? "文件夹" : (isDocumentMode ? "文档" : "文件")}" data-cloud-import-search></label>
+              <div class="cloud-import-browser">
+                <nav class="cloud-import-tree" aria-label="云盘空间">
+                  <button class="cloud-tree-node" type="button" data-cloud-tree="360"><span class="cloud-tree-caret">▼</span><span class="cloud-tree-icon">${icon("drive")}</span><span>360</span></button>
+                  <button class="cloud-tree-node level-1" type="button" data-cloud-tree="技术中台"><span class="cloud-tree-caret">▶</span><span class="cloud-tree-icon">${icon("drive")}</span><span>技术中台</span></button>
+                  <button class="cloud-tree-node" type="button" data-cloud-tree="与我协作"><span class="cloud-tree-caret"></span><span class="cloud-tree-icon collab">${icon("auth")}</span><span>与我协作</span></button>
+                  <button class="cloud-tree-node" type="button" data-cloud-tree="个人文件"><span class="cloud-tree-caret"></span><span class="cloud-tree-icon personal">${icon("auth")}</span><span>个人文件</span></button>
+                  <button class="cloud-tree-node" type="button" data-cloud-tree="群组空间"><span class="cloud-tree-caret"></span><span class="cloud-tree-icon group">${icon("auth")}</span><span>群组空间</span></button>
+                </nav>
+                <div class="cloud-import-content" data-cloud-import-content>
+                  <div class="cloud-import-empty"><span class="cloud-import-empty-visual" aria-hidden="true"></span><span>请从左侧选择</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer cloud-import-footer">
+              <span class="cloud-import-count">已选择 <strong data-cloud-selected-count>0</strong> 个&nbsp; ›</span>
+              <span class="cloud-import-footer-actions"><button class="btn" type="button" data-cloud-import-back>取消</button><button class="btn primary" type="button" data-cloud-import-confirm disabled>确定</button></span>
+            </div>
+          </div>
+        </div>
+      `;
+      const content = root.querySelector("[data-cloud-import-content]");
+      const search = root.querySelector("[data-cloud-import-search]");
+      const confirm = root.querySelector("[data-cloud-import-confirm]");
+      const countNode = root.querySelector("[data-cloud-selected-count]");
+      const selected = new Set();
+      let activeSpace = "";
+
+      const renderEntries = () => {
+        const query = search.value.trim().toLowerCase();
+        const visibleEntries = entries.filter((entry) => entry.name.toLowerCase().includes(query));
+        content.innerHTML = `
+                  <div class="cloud-import-list-head"><span>${isFolderMode ? "文件夹" : (isDocumentMode ? "文档" : "文件")}</span><span>大小</span><span>修改时间</span></div>
+          ${visibleEntries.length ? visibleEntries.map((entry) => `
+            <label class="cloud-import-row ${selected.has(entry.name) ? "selected" : ""}" data-cloud-import-row="${escapeHtml(entry.name)}">
+              <span class="cloud-import-file"><input type="checkbox" value="${escapeHtml(entry.name)}" ${selected.has(entry.name) ? "checked" : ""} data-cloud-import-check><span class="tile-icon">${icon(entry.kind)}</span><span class="cloud-import-file-copy"><strong>${escapeHtml(entry.name)}</strong><span>${escapeHtml(entry.detail)}</span></span></span>
+              <span class="cloud-import-meta">${entry.size}</span><span class="cloud-import-meta">${entry.updated}</span>
+            </label>
+          `).join("") : `<div class="cloud-import-empty"><span class="cloud-import-empty-visual" aria-hidden="true"></span><span>未找到相关内容</span></div>`}
+        `;
+      };
+
+      const syncSelection = () => {
+        countNode.textContent = String(selected.size);
+        confirm.disabled = selected.size === 0;
+      };
+
+      root.querySelectorAll("[data-cloud-tree]").forEach((node) => node.addEventListener("click", () => {
+        activeSpace = node.dataset.cloudTree;
+        root.querySelectorAll("[data-cloud-tree]").forEach((item) => item.classList.toggle("active", item === node));
+        renderEntries();
+      }));
+      search.addEventListener("input", () => {
+        if (!activeSpace) activeSpace = "搜索结果";
+        renderEntries();
+      });
+      content.addEventListener("change", (event) => {
+        const checkbox = event.target.closest("[data-cloud-import-check]");
+        if (!checkbox) return;
+        if (checkbox.checked) selected.add(checkbox.value); else selected.delete(checkbox.value);
+        checkbox.closest(".cloud-import-row")?.classList.toggle("selected", checkbox.checked);
+        syncSelection();
+      });
+      root.querySelector("[data-cloud-import-back]").addEventListener("click", () => openActionPanel("addKnowledgeContent", knowledgeName));
+      confirm.addEventListener("click", () => {
+        if (!selected.size) return;
+        closeActionPanel();
+        showToast(`已从云盘选择 ${selected.size} 个${isFolderMode ? "文件夹" : "文件"}`);
+      });
+      focusDialog(root);
+    }
+
+    function openDocumentImportPanel(knowledgeName = "") {
+      const root = document.getElementById("actionModalRoot");
+      const allDocuments = [...recentDocs, ...docs].filter((doc, index, list) => list.findIndex((item) => item.name === doc.name) === index);
+      const tabs = [
+        { id: "recent", label: "最近更新" },
+        { id: "created", label: "我创建的" },
+        { id: "shared", label: "与我共享" },
+        { id: "favorite", label: "收藏文档" }
+      ];
+      const selected = new Set();
+      let activeTab = "recent";
+      root.innerHTML = `
+        <div class="modal-mask show" id="actionModal" role="dialog" aria-modal="true" aria-labelledby="documentImportTitle">
+          <div class="modal document-import-modal">
+            <div class="modal-header">
+              <h2 id="documentImportTitle">从文档导入</h2>
+              <button class="icon-button" type="button" data-action-close aria-label="关闭文档选择"><span class="icon close"></span></button>
+            </div>
+            <div class="document-import-body">
+              <div class="document-import-toolbar">
+                <div class="document-import-tabs" role="tablist" aria-label="文档分类">
+                  ${tabs.map((tab) => `<button class="document-import-tab ${tab.id === activeTab ? "active" : ""}" type="button" data-document-import-tab="${tab.id}" role="tab" aria-selected="${tab.id === activeTab}">${tab.label}</button>`).join("")}
+                </div>
+                <label class="document-import-search">${icon("search")}<input type="search" placeholder="搜索文档名称" data-document-import-search></label>
+              </div>
+              <p class="document-import-hint">选择要加入「${escapeHtml(knowledgeName || state.selectedKbName || "当前知识库")}」的文档，可多选后一次导入。</p>
+              <div class="document-import-list" data-document-import-list></div>
+            </div>
+            <div class="modal-footer document-import-footer">
+              <span class="document-import-count">已选择 <strong data-document-import-count>0</strong> 篇</span>
+              <span class="document-import-footer-actions"><button class="btn" type="button" data-document-import-back>取消</button><button class="btn primary" type="button" data-document-import-confirm disabled>确认导入</button></span>
+            </div>
+          </div>
+        </div>
+      `;
+      const list = root.querySelector("[data-document-import-list]");
+      const search = root.querySelector("[data-document-import-search]");
+      const count = root.querySelector("[data-document-import-count]");
+      const confirm = root.querySelector("[data-document-import-confirm]");
+      const getItems = () => {
+        const query = search.value.trim().toLowerCase();
+        return allDocuments.filter((doc) => {
+          const matchesTab = activeTab === "recent" || (activeTab === "created" ? doc.relation === "我创建" : activeTab === "shared" ? doc.relation === "与我共享" : state.favoriteMyDocs.includes(doc.name));
+          return matchesTab && (!query || doc.name.toLowerCase().includes(query));
+        });
+      };
+      const renderList = () => {
+        const items = getItems();
+        list.innerHTML = items.length ? `
+          <div class="document-import-list-head"><span>文档</span><span>创建人</span><span>最近更新</span><span>状态</span></div>
+          ${items.map((doc) => {
+            const isLinked = doc.status === "已关联";
+            const isRestricted = doc.status === "待复核" || doc.status === "无权限";
+            const displayStatus = isRestricted ? "无权限" : (doc.status || "可导入");
+            return `
+            <label class="document-import-row ${isLinked ? "is-linked" : isRestricted ? "is-restricted" : selected.has(doc.name) ? "selected" : ""}">
+              <span class="document-import-file"><input type="checkbox" value="${escapeHtml(doc.name)}" data-document-import-check ${(isLinked || isRestricted) ? "disabled" : ""} ${selected.has(doc.name) ? "checked" : ""}><span class="tile-icon">${icon(doc.type || "doc")}</span><span class="document-import-copy"><strong>${escapeHtml(doc.name)}</strong><span>${escapeHtml(doc.kb || "未关联知识库")} · ${isRestricted ? "没有编辑和操作权限" : escapeHtml(doc.relation || "我的文档")}</span></span></span>
+              <span class="document-import-owner">${escapeHtml(doc.owner || "—")}</span>
+              <span class="document-import-updated">${escapeHtml(doc.updatedAt || doc.time || doc.access || "刚刚")}</span>
+              <span class="document-import-status">${escapeHtml(displayStatus)}</span>
+            </label>
+          `;
+          }).join("")}
+        ` : `<div class="document-import-empty">当前分类下暂无可导入文档</div>`;
+      };
+      const sync = () => { count.textContent = String(selected.size); confirm.disabled = selected.size === 0; };
+      root.querySelectorAll("[data-document-import-tab]").forEach((tab) => tab.addEventListener("click", () => {
+        activeTab = tab.dataset.documentImportTab;
+        root.querySelectorAll("[data-document-import-tab]").forEach((item) => { item.classList.toggle("active", item === tab); item.setAttribute("aria-selected", item === tab ? "true" : "false"); });
+        renderList();
+      }));
+      search.addEventListener("input", renderList);
+      list.addEventListener("change", (event) => {
+        const input = event.target.closest("[data-document-import-check]");
+        if (!input) return;
+        if (input.checked) selected.add(input.value); else selected.delete(input.value);
+        input.closest(".document-import-row")?.classList.toggle("selected", input.checked);
+        sync();
+      });
+      root.querySelector("[data-document-import-back]").addEventListener("click", () => openActionPanel("addKnowledgeContent", knowledgeName));
+      confirm.addEventListener("click", () => { closeActionPanel(); showToast(`已导入 ${selected.size} 篇文档到知识库`); });
+      renderList();
+      sync();
       focusDialog(root);
     }
 
@@ -12357,6 +13734,25 @@
       }
       modal.classList.add("closing");
       window.setTimeout(finalize, 155);
+    }
+
+    function syncLinkKnowledgeModal() {
+      const modal = document.getElementById("linkModal");
+      if (!modal) return;
+      const subject = modal.querySelector("#linkModalSubject");
+      if (subject) subject.textContent = `为「${state.linkSubject}」选择一个有权限的知识库。`;
+      modal.querySelectorAll("[data-link-kb-tab]").forEach((tab) => {
+        const active = tab.dataset.linkKbTab === state.linkKbTab;
+        tab.classList.toggle("active", active);
+        tab.setAttribute("aria-selected", String(active));
+      });
+      modal.querySelectorAll("[data-link-kb-option]").forEach((option) => {
+        const visible = option.dataset.linkKbGroup === state.linkKbTab;
+        const selected = visible && option.dataset.linkKbOption === state.selectedLinkKbName;
+        option.hidden = !visible;
+        option.classList.toggle("active", selected);
+        option.setAttribute("aria-selected", String(selected));
+      });
     }
 
     function prototypeAnswer(question) {
@@ -12509,6 +13905,8 @@
       }
       if (screen === "docs" && options.resetDocTab !== false) state.selectedDocTab = "recent";
       if (screen === "knowledge" && options.resetKnowledgeTab) state.selectedKnowledgeTab = "all";
+      if (screen !== "knowledgeDetail") state.knowledgeFolderPath = [];
+      if (screen !== "knowledgeDetail") state.knowledgeContentPage = 1;
       if (screen !== "knowledge") state.kbAskOpen = false;
       renderContent();
     }
@@ -12936,6 +14334,35 @@
         return;
       }
 
+      const kbContentPage = event.target.closest("[data-kb-content-page]");
+      if (kbContentPage && !kbContentPage.disabled) {
+        state.knowledgeContentPage = Math.max(1, Number(kbContentPage.dataset.kbContentPage) || 1);
+        state.kbDocMenuName = "";
+        renderContent();
+        return;
+      }
+
+      const kbFolderBreadcrumb = event.target.closest("[data-kb-folder-level]");
+      if (kbFolderBreadcrumb) {
+        const level = Number(kbFolderBreadcrumb.dataset.kbFolderLevel);
+        state.knowledgeFolderPath = state.knowledgeFolderPath.slice(0, Number.isFinite(level) ? level : 0);
+        state.knowledgeContentPage = 1;
+        state.kbDocMenuName = "";
+        renderContent();
+        return;
+      }
+
+      const kbFolderTarget = event.target.closest("[data-open-kb-folder]");
+      if (kbFolderTarget) {
+        const folderName = kbFolderTarget.dataset.openKbFolder;
+        state.knowledgeFolderPath = [...state.knowledgeFolderPath, folderName];
+        state.knowledgeContentPage = 1;
+        state.kbDocMenuName = "";
+        renderContent();
+        showToast(`已进入文件夹：${folderName}`);
+        return;
+      }
+
       const openDocumentTarget = event.target.closest("[data-open-document]");
       if (openDocumentTarget) {
         const title = openDocumentTarget.dataset.openDocument;
@@ -12948,7 +14375,7 @@
         if (originType === "knowledge") {
           const kbName = openDocumentTarget.dataset.documentKb || state.selectedKbName;
           const kb = knowledgeBases.find((item) => item.name === kbName) || {};
-          const kbDocument = (knowledgeDetailDocs[kbName] || []).find((item) => item.name === title) || {};
+          const kbDocument = allKnowledgeItems(kbName).find((item) => item.name === title) || {};
           origin = [
             { label: "我的知识库", screen: "knowledge" },
             { label: kbName, screen: "knowledgeDetail", kbName }
@@ -13530,6 +14957,27 @@
         return;
       }
 
+      const addKnowledgeAction = event.target.closest("[data-add-knowledge-action]");
+      if (addKnowledgeAction) {
+        event.preventDefault();
+        const action = addKnowledgeAction.dataset.addKnowledgeAction;
+        if (action === "example") {
+          showToast("已打开深度解析示例");
+          return;
+        }
+        if (action === "cloud-drive") {
+          openCloudImportPanel("file", state.selectedKbName);
+          return;
+        }
+        if (action === "document") {
+          openDocumentImportPanel(state.selectedKbName);
+          return;
+        }
+        closeActionPanel();
+        if (action === "automation") showToast("已进入自动采集任务");
+        return;
+      }
+
       const editorExitAction = event.target.closest("[data-editor-exit-action]");
       if (editorExitAction) {
         finishEditorExit(editorExitAction.dataset.editorExitAction === "save");
@@ -13601,6 +15049,8 @@
       if (kbOpenName) {
         state.selectedQuickId = "";
         state.selectedKbName = kbOpenName || state.selectedKbName;
+        state.knowledgeFolderPath = [];
+        state.knowledgeContentPage = 1;
         state.screen = "knowledgeDetail";
         state.kbAskOpen = false;
         state.aiDrawerOpen = false;
@@ -13675,6 +15125,8 @@
         state.aiDraft = aiTarget.dataset.aiPrompt || "";
         state.aiAnswerReady = false;
         state.aiDrawerOpen = true;
+        state.assistantKbMenuOpen = false;
+        state.assistantDocumentMenuOpen = false;
         state.kbAskOpen = false;
         state.homeKbMenuOpen = false;
         renderAssistantDrawer();
@@ -13685,7 +15137,45 @@
       }
 
       if (event.target.closest("[data-ai-close]")) {
+        state.assistantKbMenuOpen = false;
+        state.assistantDocumentMenuOpen = false;
         closeAssistantDrawer();
+        return;
+      }
+
+      const assistantDocOption = event.target.closest("[data-assistant-doc-option]");
+      if (assistantDocOption) {
+        state.selectedAssistantDocName = assistantDocOption.dataset.assistantDocOption === "__list__" ? "" : assistantDocOption.dataset.assistantDocOption;
+        state.assistantDocumentMenuOpen = false;
+        state.aiDraft = "";
+        state.aiAnswerReady = false;
+        renderAssistantDrawer();
+        showToast(state.selectedAssistantDocName ? `已切换到「${state.selectedAssistantDocName}」` : `已切换到「${currentDocTabLabel()}」列表`);
+        return;
+      }
+
+      if (event.target.closest("[data-assistant-doc-toggle]")) {
+        state.assistantDocumentMenuOpen = !state.assistantDocumentMenuOpen;
+        state.assistantKbMenuOpen = false;
+        renderAssistantDrawer();
+        return;
+      }
+
+      const assistantKbOption = event.target.closest("[data-assistant-kb-option]");
+      if (assistantKbOption) {
+        state.selectedKbName = assistantKbOption.dataset.assistantKbOption || state.selectedKbName;
+        state.assistantKbMenuOpen = false;
+        state.aiDraft = "";
+        state.aiAnswerReady = false;
+        renderAssistantDrawer();
+        showToast(`已切换到「${state.selectedKbName}」`);
+        return;
+      }
+
+      if (event.target.closest("[data-assistant-kb-toggle]")) {
+        state.assistantKbMenuOpen = !state.assistantKbMenuOpen;
+        state.assistantDocumentMenuOpen = false;
+        renderAssistantDrawer();
         return;
       }
 
@@ -13747,9 +15237,42 @@
         return;
       }
 
-      if (event.target.closest("[data-open-modal]")) {
+      const linkKbTabTarget = event.target.closest("[data-link-kb-tab]");
+      if (linkKbTabTarget) {
+        state.linkKbTab = linkKbTabTarget.dataset.linkKbTab;
+        state.selectedLinkKbName = knowledgeBases.find((kb) => kb.ownership === state.linkKbTab)?.name || "";
+        syncLinkKnowledgeModal();
+        return;
+      }
+
+      const linkKbOptionTarget = event.target.closest("[data-link-kb-option]");
+      if (linkKbOptionTarget) {
+        state.selectedLinkKbName = linkKbOptionTarget.dataset.linkKbOption;
+        syncLinkKnowledgeModal();
+        return;
+      }
+
+      if (event.target.closest("[data-link-kb-confirm]")) {
+        const selectedKb = state.selectedLinkKbName;
+        [...driveFolders, ...files].filter((item) => item.name === state.linkSubject).forEach((item) => { item.action = "已入库"; });
+        [...recentDocs, ...docs].filter((item) => item.name === state.linkSubject).forEach((item) => {
+          item.kb = selectedKb;
+          item.status = "已关联";
+        });
+        closeStaticModal("linkModal");
+        renderContent();
+        showToast(`已将「${state.linkSubject}」关联到「${selectedKb}」`);
+        return;
+      }
+
+      const openLinkModal = event.target.closest("[data-open-modal]");
+      if (openLinkModal) {
         lastFocusedElement = document.activeElement;
+        state.linkSubject = openLinkModal.dataset.linkSubject || openLinkModal.dataset.actionTitle || state.selectedFileName || "当前内容";
+        state.linkKbTab = "created";
+        state.selectedLinkKbName = knowledgeBases.find((kb) => kb.ownership === "created")?.name || "";
         const modal = document.getElementById("linkModal");
+        syncLinkKnowledgeModal();
         modal.classList.remove("closing");
         modal.classList.add("show");
         focusDialog(modal);
@@ -13769,6 +15292,45 @@
         }
         state.kbAskAnswer = `${prototypeAnswer(input.value.trim())}（回答范围：${state.selectedKbName}）`;
         renderContent();
+        return;
+      }
+
+      const fileStart = event.target.closest("[data-file-start]");
+      if (fileStart) {
+        const fileName = fileStart.dataset.fileStart;
+        state.selectedFileName = fileName;
+        state.homeKbScope = fileName;
+        state.selectedScope = fileName;
+        state.homeAiMode = "chat";
+        state.homeAiDrafts.chat = "";
+        state.homeConversationActive = false;
+        state.homeConversationMessages = [];
+        state.selectedConversationId = "";
+        state.aiDrawerOpen = false;
+        state.homeKbMenuOpen = false;
+        navigateToScreen("home");
+        requestAnimationFrame(() => document.querySelector('[data-home-mode-input="chat"]')?.focus());
+        showToast(`已带入文件「${fileName}」，可以开始提问`);
+        return;
+      }
+
+      const kbStart = event.target.closest("[data-kb-start]");
+      if (kbStart) {
+        const kbName = kbStart.dataset.kbStart || state.selectedKbName;
+        state.selectedKbName = kbName;
+        state.homeKbScope = kbName;
+        state.selectedScope = kbName;
+        state.homeAiMode = "chat";
+        state.homeAiDrafts.chat = "";
+        state.homeConversationActive = false;
+        state.homeConversationMessages = [];
+        state.selectedConversationId = "";
+        state.kbAskOpen = false;
+        state.aiDrawerOpen = false;
+        state.homeKbMenuOpen = false;
+        navigateToScreen("home");
+        requestAnimationFrame(() => document.querySelector('[data-home-mode-input="chat"]')?.focus());
+        showToast(`已选择「${kbName}」，可以开始提问`);
         return;
       }
 
