@@ -3417,7 +3417,7 @@
     }
 
     .space-card {
-      min-height: 210px;
+      min-height: 0;
       border-color: rgba(47, 107, 219, 0.10);
       background: #FFFFFF;
       transition: border-color var(--fs-motion-fast) var(--fs-ease-out), box-shadow var(--fs-motion-fast) var(--fs-ease-out), transform 120ms var(--fs-ease-out);
@@ -3482,7 +3482,7 @@
     }
 
     .kb-card {
-      min-height: 250px;
+      min-height: 0;
       padding: 18px !important;
       display: flex;
       flex-direction: column;
@@ -3495,8 +3495,8 @@
 
     .kb-card .card-head { min-height: 58px; }
     .kb-card .card-title { gap: 12px; }
-    .kb-card .card-avatar { width: 42px; height: 42px; border-radius: 12px; background: var(--dna-primary-gradient) !important; color: #FFFFFF !important; }
-    .kb-card .card-avatar .icon { color: #FFFFFF !important; }
+    .kb-card .card-avatar { width: 42px; height: 42px; border-radius: 12px; background: #EEF5FF !important; color: #3873FA !important; }
+    .kb-card .card-avatar .icon { color: #3873FA !important; }
     .kb-card .card-title h3 { font-size: 16px; line-height: 23px; }
     .kb-card .card-title p { margin-top: 4px !important; color: #677080 !important; font-size: 12px; line-height: 19px; }
     .kb-card > div:not(.card-head):not(.tag-row):not(.action-row) { flex: 0 0 auto !important; }
@@ -7990,8 +7990,8 @@
       width: 32px;
       height: 32px;
       border-radius: 8px;
-      background: #1D1D1F;
-      color: #FFFFFF;
+      background: #EEF5FF;
+      color: #3873FA;
       box-shadow: none;
     }
 
@@ -9227,6 +9227,21 @@
       background: transparent;
     }
     .content-head .topbar-module-tabs { display: flex; align-items: center; }
+    .topbar-module-tabs[aria-label="知识库视图"] .topbar-module-tab,
+    .topbar-module-tabs[aria-label="知识库视图"] .topbar-module-tab.active,
+    .topbar-module-tabs[aria-label="文档视图"] .topbar-module-tab,
+    .topbar-module-tabs[aria-label="文档视图"] .topbar-module-tab.active,
+    .topbar-module-tabs[aria-label="技能来源"] .topbar-module-tab,
+    .topbar-module-tabs[aria-label="技能来源"] .topbar-module-tab.active {
+      font-size: 24px;
+      line-height: 32px;
+    }
+    .content-head:has(.topbar-module-tabs[aria-label="知识库视图"]),
+    .content-head:has(.topbar-module-tabs[aria-label="文档视图"]),
+    .content-head:has(.topbar-module-tabs[aria-label="技能来源"]) {
+      min-height: 72px;
+      height: 72px;
+    }
     .content-head .topbar-actions { display: flex; align-items: center; gap: 8px; }
     .content-head .page-title { margin: 0; }
     .content-head .document-path { min-width: 0; }
@@ -9260,6 +9275,143 @@
       scrollbar-width: none;
     }
     .tab-filter-group::-webkit-scrollbar { display: none; }
+    .kb-layout .tab-filter-group .tab {
+      border-radius: 999px;
+    }
+    .kb-layout > section > .tabs.tabs-with-actions {
+      min-height: 48px;
+      height: 48px;
+    }
+
+    /* Directory card columns follow the actual content width, keeping
+       metadata readable and limiting wide screens to four cards per row. */
+    .content[data-current-screen="spaces"],
+    .kb-layout > section {
+      container-type: inline-size;
+    }
+    .content[data-current-screen="spaces"] > .grid.cols-2,
+    .kb-layout .kb-grid {
+      grid-template-columns: 1fr;
+    }
+    @container (min-width: 600px) {
+      .content[data-current-screen="spaces"] > .grid.cols-2,
+      .kb-layout .kb-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @container (min-width: 900px) {
+      .content[data-current-screen="spaces"] > .grid.cols-2,
+      .kb-layout .kb-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @container (min-width: 1200px) {
+      .content[data-current-screen="spaces"] > .grid.cols-2,
+      .kb-layout .kb-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+
+    /* Cloud-space cards use a quiet colored cover, matching the online
+       directory pattern while keeping actions visible and directly usable. */
+    .space-card {
+      min-height: 214px;
+      padding: 0 !important;
+      gap: 0 !important;
+      overflow: hidden;
+      border-color: #E6EBF3 !important;
+      border-radius: 10px !important;
+      background: #FFFFFF !important;
+    }
+    .space-card-cover {
+      position: relative;
+      min-height: 76px;
+      padding: 14px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      background: #EAF3FF;
+    }
+    .space-card-cover-1 { background: #EAF8F1; }
+    .space-card-cover-2 { background: #FFF5E7; }
+    .space-card-cover-3 { background: #F1F0FF; }
+    .space-card-cover-mark {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: rgba(255,255,255,.76);
+      color: #3974DA;
+    }
+    .space-card-cover-1 .space-card-cover-mark { color: #299663; }
+    .space-card-cover-2 .space-card-cover-mark { color: #D9861E; }
+    .space-card-cover-3 .space-card-cover-mark { color: #6B65CB; }
+    .space-card-cover-mark .icon { width: 22px; height: 22px; flex-basis: 22px; }
+    .space-card-cover-actions {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: inline-flex;
+      gap: 4px;
+    }
+    .space-card-icon-button {
+      width: 28px;
+      height: 28px;
+      display: inline-grid;
+      place-items: center;
+      padding: 0;
+      border: 1px solid rgba(255,255,255,.68);
+      border-radius: 6px;
+      background: rgba(255,255,255,.64);
+      color: #65758B;
+      cursor: pointer;
+    }
+    .space-card-icon-button .icon { width: 16px; height: 16px; flex-basis: 16px; }
+    .space-card-icon-button:hover { background: #FFFFFF; color: #2F6BDB; }
+    .space-card-icon-button.is-favorite { color: #E79C1A; }
+    .space-card-body { min-width: 0; padding: 12px 14px 14px; }
+    .space-card-title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .space-card-title-row > div { min-width: 0; }
+    .space-card-title-row h3 {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      text-align: left;
+    }
+    .space-card-title-row p {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .space-card-title-row .tag { flex: 0 0 auto; margin-top: 1px; }
+    .space-card .space-doc-list { margin-top: 10px; gap: 3px; }
+    .space-card .space-doc-line { padding: 2px 0; }
+
+    .content[data-current-screen="docs"] > .tabs.tabs-with-actions,
+    .content[data-current-screen="spaces"] > .tabs.tabs-with-actions,
+    .skill-catalog-page .catalog-subnav {
+      min-height: 48px;
+      height: 48px;
+    }
+    .content[data-current-screen="docs"] .tab-filter-group .tab,
+    .content[data-current-screen="spaces"] .tab-filter-group .tab,
+    .skill-catalog-page .catalog-filter-tab {
+      border-radius: 999px;
+    }
+    .skill-catalog-card {
+      border: 1px solid #CDDBF2 !important;
+      border-radius: 12px !important;
+      box-shadow: 0 2px 12px rgba(56,83,138,.05) !important;
+    }
+    .skill-catalog-page .catalog-search {
+      width: 220px;
+      height: 32px;
+      flex-basis: 220px;
+      border-color: var(--dna-border);
+      border-radius: var(--dna-radius-md);
+      background: #FFFFFF !important;
+      box-shadow: none;
+    }
     .tab-inline-actions {
       display: inline-flex;
       align-items: center;
@@ -9277,6 +9429,7 @@
       flex: 0 0 220px;
       margin: 0;
       box-shadow: none;
+      background: #FFFFFF !important;
     }
     .tab-inline-actions .icon-button {
       width: 32px;
@@ -9745,6 +9898,7 @@
       aiAnswerReady: false,
       selectedDocTab: "recent",
       selectedKnowledgeTab: "all",
+      docQuery: "",
       knowledgeQuery: "",
       selectedDiscoverTab: "all",
       selectedToolTab: "recommended",
@@ -9789,6 +9943,7 @@
       mobileNavOpen: false,
       suiteModule: "cloud-doc",
       selectedSpaceTab: "recent",
+      selectedSpaceName: "",
       selectedDriveNode: "效能工程部",
       expandedDriveNodes: ["360", "技术中台"],
       driveView: "list",
@@ -9945,6 +10100,7 @@
     const titles = {
       home: ["工作台", "首页"],
       spaces: ["文档", "云文档空间"],
+      spaceDetail: ["文档", "空间详情"],
       docs: ["文档", "我的文档"],
       editor: ["文档编辑", "辅助编辑器"],
       ai: ["企业知识问答", "知识问答"],
@@ -9990,7 +10146,6 @@
 
     const myDocTabs = [
       { id: "recent", label: "最近更新" },
-      { id: "created", label: "我创建的" },
       { id: "shared", label: "与我共享" },
       { id: "favorite", label: "收藏文档" }
     ];
@@ -10649,7 +10804,7 @@
 
     const pageDepth = {
       home: 0, suite: 0, spaces: 0, docs: 0, knowledge: 0, discover: 0, drive: 0, tools: 0, aiHistory: 0,
-      aiTask: 1, writingSetup: 1, sourcePreview: 1, editor: 1, knowledgeDetail: 1, fileDetail: 1
+      aiTask: 1, writingSetup: 1, sourcePreview: 1, editor: 1, knowledgeDetail: 1, spaceDetail: 1, fileDetail: 1
     };
 
     function animatePageTransition(content, previousScreen, nextScreen) {
@@ -10984,7 +11139,7 @@
 
     function renderTopbar() {
       const topbar = document.getElementById("topbar");
-      const directoryScreen = ["knowledge", "docs", "spaces", "drive"].includes(state.screen)
+      const directoryScreen = ["knowledge", "docs", "spaces", "spaceDetail", "drive"].includes(state.screen)
         || state.screen === "tools"
         || state.screen === "discover";
       if (state.screen === "home") {
@@ -11035,8 +11190,9 @@
           : title;
       const aiAction = (context = state.screen) => `<button class="btn" type="button" data-ai-assistant="${context}">${icon("ai")}AI 助手</button>`;
       const actions = {
-        home: `<button class="btn" type="button" data-screen="aiHistory">${icon("comment")}AI 历史</button><button class="btn primary" type="button" data-screen="editor">${icon("plus")}新建文档</button>`,
+        home: "",
         spaces: "",
+        spaceDetail: "",
         docs: "",
         editor: editorPreviewDocument
           ? `<button class="btn" type="button" data-action-panel="shareDocument" data-action-title="${escapeHtml(editorPreviewDocument.title)}">${icon("share")}分享</button><button class="btn" type="button" data-action-panel="documentInfo">${icon("doc")}文档信息</button><button class="icon-button" type="button" aria-label="更多文档操作" title="更多文档操作" data-action-panel="documentMore">${icon("more")}</button><button class="btn primary" type="button" data-enter-edit>进入编辑</button>`
@@ -11073,6 +11229,11 @@
         <div class="editor-title-control">
           <button class="editor-back-button" type="button" data-screen="knowledge" aria-label="返回知识库" title="返回知识库">${icon("arrow")}</button>
           <h1 class="page-title">${escapeHtml(pageTitle)}</h1>
+        </div>
+      ` : state.screen === "spaceDetail" ? `
+        <div class="editor-title-control">
+          <button class="editor-back-button" type="button" data-screen="spaces" aria-label="返回云文档空间" title="返回云文档空间">${icon("arrow")}</button>
+          <h1 class="page-title">${escapeHtml(state.selectedSpaceName || pageTitle)}</h1>
         </div>
       ` : state.screen === "editor" ? `
         <div class="editor-title-control">
@@ -11965,34 +12126,28 @@
           </div>
         </div>
         <div class="grid cols-2" data-screen-label="v3-文档空间-协作空间入口">
-          ${items.map((space) => `
+          ${items.map((space, index) => `
             <article class="card space-card">
-              <div class="card-head">
-                <div class="card-title">
-                  <span class="card-avatar">${icon(spaceAvatarIcon(space))}</span>
+              <div class="space-card-cover space-card-cover-${index % 4}">
+                <span class="space-card-cover-mark">${icon(spaceAvatarIcon(space))}</span>
+                <div class="space-card-cover-actions" aria-label="${escapeHtml(space.name)} 空间操作">
+                  <button class="space-card-icon-button ${space.favorite ? "is-favorite" : ""}" type="button" data-space-favorite="${escapeHtml(space.name)}" aria-label="${space.favorite ? "取消收藏" : "收藏"}${escapeHtml(space.name)}" title="${space.favorite ? "取消收藏" : "收藏"}">${icon(space.favorite ? "star-on" : "star")}</button>
+                  <button class="space-card-icon-button" type="button" data-space-open="${escapeHtml(space.name)}" aria-label="打开${escapeHtml(space.name)}空间详情" title="空间设置">${icon("settings")}</button>
+                </div>
+              </div>
+              <div class="space-card-body">
+                <div class="space-card-title-row">
                   <div><h3>${space.name}</h3><p>关联项目：${space.project}</p></div>
+                  ${space.confidential ? "" : `<span class="tag blue">${space.status}</span>`}
                 </div>
-                <div class="tag-row">
-                  ${space.favorite ? `<span class="tag orange">${icon("star-on")}已收藏</span>` : ""}
-                  <span class="tag ${space.confidential ? "danger" : "blue"}">${space.confidential ? icon("lock") : ""}${space.status}</span>
+                <div class="space-doc-list">
+                  ${space.docs.map((doc, docIndex) => `
+                    <button class="space-doc-line" type="button" data-open-document="${escapeHtml(doc)}" data-document-origin="space" data-document-space="${escapeHtml(space.name)}" data-document-kind="doc">
+                      <span>${doc}</span>
+                      <span>${docIndex === 0 ? `${space.owner} · ${space.updated}` : ""}</span>
+                    </button>
+                  `).join("")}
                 </div>
-              </div>
-              <div class="space-doc-list">
-                ${space.docs.map((doc, index) => `
-                  <button class="space-doc-line" type="button" data-open-document="${escapeHtml(doc)}" data-document-origin="space" data-document-space="${escapeHtml(space.name)}" data-document-kind="doc">
-                    <span>${doc}</span>
-                    <span>${index === 0 ? `${space.owner} · ${space.updated}` : ""}</span>
-                  </button>
-                `).join("")}
-              </div>
-              <div class="space-meta">
-                <span>${space.docs.length} 篇最近文档</span>
-                <span>空间权限随项目继承</span>
-              </div>
-              <div class="action-row">
-                <button class="btn compact primary" type="button" data-screen="docs">${icon("doc")}查看文档</button>
-                <button class="btn compact" type="button" data-open-modal data-link-subject="${escapeHtml(space.name)}">${icon("kb")}关联知识库</button>
-                <button class="btn compact" type="button" data-space-favorite="${space.name}">${icon("star")}收藏</button>
               </div>
             </article>
           `).join("")}
@@ -12000,10 +12155,75 @@
       `;
     }
 
+    function renderSpaceDetail() {
+      const space = docSpaces.find((item) => item.name === state.selectedSpaceName) || docSpaces[0];
+      if (!space) return emptyState("没有找到空间", "返回空间列表后重试。", "返回空间列表");
+      const docsInSpace = space.docs || [];
+      return `
+        <div class="kb-detail" data-screen-label="v3-文档空间-空间详情">
+          <section class="card panel kb-detail-hero">
+            <div class="section-title">
+              <div>
+                <p>${escapeHtml(space.project || "未设置关联项目")} · 云文档空间</p>
+              </div>
+              <div class="tag-row">
+                ${space.confidential ? `<span class="tag danger">${icon("lock")}保密</span>` : `<span class="tag green">常规</span>`}
+                <span class="tag blue">${icon("doc")}可浏览</span>
+              </div>
+            </div>
+            <div class="kb-detail-meta">
+              <div class="kb-detail-stat"><span>空间名称</span><strong>${escapeHtml(space.name)}</strong></div>
+              <div class="kb-detail-stat"><span>空间文档</span><strong>${docsInSpace.length} 篇</strong></div>
+              <div class="kb-detail-stat"><span>负责人</span><strong>${escapeHtml(space.owner || "未设置")}</strong></div>
+              <div class="kb-detail-stat"><span>最近更新</span><strong>${escapeHtml(space.updated || "暂无")}</strong></div>
+            </div>
+          </section>
+          <div class="kb-detail-layout">
+            <section class="card panel">
+              <div class="section-title">
+                <div><h2>空间内容</h2><p>包含该空间内的文档，权限随关联项目继承。</p></div>
+                <button class="btn compact primary" type="button" data-screen="editor">${icon("plus")}新建文档</button>
+              </div>
+              <div class="kb-content-table-scroll">
+                ${docsInSpace.length ? `<div class="doc-list kb-content-list"><div class="doc-list-header kb-content-list-header" role="row" aria-label="空间内容列表标题"><span>内容</span><span>创建人</span><span>状态</span><span>动态信息</span><span>操作</span></div>${docsInSpace.map((doc, index) => `
+                  <article class="doc-row kb-doc-row kb-content-row">
+                    <button class="kb-doc-primary" type="button" data-open-document="${escapeHtml(doc)}" data-document-origin="space" data-document-space="${escapeHtml(space.name)}" data-document-kind="doc" aria-label="打开 ${escapeHtml(doc)}">
+                      <span class="tile-icon">${icon("doc")}</span><span class="kb-doc-copy"><h3>${escapeHtml(doc)}</h3><p>来自 ${escapeHtml(space.name)}</p></span>
+                    </button>
+                    <div class="kb-content-creator">${escapeHtml(space.owner || "未设置")}</div>
+                    <div class="tag-row kb-doc-status"><span class="tag ${space.confidential ? "danger" : "green"}">${space.confidential ? "保密" : "可用"}</span></div>
+                    <div class="kb-content-update"><strong>${escapeHtml(space.owner || "")}</strong><span class="kb-content-update-separator">|</span><span class="kb-content-update-time">${index === 0 ? escapeHtml(space.updated || "刚刚") : "已同步"}</span></div>
+                    <div class="kb-doc-actions" role="toolbar" aria-label="${escapeHtml(doc)} 文档操作"><button class="kb-doc-action" type="button" data-open-document="${escapeHtml(doc)}" data-document-origin="space" data-document-space="${escapeHtml(space.name)}" data-document-kind="doc" aria-label="打开 ${escapeHtml(doc)}" title="打开">${icon("chevron-right")}</button></div>
+                  </article>
+                `).join("")}</div>` : `<div class="empty-state compact"><span class="tile-icon">${icon("doc")}</span><h3>空间暂无内容</h3><p>可以从文档或云盘导入内容。</p></div>`}
+              </div>
+            </section>
+            <aside class="kb-detail-side">
+              <section class="card kb-detail-assistant-card">
+                <div class="kb-detail-assistant-section">
+                  <div class="section-title"><div><h2>空间信息</h2><p>查看空间负责人和访问范围。</p></div></div>
+                  <div class="context-summary"><strong>关联项目</strong><p>${escapeHtml(space.project || "未设置")}</p></div>
+                  <div class="context-summary" style="margin-top:10px;"><strong>访问范围</strong><p>${space.confidential ? "仅授权成员可见" : "项目成员可见"}</p></div>
+                  <div class="context-summary" style="margin-top:10px;"><strong>最近更新</strong><p>${escapeHtml(space.updated || "暂无")}</p></div>
+                </div>
+                <div class="kb-detail-assistant-divider" aria-hidden="true"></div>
+                <div class="kb-detail-assistant-section">
+                  <div class="section-title"><div><h2>空间操作</h2><p>所有操作继承当前空间权限。</p></div></div>
+                  <div class="action-row"><button class="btn compact primary" type="button" data-open-modal data-link-subject="${escapeHtml(space.name)}">${icon("kb")}关联知识库</button><button class="btn compact" type="button" data-space-favorite="${escapeHtml(space.name)}">${icon(space.favorite ? "star-on" : "star")}${space.favorite ? "取消收藏" : "收藏"}</button></div>
+                  <div class="inline-notice" style="margin-top:12px;">${icon("shield")}保密文档不会进入公开检索范围。</div>
+                </div>
+              </section>
+            </aside>
+          </div>
+        </div>
+      `;
+    }
+
     function renderMyDocs() {
       const activeTab = myDocTabs.some((tab) => tab.id === state.selectedDocTab) ? state.selectedDocTab : "recent";
       const view = getMyDocView(activeTab);
-      const items = filterItems(view.items).filter((doc) => !state.deletedMyDocs.includes(doc.name));
+      const docQuery = state.docQuery.trim().toLowerCase();
+      const items = view.items.filter((doc) => !docQuery || JSON.stringify(doc).toLowerCase().includes(docQuery)).filter((doc) => !state.deletedMyDocs.includes(doc.name));
       const batchBar = activeTab === "unlinked" ? `
         <div class="batch-bar">
           <div>
@@ -12021,8 +12241,11 @@
           <div class="tab-filter-group">
             ${myDocTabs.map((tab) => `<button class="tab ${tab.id === activeTab ? "active" : ""}" type="button" data-doc-tab="${tab.id}">${tab.label}</button>`).join("")}
           </div>
-          <div class="tab-inline-actions" aria-label="文档操作">
-            <button class="icon-button" type="button" data-ai-assistant="docs" aria-label="打开 AI 助手" title="AI 助手">${icon("ai")}</button>
+          <div class="tab-inline-actions knowledge-inline-actions" aria-label="文档操作">
+            <label class="catalog-search knowledge-search">
+              ${icon("search")}
+              <input type="search" data-doc-search aria-label="搜索文档" placeholder="搜索文档" value="${escapeHtml(state.docQuery)}">
+            </label>
             <button class="icon-button" type="button" data-screen="editor" aria-label="新建文档" title="新建文档">${icon("plus")}</button>
           </div>
         </div>
@@ -12313,7 +12536,6 @@
                   ${icon("search")}
                   <input type="search" data-knowledge-search aria-label="搜索知识库" placeholder="搜索知识库" value="${escapeHtml(state.knowledgeQuery)}">
                 </label>
-                <button class="icon-button" type="button" data-ai-assistant="knowledge" aria-label="打开 AI 助手" title="AI 助手">${icon("ai")}</button>
                 <button class="icon-button" type="button" data-action-panel="createKb" aria-label="创建知识库" title="创建知识库">${icon("plus")}</button>
               </div>
             </div>
@@ -12334,11 +12556,6 @@
                         <span class="kb-card-document-time">${escapeHtml(time)}</span>
                       </div>
                     `).join("")}
-                  </div>
-                  <div class="action-row">
-                    <button class="btn compact primary" type="button" data-kb-start="${kb.name}">${icon("ai")}本库问答</button>
-                    <button class="btn compact" type="button" data-kb-open="${kb.name}">${icon("doc")}查看文档</button>
-                    <button class="btn compact" type="button" data-action-panel="shareKb" data-action-title="${kb.name}">${icon("share")}分享</button>
                   </div>
                 </article>
               `).join("")}
@@ -13934,10 +14151,11 @@
     function renderContent() {
       const content = document.getElementById("content");
       const previousScreen = content.dataset.currentScreen || "";
-      const isDirectoryScreen = ["knowledge", "docs", "spaces", "drive", "tools", "discover"].includes(state.screen);
+      const isDirectoryScreen = ["knowledge", "docs", "spaces", "spaceDetail", "drive", "tools", "discover"].includes(state.screen);
       const map = {
         home: renderHome,
         spaces: renderSpaces,
+        spaceDetail: renderSpaceDetail,
         docs: renderMyDocs,
         editor: renderEditor,
         ai: renderAi,
@@ -14387,7 +14605,7 @@
           const spaceTab = state.selectedSpaceTab || "all";
           origin = [
             { label: "云文档空间", screen: "spaces", spaceTab },
-            { label: spaceName, screen: "spaces", spaceTab, spaceName }
+            { label: spaceName, screen: "spaceDetail", spaceTab, spaceName }
           ];
           meta = {
             space: spaceName,
@@ -14421,9 +14639,10 @@
 
         if (node.screen === "docs") state.selectedDocTab = node.docTab || "recent";
         if (node.screen === "knowledgeDetail") state.selectedKbName = node.kbName || state.selectedKbName;
-        if (node.screen === "spaces") {
+        if (node.screen === "spaces" || node.screen === "spaceDetail") {
           state.selectedSpaceTab = node.spaceTab || state.selectedSpaceTab;
-          state.query = node.spaceName || "";
+          state.selectedSpaceName = node.spaceName || state.selectedSpaceName;
+          state.query = node.screen === "spaces" ? "" : state.query;
         }
         if (node.screen === "sourcePreview" && node.sourceId) state.sourcePreviewId = node.sourceId;
 
@@ -15224,6 +15443,18 @@
         return;
       }
 
+      const spaceOpenTarget = event.target.closest("[data-space-open]");
+      if (spaceOpenTarget) {
+        state.selectedSpaceName = spaceOpenTarget.dataset.spaceOpen;
+        state.aiDrawerOpen = false;
+        state.kbAskOpen = false;
+        state.query = "";
+        state.screen = "spaceDetail";
+        renderContent();
+        showToast(`已进入空间：${state.selectedSpaceName}`);
+        return;
+      }
+
       const screenTarget = event.target.closest("[data-screen]");
       if (screenTarget) {
         navigateToScreen(screenTarget.dataset.screen, { resetKnowledgeTab: screenTarget.dataset.screen === "knowledge" });
@@ -15508,6 +15739,19 @@
         renderContent();
         requestAnimationFrame(() => {
           const nextInput = document.querySelector("[data-knowledge-search]");
+          if (!nextInput) return;
+          nextInput.focus();
+          nextInput.setSelectionRange(caret, caret);
+        });
+        return;
+      }
+      const docSearchInput = event.target.closest("[data-doc-search]");
+      if (docSearchInput) {
+        const caret = docSearchInput.selectionStart ?? docSearchInput.value.length;
+        state.docQuery = docSearchInput.value;
+        renderContent();
+        requestAnimationFrame(() => {
+          const nextInput = document.querySelector("[data-doc-search]");
           if (!nextInput) return;
           nextInput.focus();
           nextInput.setSelectionRange(caret, caret);
