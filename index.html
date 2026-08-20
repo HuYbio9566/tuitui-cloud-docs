@@ -9284,7 +9284,7 @@
     }
 
     /* Directory card columns follow the actual content width, keeping
-       metadata readable and limiting wide screens to four cards per row. */
+       metadata readable and limiting wide screens to three cards per row. */
     .content[data-current-screen="spaces"],
     .kb-layout > section {
       container-type: inline-size;
@@ -9301,11 +9301,6 @@
       .content[data-current-screen="spaces"] > .grid.cols-2,
       .kb-layout .kb-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
-    @container (min-width: 1200px) {
-      .content[data-current-screen="spaces"] > .grid.cols-2,
-      .kb-layout .kb-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    }
-
     /* Cloud-space cards use a quiet colored cover, matching the online
        directory pattern while keeping actions visible and directly usable. */
     .space-card {
@@ -9319,35 +9314,46 @@
     }
     .space-card-cover {
       position: relative;
-      min-height: 76px;
+      min-height: 92px;
       padding: 14px;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: space-between;
-      background: #EAF3FF;
+      background: #EAF3FF !important;
     }
-    .space-card-cover-1 { background: #EAF8F1; }
-    .space-card-cover-2 { background: #FFF5E7; }
-    .space-card-cover-3 { background: #F1F0FF; }
-    .space-card-cover-mark {
-      width: 40px;
-      height: 40px;
-      display: grid;
-      place-items: center;
-      border-radius: 8px;
-      background: rgba(255,255,255,.76);
-      color: #3974DA;
+    .space-card-cover-title {
+      min-width: 0;
+      max-width: calc(100% - 146px);
     }
-    .space-card-cover-1 .space-card-cover-mark { color: #299663; }
-    .space-card-cover-2 .space-card-cover-mark { color: #D9861E; }
-    .space-card-cover-3 .space-card-cover-mark { color: #6B65CB; }
-    .space-card-cover-mark .icon { width: 22px; height: 22px; flex-basis: 22px; }
+    .space-card-cover-title h3,
+    .space-card-cover-title p {
+      overflow: hidden;
+      margin: 0;
+      text-align: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .space-card-cover-title h3 { margin-bottom: 8px; color: #26354A; font-size: 18px; line-height: 24px; }
+    .space-card-cover-title p { color: #65758B; font-size: 14px; line-height: 20px; }
     .space-card-cover-actions {
-      position: absolute;
-      top: 10px;
-      right: 10px;
       display: inline-flex;
       gap: 4px;
+    }
+    .space-card-cover-right {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 8px;
+    }
+    .space-card-cover > .tag {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0;
+      border: 0;
+      border-radius: 0 10px 0 8px;
+      background: #DCEBFF !important;
+      color: #2F6BDB !important;
     }
     .space-card-icon-button {
       width: 28px;
@@ -9365,26 +9371,7 @@
     .space-card-icon-button:hover { background: #FFFFFF; color: #2F6BDB; }
     .space-card-icon-button.is-favorite { color: #E79C1A; }
     .space-card-body { min-width: 0; padding: 12px 14px 14px; }
-    .space-card-title-row {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .space-card-title-row > div { min-width: 0; }
-    .space-card-title-row h3 {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      text-align: left;
-    }
-    .space-card-title-row p {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-    .space-card-title-row .tag { flex: 0 0 auto; margin-top: 1px; }
-    .space-card .space-doc-list { margin-top: 10px; gap: 3px; }
+    .space-card .space-doc-list { margin-top: 0; gap: 3px; }
     .space-card .space-doc-line { padding: 2px 0; }
 
     .content[data-current-screen="docs"] > .tabs.tabs-with-actions,
@@ -12126,20 +12113,22 @@
           </div>
         </div>
         <div class="grid cols-2" data-screen-label="v3-文档空间-协作空间入口">
-          ${items.map((space, index) => `
+          ${items.map((space) => `
             <article class="card space-card">
-              <div class="space-card-cover space-card-cover-${index % 4}">
-                <span class="space-card-cover-mark">${icon(spaceAvatarIcon(space))}</span>
-                <div class="space-card-cover-actions" aria-label="${escapeHtml(space.name)} 空间操作">
-                  <button class="space-card-icon-button ${space.favorite ? "is-favorite" : ""}" type="button" data-space-favorite="${escapeHtml(space.name)}" aria-label="${space.favorite ? "取消收藏" : "收藏"}${escapeHtml(space.name)}" title="${space.favorite ? "取消收藏" : "收藏"}">${icon(space.favorite ? "star-on" : "star")}</button>
-                  <button class="space-card-icon-button" type="button" data-space-open="${escapeHtml(space.name)}" aria-label="打开${escapeHtml(space.name)}空间详情" title="空间设置">${icon("settings")}</button>
+              <div class="space-card-cover">
+                <div class="space-card-cover-title">
+                  <h3>${space.name}</h3>
+                  <p>关联项目：${space.project}</p>
                 </div>
+                <div class="space-card-cover-right">
+                  <div class="space-card-cover-actions" aria-label="${escapeHtml(space.name)} 空间操作">
+                    <button class="space-card-icon-button ${space.favorite ? "is-favorite" : ""}" type="button" data-space-favorite="${escapeHtml(space.name)}" aria-label="${space.favorite ? "取消收藏" : "收藏"}${escapeHtml(space.name)}" title="${space.favorite ? "取消收藏" : "收藏"}">${icon(space.favorite ? "star-on" : "star")}</button>
+                    <button class="space-card-icon-button" type="button" data-space-open="${escapeHtml(space.name)}" aria-label="打开${escapeHtml(space.name)}空间详情" title="空间设置">${icon("settings")}</button>
+                  </div>
+                </div>
+                ${space.confidential ? "" : `<span class="tag blue">${space.status}</span>`}
               </div>
               <div class="space-card-body">
-                <div class="space-card-title-row">
-                  <div><h3>${space.name}</h3><p>关联项目：${space.project}</p></div>
-                  ${space.confidential ? "" : `<span class="tag blue">${space.status}</span>`}
-                </div>
                 <div class="space-doc-list">
                   ${space.docs.map((doc, docIndex) => `
                     <button class="space-doc-line" type="button" data-open-document="${escapeHtml(doc)}" data-document-origin="space" data-document-space="${escapeHtml(space.name)}" data-document-kind="doc">
